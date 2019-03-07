@@ -12,10 +12,14 @@ E-split is an event generator app, where user can organize events, split the nee
 - **sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend.
 - **login** - As a user I want to be able to log in on the webpage so that I can get back to my account.
 - **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account.
--**profile** - As a user I want to be able to check my profile. 
+- **profile** - As a user I want to be able to check my profile so I can see the events I am involved in
 - **events list** - As a user I want to see all the events I've created, the events I'm in and the attended events.
+- **Search event** - As i user i want to be able to search events by name so i can find the ones i want to check.
 - **events create** - As a user I want to create an event so that I can invite others to attend.
 - **events detail** - As a user I want to see the event details with a list of the needed things and another list of participants.
+- **search people** - As a user i want to be able to search peolpe to invite to my events.
+- **invite to event** - As a user i want to invite friends to my events.
+- **confirm** - As a user I want a confirmation of the things I'm bringing to the event.
 
 ## Backlog
 
@@ -52,29 +56,34 @@ Landing page
   - redirects to / if user logged in
   - renders the signup form
 - POST /auth/signup
-  - redirects to / if user logged in
+  - redirects to /profile/id if user logged in
   - body:
     - username
     - name
     - password
+   - validation
 - GET /auth/login
   - redirects to /profile/id if user logged in
   - renders the login form
-- POST /auth/profile/id
+- POST /auth/login
   - redirects to /profile/id if user logged in
   - body:
     - username
+    - name
     - password
+   - validation
 - POST /auth/logout
   - body: (empty)
 
-- GET /id/events
+- GET /events
+  - renders / if user is not logged in
   - renders the event list
   
- - GET id/event/new
+ - GET /events/new
+  - renders / if user is not logged in
   - Renders create event form
   
- - POST /events/new 
+ - POST /events
   - redirects to / if user is anonymous
   - body: 
     - img (backlog)
@@ -83,24 +92,32 @@ Landing page
     - location 
     - description
     - list of things
-    
-- GET /event/id
+  - validation  
+- GET /event/:id
+  - renders / if user is not logged in
   - renders the event detail page
   - includes the list of attendees (add/leave option)
   - includes the list of needed things
   - comments (backlog)
   
-- GET /people
-  - redirects to / if user is anonymous
+- GET /event/:id/invite
+  - redirects to / if user is not the event owner
   - renders /people 
   - includes a list of users with a checkbox and add button
-  - body: (empty - the user is already stored in the session)
   
- -POST /event/id/add
+ -POST /event/:id/add
+  - renders / if user is not logged in
   - add people to event list
    - body:
-    - checkbox
-  - redirects to event/id
+    - username-id
+  - redirects to /event/:id/add
+  
+  -POST /event/:id/user/:id
+  - redirects to /event/:id
+  - body:
+    - item
+    - quantity
+
 
 ## Models
 
@@ -118,10 +135,6 @@ name: { type: String,
 password: { type : String,
           required: true
           },
-
-created: { type: Array },
-attending: { type: Array},
-attended: { type: Array)
 ```
 
 Event model
@@ -137,13 +150,19 @@ date: {type: Date,
       },
 location: {type: String},
 attendees: [ObjectId<User>]
+toBring: [{
+  name: type: String,
+  quantity: { type: Number },
+  status: { enum: ['taken', 'available']}
+  
+}]
 ``` 
 
 ## Links
 
 ### Trello
 
-[Link to your trello board](https://trello.com) or picture of your physical board
+[Link to your trello board](https://trello.com) or picture of your physical boar
 
 ### Git
 
