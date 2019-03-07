@@ -7,7 +7,8 @@ const ObjectId = Schema.Types.ObjectId;
 const eventsSchema = new Schema({
   owner: {
     type: ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   name: {
     type: String,
@@ -18,10 +19,11 @@ const eventsSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
   },
   location: {
-    type: String
+    type: String,
+    required: true
   },
   attendees: [{
     type: ObjectId,

@@ -28,7 +28,7 @@ module.exports = {
   },
   requireAnon (req, res, next) {
     if (req.session.currentUser) {
-      res.redirect('/auth/profile');
+      res.redirect('/profile');
       return;
     }
     next();

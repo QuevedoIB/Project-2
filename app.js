@@ -11,6 +11,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const eventsRouter = require('./routes/events');
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/events', eventsRouter);
 
 app.use((req, res, next) => {
   res.status(404);
