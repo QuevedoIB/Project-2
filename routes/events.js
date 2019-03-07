@@ -23,12 +23,22 @@ router.post('/add', async (req, res, next) => {
   };
   try {
     const result = await Events.create(event);
-    console.log(result);
-    // res.redirect(`/events/${result._id}`);
-    res.redirect('/');
+    res.redirect(`/events/${result._id}`);
   } catch (err) {
     next(err);
   };
+});
+
+router.get('/:id', requireLogged, async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const event = await Events.findById(id).populate('owner');
+    console.log(event);
+    res.render('events/details', event);
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
