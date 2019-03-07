@@ -6,11 +6,26 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const hbs = require('hbs');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 
 const app = express();
+
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
+  secret: 'some-string',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}));
 
 mongoose.connect('mongodb://localhost/esplit', {
   keepAlive: true,
