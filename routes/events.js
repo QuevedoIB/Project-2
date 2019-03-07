@@ -7,7 +7,20 @@ const Events = require('../models/Events');
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
-/* SIGNUP */
+router.get('/', requireLogged, async (req, res, next) => {
+  const user = req.session.currentUser._id;
+  const currentDate = new Date().toISOString();
+  try {
+    const owned = await Events.find({ owner: user });
+    const participating = await Events.find({ attendees: { '$in': [user] } });
+    const finished = await Events.find({ date: { $lt: currentDate } });
+    const events = { owned, participating, finished };
+    res.render('events/list', { events });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/new', requireLogged, (req, res, next) => {
   res.render('profile/new');
 });

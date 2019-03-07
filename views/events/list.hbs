@@ -1,0 +1,28 @@
+<h1>Event List page</h1>
+
+<div>
+  <h2>Events Owned</h2>
+  <ul>
+    {{#each events.owned}}
+    <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+    {{/each}}
+  </ul>
+</div>
+
+<div>
+  <h2>Events Participating</h2>
+  <ul>
+    {{#each events.participating}}
+    <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+    {{/each}}
+  </ul>
+</div>
+
+<div>
+  <h2>Events Finished</h2>
+  <ul>
+    {{#each events.finished}}
+    <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+    {{/each}}
+  </ul>
+</div>

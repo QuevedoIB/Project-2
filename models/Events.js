@@ -43,6 +43,8 @@ const eventsSchema = new Schema({
 
 });
 
+// añadir modelo items
+
 const Events = mongoose.model('Events', eventsSchema);
 
 module.exports = Events;
