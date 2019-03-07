@@ -9,3 +9,19 @@
 <p>{{date}}</p>
 
 <p>{{description}}</p>
+
+<form action="/events/add-item" method="POST">
+  <label for="item-id">Item: </label>
+  <input type="text" name="item" id="item-id">
+  <input type="hidden" value="{{_id}}" name="id">
+  <button type="submit">Add Item</button>
+</form>
+
+
+<ul>
+  {{#each items}}
+  <li>{{this}}</li>
+  <form action="/take-item" method="POST"></form>
+  <button type="submit">Carry Item</button>
+  {{/each}}
+</ul>

@@ -31,11 +31,20 @@ router.post('/add', async (req, res, next) => {
 
 router.get('/:id', requireLogged, async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   try {
     const event = await Events.findById(id).populate('owner');
-    console.log(event);
     res.render('events/details', event);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/add-item', requireLogged, async (req, res, next) => {
+  const { id, item } = req.body;
+  try {
+    const event = await Events.findByIdAndUpdate(id, { $push: { items: item } });
+    console.log(event);
+    res.redirect(`/events/${id}`);
   } catch (err) {
     next(err);
   }
