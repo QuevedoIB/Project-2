@@ -29,11 +29,18 @@ const eventsSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   }],
-  items: {
-    type: Array
-  }
-  // quantity: Number,
-  // status: { enum: ['taken', 'available'] }
+  items: [{
+    name: {
+      type: String
+    },
+    quantity: {
+      type: Number
+    },
+    status: {
+      enum: ['taken', 'available']
+    }
+  }]
+
 });
 
 const Events = mongoose.model('Events', eventsSchema);
