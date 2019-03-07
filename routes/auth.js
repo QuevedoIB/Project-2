@@ -1,24 +1,20 @@
+'use strict';
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const { requireAnon, requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
 /* SIGNUP */
 router.get('/signup', (req, res, next) => {
   res.render('auth/signup');
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
   const { username, name, password } = req.body;
-  const user = { username, name, password };
-  if (!name || !username || !password) {
-    // flash (make sure you have all the fields)
-    res.redirect('/auth/signup');
-    return;
-  }
   try {
-    const result = await User.findOne({ username })
+    const result = await User.findOne({ username });
     if (result) {
       // the username is taken
       res.redirect('/auth/signup');
@@ -39,52 +35,42 @@ router.post('/signup', async (req, res, next) => {
 });
 
 /* LOGIN */
-router.get('/login', (req, res, next) => {
-  if (req.session.currentUser) {
-    res.redirect('/');
-    return;
-  }
+router.get('/login', requireAnon, (req, res, next) => {
   res.render('auth/login');
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) => {
   const { username, password } = req.body;
-  if (!username || !password) {
-    // flash (make sure you have all the fields)
-    res.redirect('/auth/signup');
-  } else {
-    try {
-      const user = await User.findOne({ username });
-      if (!user) {
-        // flash username or password incorrect
-        res.redirect('/auth/login');
-        return;
-      }
-      if (bcrypt.compareSync(password, user.password)) {
-        // guardar la sesion
-        req.session.currentUser = user;
-        console.log(req.session.currentUser);
-        res.redirect('/');
-      } else {
-        // flash username or password incorrect
-        // redirigir
-        res.redirect('/auth/login');
-      }
-
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  router.post('/logout', (req, res, next) => {
-    if (!req.session.currentUser) {
-      res.redirect('/');
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      // flash username or password incorrect
+      res.redirect('/auth/login');
       return;
     }
-    delete req.session.currentUser;
-  })
-
+    if (bcrypt.compareSync(password, user.password)) {
+      // guardar la sesion
+      req.session.currentUser = user;
+      console.log(req.session.currentUser);
+      res.redirect('/');
+    } else {
+      // flash username or password incorrect
+      // redirigir
+      res.redirect('/auth/login');
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
+// router.post('/logout', requireLogged, (req, res, next) => {
+//   delete req.session.currentUser;
+//   res.redirect('/');
+// });
+
+router.post('/logout', requireLogged, (req, res, next) => {
+  delete req.session.currentUser;
+  res.redirect('/');
+});
 
 module.exports = router;
