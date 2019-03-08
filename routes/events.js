@@ -44,9 +44,14 @@ router.post('/add', async (req, res, next) => {
 
 router.get('/:id', requireLogged, async (req, res, next) => {
   const { id } = req.params;
+  const currentUserId = req.session.currentUser._id;
   try {
     const event = await Events.findById(id).populate('owner').populate('attendees');
-    res.render('events/details', event);
+    let isCreator = false;
+    if (event.owner._id.equals(currentUserId)) {
+      isCreator = true;
+    }
+    res.render('events/details', { event, isCreator });
   } catch (err) {
     next(err);
   }
@@ -55,7 +60,9 @@ router.get('/:id', requireLogged, async (req, res, next) => {
 router.post('/add-item', requireLogged, async (req, res, next) => {
   const { id, itemName, itemQuantity } = req.body;
   try {
-    const event = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
+    const event = await Events.findById(id).populate('owner');
+    // is creator
+    const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
     res.redirect(`/events/${id}`);
   } catch (err) {
     next(err);

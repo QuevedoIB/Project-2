@@ -1,29 +1,34 @@
 <h1>Event details page</h1>
 
-<h2>{{name}}</h2>
+<h2>{{event.name}}</h2>
 
-<h3>Creator: {{owner.name}}</h3>
+<h3>Creator: {{event.owner.name}}</h3>
 
-<p>{{location}}</p>
+<p>{{event.location}}</p>
 
-<p>{{date}}</p>
+<p>{{event.date}}</p>
 
-<p>{{description}}</p>
+<p>{{event.description}}</p>
 
 <a href="/profile">My profile</a>
+
+<form action="/people/leave-event" method="POST">
+  <input type="hidden" value="{{event._id}}" name="id">
+  <button type="submit">Leave event</button>
+</form>
 
 <form action="/events/add-item" method="POST">
   <label for="item-name">Item: </label>
   <input type="text" name="itemName" id="item-name">
   <label for="item-quantity">Quantity</label>
   <input type="number" name="itemQuantity" id="item-quantity">
-  <input type="hidden" value="{{_id}}" name="id">
+  <input type="hidden" value="{{event._id}}" name="id">
   <button type="submit">Add Item</button>
 </form>
 
 
 <ul>
-  {{#each items}}
+  {{#each event.items}}
   <li>{{this.quantity}}</li>
   <form action="/take-item" method="POST"></form>
   <button type="submit">Carry Item</button>
@@ -31,14 +36,16 @@
 </ul>
 
 <ul>
-  {{#each attendees}}
+  {{#each event.attendees}}
   <li>{{this.username}}</li>
+  {{#if ../isCreator}}
   <form action="/people/delete-people" method="POST">
     <input type="hidden" value="{{../_id}}" name="eventId">
     <input type="hidden" value="{{_id}}" name="guestId">
     <button type="submit">Remove user</button>
   </form>
+  {{/if}}
   {{/each}}
 </ul>
 
-<a href="/people/{{_id}}/list">Search people</a>
+<a href="/people/{{event._id}}/list">Search people</a>

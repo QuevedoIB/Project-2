@@ -68,11 +68,24 @@ router.post('/delete-people', requireLogged, async (req, res, next) => {
   const { guestId, eventId } = req.body;
   try {
     const event = await Events.findById(eventId);
-    console.log(event);
     const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(guestId));
-    console.log(filteredAttendees);
     const eventUpdate = await Events.findByIdAndUpdate(eventId, { attendees: filteredAttendees }, { new: true });
     res.redirect(`/events/${eventId}`);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/leave-event', requireLogged, async (req, res, next) => {
+  const { id } = req.body;
+  try {
+    const user = req.session.currentUser;
+    const event = await Events.findById(id);
+    const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(user._id));
+    console.log(event.attendees);
+    const updatedEvent = await Events.findByIdAndUpdate(id, { attendees: filteredAttendees }, { new: true });
+    console.log(updatedEvent.attendees);
+    res.redirect('/profile');
   } catch (err) {
     next(err);
   }
