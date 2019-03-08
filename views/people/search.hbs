@@ -8,10 +8,10 @@
     </form>
   </div>
   {{#if eventContent.searchedUser}}
-  <form action="/events/add-people" method="POST">
+  <form action="/people/add-people" method="POST">
     <p>{{eventContent.searchedUser.username}}</p>
-    <input type="hidden" value="{{event._id}}" name="eventId"></input>
-    <input type="hidden" name="guestId" value="{{searchedUser._id}}">
+    <input type="hidden" value="{{eventContent.event._id}}" name="eventId"></input>
+    <input type="hidden" name="guestId" value="{{eventContent.searchedUser._id}}">
     <button type="submit">Add</button>
   </form>
 

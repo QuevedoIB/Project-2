@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Events = require('../models/Events');
+const ObjectId = require('mongodb').ObjectID;
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
@@ -39,6 +40,27 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
     }
 
     res.render('people/search', { eventContent });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/add-people', requireLogged, async (req, res, next) => {
+  const { eventId, guestId } = req.body;
+  const objectGuestId = ObjectId(guestId);
+  try {
+    const guest = await User.findById(guestId);
+    if (guest) {
+      const event = await Events.findById(eventId);
+      event.attendees.forEach((attendee) => {
+        if (attendee.equals(guestId)) {
+          // flash user already attending to that event
+          return res.redirect(`/people/${eventId}/search-people`);
+        }
+      });
+      const eventAddedAttendee = await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });
+    }
+    res.redirect(`/people/${eventId}/search-people`);
   } catch (err) {
     next(err);
   }

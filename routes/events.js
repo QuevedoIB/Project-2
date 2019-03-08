@@ -63,17 +63,4 @@ router.post('/add-item', requireLogged, async (req, res, next) => {
   }
 });
 
-router.post('/add-people', requireLogged, async (req, res, next) => {
-  const { eventId, guestId } = req.body;
-  try {
-    const guest = await User.findById(guestId);
-    if (guest) {
-      const event = await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });
-    }
-    res.redirect('/people/search-people');
-  } catch (err) {
-    next(err);
-  }
-});
-
 module.exports = router;
