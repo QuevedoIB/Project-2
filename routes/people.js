@@ -66,4 +66,12 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
   }
 });
 
+// router.post('/delete-people', requireLogged, async (req, res, next) => {
+//   const { guestId, eventId } = req.body;
+//   try {
+//     const event = Events.findById(eventId);
+
+//   }
+// });
+
 module.exports = router;

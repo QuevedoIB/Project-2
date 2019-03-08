@@ -28,4 +28,15 @@
   {{/each}}
 </ul>
 
+<ul>
+  {{#each attendees}}
+  <li>{{this.username}}</li>
+  <form action="/people/delete-people" method="POST">
+    <input type="hidden" value="{{this._id}}" name="guestId">
+    <input type="hidden" value="{{event._id}}" name="eventId">
+    <button type="submit">Remove user</button>
+  </form>
+  {{/each}}
+</ul>
+
 <a href="/people/{{_id}}/list">Search people</a>
