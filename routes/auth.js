@@ -27,7 +27,7 @@ router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
         password: hashedPassword
       };
       const createdUser = await User.create(newUser);
-      res.redirect('profile/profile');
+      res.redirect('/profile');
     }
   } catch (err) {
     next(err);

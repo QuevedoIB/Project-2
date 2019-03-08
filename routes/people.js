@@ -7,18 +7,38 @@ const Events = require('../models/Events');
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
-router.get('/search-people', requireLogged, (req, res, next) => {
-  res.render('people/search');
+router.get('/:id/list', requireLogged, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const event = await Events.findById(id);
+    const eventContent = {
+      event
+    };
+    res.render('people/search', { eventContent });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.post('/search-people', async (req, res, next) => {
-  const { username } = req.body;
+router.get('/:id/search-people', requireLogged, async (req, res, next) => {
+  const { username } = req.query;
+  const { id } = req.params;
+
   try {
+    const event = await Events.findById(id);
+    const eventContent = {
+      event
+    };
+    if (!username || username === req.session.currentUser.username) {
+      res.render('people/search', { eventContent });
+      return;
+    }
     const searchedUser = await User.findOne({ username });
     if (searchedUser) {
-      console.log(searchedUser);
-      res.render('people/search', { searchedUser });
+      eventContent.searchedUser = searchedUser;
     }
+
+    res.render('people/search', { eventContent });
   } catch (err) {
     next(err);
   }

@@ -2,14 +2,19 @@
 
 <article>
   <div>
-    <form action="/people/search-people" method="POST">
-      <input type="hidden" value="{{event._id}}" name="id"></input>
-      <input type="text" name="username"></input>
+    <form action="/people/{{eventContent.event._id}}/search-people" method="GET">
+      <input type="search" name="username"></input>
       <button type="submit">Search people</button>
     </form>
   </div>
-  {{#if searchedUser}}
-  <p>{{searchedUser.username}}</p>
+  {{#if eventContent.searchedUser}}
+  <form action="/events/add-people" method="POST">
+    <p>{{eventContent.searchedUser.username}}</p>
+    <input type="hidden" value="{{event._id}}" name="eventId"></input>
+    <input type="hidden" name="guestId" value="{{searchedUser._id}}">
+    <button type="submit">Add</button>
+  </form>
+
   {{/if}}
 
 </article>
