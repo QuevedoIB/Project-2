@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Events = require('../models/Events');
-const ObjectId = require('mongodb').ObjectID;
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
@@ -47,7 +46,6 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
 
 router.post('/add-people', requireLogged, async (req, res, next) => {
   const { eventId, guestId } = req.body;
-  const objectGuestId = ObjectId(guestId);
   try {
     const guest = await User.findById(guestId);
     if (guest) {
@@ -66,12 +64,18 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
   }
 });
 
-// router.post('/delete-people', requireLogged, async (req, res, next) => {
-//   const { guestId, eventId } = req.body;
-//   try {
-//     const event = Events.findById(eventId);
-
-//   }
-// });
+router.post('/delete-people', requireLogged, async (req, res, next) => {
+  const { guestId, eventId } = req.body;
+  try {
+    const event = await Events.findById(eventId);
+    console.log(event);
+    const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(guestId));
+    console.log(filteredAttendees);
+    const eventUpdate = await Events.findByIdAndUpdate(eventId, { attendees: filteredAttendees }, { new: true });
+    res.redirect(`/events/${eventId}`);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;

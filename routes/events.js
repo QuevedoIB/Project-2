@@ -46,7 +46,6 @@ router.get('/:id', requireLogged, async (req, res, next) => {
   const { id } = req.params;
   try {
     const event = await Events.findById(id).populate('owner').populate('attendees');
-    console.log(event);
     res.render('events/details', event);
   } catch (err) {
     next(err);
@@ -55,7 +54,6 @@ router.get('/:id', requireLogged, async (req, res, next) => {
 
 router.post('/add-item', requireLogged, async (req, res, next) => {
   const { id, itemName, itemQuantity } = req.body;
-  console.log(itemQuantity);
   try {
     const event = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
     res.redirect(`/events/${id}`);

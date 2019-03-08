@@ -10,6 +10,8 @@
 
 <p>{{description}}</p>
 
+<a href="/profile">My profile</a>
+
 <form action="/events/add-item" method="POST">
   <label for="item-name">Item: </label>
   <input type="text" name="itemName" id="item-name">
@@ -32,8 +34,8 @@
   {{#each attendees}}
   <li>{{this.username}}</li>
   <form action="/people/delete-people" method="POST">
-    <input type="hidden" value="{{this._id}}" name="guestId">
-    <input type="hidden" value="{{event._id}}" name="eventId">
+    <input type="hidden" value="{{../_id}}" name="eventId">
+    <input type="hidden" value="{{_id}}" name="guestId">
     <button type="submit">Remove user</button>
   </form>
   {{/each}}
