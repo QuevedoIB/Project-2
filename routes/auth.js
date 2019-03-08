@@ -52,7 +52,7 @@ router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) =>
       // guardar la sesion
       req.session.currentUser = user;
       console.log(req.session.currentUser);
-      res.redirect('/');
+      res.redirect('/profile');
     } else {
       // flash username or password incorrect
       // redirigir

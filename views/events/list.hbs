@@ -1,8 +1,8 @@
 <h1>Event List page</h1>
 
 <div>
-  <h2>Events Owned</h2>
-  <ul>
+  <h2 id="owned-tab">Events Owned</h2>
+  <ul id="owned-events">
     {{#each events.owned}}
     <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
     {{/each}}
@@ -10,8 +10,8 @@
 </div>
 
 <div>
-  <h2>Events Participating</h2>
-  <ul>
+  <h2 id="participating-tab">Events Participating</h2>
+  <ul id="participating-events" class="hide">
     {{#each events.participating}}
     <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
     {{/each}}
@@ -19,10 +19,12 @@
 </div>
 
 <div>
-  <h2>Events Finished</h2>
-  <ul>
+  <h2 id="finished-tab">Events Finished</h2>
+  <ul id="finished-events" class="hide">
     {{#each events.finished}}
     <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
     {{/each}}
   </ul>
 </div>
+
+<script src="/javascripts/event-list.js"></script>
