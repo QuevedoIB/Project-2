@@ -1,0 +1,15 @@
+<h1>Search people Page</h1>
+
+<article>
+  <div>
+    <form action="/people/search-people" method="POST">
+      <input type="hidden" value="{{event._id}}" name="id"></input>
+      <input type="text" name="username"></input>
+      <button type="submit">Search people</button>
+    </form>
+  </div>
+  {{#if searchedUser}}
+  <p>{{searchedUser.username}}</p>
+  {{/if}}
+
+</article>
