@@ -17,6 +17,7 @@
   <button type="submit">Leave event</button>
 </form>
 
+{{#if isCreator}}
 <form action="/events/add-item" method="POST">
   <label for="item-name">Item: </label>
   <input type="text" name="itemName" id="item-name">
@@ -25,15 +26,17 @@
   <input type="hidden" value="{{event._id}}" name="id">
   <button type="submit">Add Item</button>
 </form>
+{{/if}}
 
-
+{{#if event.items}}
 <ul>
   {{#each event.items}}
-  <li>{{this.quantity}}</li>
+  <li>{{this.name}}</li>
   <form action="/take-item" method="POST"></form>
   <button type="submit">Carry Item</button>
   {{/each}}
 </ul>
+{{/if}}
 
 <ul>
   {{#each event.attendees}}

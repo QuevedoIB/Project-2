@@ -4,6 +4,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+const itemsSchema = new Schema({
+  name: {
+    type: String
+  },
+  quantity: {
+    type: Number
+  },
+  status: {
+    type: String
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
+});
+
+const Items = mongoose.model('Items', itemsSchema);
+
 const eventsSchema = new Schema({
   owner: {
     type: ObjectId,
@@ -29,22 +47,21 @@ const eventsSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   }],
-  items: [{
-    name: {
-      type: String
-    },
-    quantity: {
-      type: Number
-    },
-    status: {
-      enum: ['taken', 'available']
-    }
-  }]
-
+  items: [{ type: Schema.ObjectId, ref: 'Items' }]
 });
-
-// añadir modelo items
 
 const Events = mongoose.model('Events', eventsSchema);
 
 module.exports = Events;
+
+// items: [{
+//   name: {
+//     type: String
+//   },
+//   quantity: {
+//     type: Number
+//   },
+//   status: {
+//     enum: ['taken', 'available']
+//   }
+// }]
