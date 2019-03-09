@@ -70,8 +70,7 @@ router.post('/add-item', requireLogged, async (req, res, next) => {
   try {
     const item = await Items.create(itemObject);
     const itemId = item._id;
-    console.log(itemId);
-    const eventUpdate = await Events.findByIdAndUpdate(event, { $push: { items: { itemId } } }, { new: true });
+    const eventUpdate = await Events.findByIdAndUpdate(event, { $push: { items: itemId } }, { new: true });
     res.redirect(`/events/${event}`);
   } catch (err) {
     next(err);
