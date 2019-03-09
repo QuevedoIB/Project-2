@@ -31,9 +31,21 @@
 {{#if event.items}}
 <ul>
   {{#each event.items}}
-  <li>{{this.quantity}},{{this.name}}</li>
-  <form action="/take-item" method="POST"></form>
-  <button type="submit">Carry Item</button>
+  <li>{{this.quantity}}{{this.name}}</li>
+  <form action="/events/take-item" method="POST" id="carry-form">
+    <input type="hidden" name="id" value="{{../event._id}}">
+    {{!-- <script type="text/x-handlebars" data-template-name='app-view'>
+    <select name="quantity" id="carry-form">
+      {{#times this.quantity}}
+      <option value="{{this}}">{{this}}</option>
+      {{/times}}
+    </select>
+    </script> --}}
+    <label for="quantity">Quantity: </label>
+    <input type="number" name="itemQuantity" value="1">
+    <input type="hidden" name="itemName" value="{{this.name}}">
+    <button type="submit">Carry Item</button>
+  </form>
   {{/each}}
 </ul>
 {{/if}}
@@ -43,7 +55,7 @@
   <li>{{this.username}}</li>
   {{#if ../isCreator}}
   <form action="/people/delete-people" method="POST">
-    <input type="hidden" value="{{../_id}}" name="eventId">
+    <input type="hidden" value="{{../event._id}}" name="eventId">
     <input type="hidden" value="{{_id}}" name="guestId">
     <button type="submit">Remove user</button>
   </form>
@@ -51,4 +63,7 @@
   {{/each}}
 </ul>
 
+
 <a href="/people/{{event._id}}/list">Search people</a>
+
+{{!-- <script type="text/x-handlebars" src="/javascripts/helpers.js" id="t"></script> --}}

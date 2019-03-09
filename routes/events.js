@@ -79,4 +79,34 @@ router.post('/add-item', requireLogged, async (req, res, next) => {
   }
 });
 
+// router.post('/take-item', requireLogged, async (req, res, next) => {
+//   const { itemQuantity, itemName, id } = req.body;
+//   const user = req.session.currentUser;
+//   try {
+//     const event = await Events.findById(id);
+//     event.items.forEach(async function (item) {
+//       try {
+//         if (itemName === item.name) {
+//           item.carriers.forEach(carrier => {
+//             if (carrier._id === user._id) {
+//               carrier.quantity += itemQuantity;
+//               return res.redirect(`/events/${id}`);
+//             }
+//           });
+//           const newCarrier = {
+//             _id: user._id,
+//             quantity: itemQuantity
+//           };
+//           const eventUpdate = await Events.findByIdAndUpdate(id, { items: { $push: { carriers: { newCarrier } } } }, { new: true });
+//           res.redirect(`/events/${id}`);
+//         }
+//       } catch (err) {
+//         next(err);
+//       }
+//     });
+//   } catch (err) {
+//     next(err);
+//   };
+// });
+
 module.exports = router;

@@ -27,6 +27,7 @@ router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
         password: hashedPassword
       };
       const createdUser = await User.create(newUser);
+      req.session.currentUser = createdUser;
       res.redirect('/profile');
     }
   } catch (err) {
@@ -51,7 +52,6 @@ router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) =>
     if (bcrypt.compareSync(password, user.password)) {
       // guardar la sesion
       req.session.currentUser = user;
-      console.log(req.session.currentUser);
       res.redirect('/profile');
     } else {
       // flash username or password incorrect

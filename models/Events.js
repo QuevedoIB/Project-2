@@ -59,7 +59,14 @@ const eventsSchema = new Schema({
     },
     status: {
       enum: ['taken', 'available']
-    }
+    },
+    carriers: [{
+      type: ObjectId,
+      ref: 'User',
+      quantity: {
+        type: Number
+      }
+    }]
   }]
 });
 

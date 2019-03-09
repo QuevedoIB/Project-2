@@ -46,6 +46,7 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
 
 router.post('/add-people', requireLogged, async (req, res, next) => {
   const { eventId, guestId } = req.body;
+  const objectGuestId = ObjectId(guestId);
   try {
     const guest = await User.findById(guestId);
     if (guest) {
@@ -66,6 +67,7 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
 
 router.post('/delete-people', requireLogged, async (req, res, next) => {
   const { guestId, eventId } = req.body;
+  console.log(guestId, 'hola', eventId);
   try {
     const event = await Events.findById(eventId);
     const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(guestId));
