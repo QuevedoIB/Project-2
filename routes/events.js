@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Events = require('../models/Events');
+const Items = require('../models/Items');
+const ObjectId = require('mongodb').ObjectID;
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
@@ -58,20 +60,19 @@ router.get('/:id', requireLogged, async (req, res, next) => {
 });
 
 router.post('/add-item', requireLogged, async (req, res, next) => {
-  const { id, itemName, itemQuantity } = req.body;
+  const { event, name, quantity } = req.body;
+  const itemObject = { name, quantity, event };
+  if (!name || !quantity || !event) {
+    // required fields
+    res.redirect(`/events/${event}`);
+    return;
+  };
   try {
-    const event = await Events.findById(id);
-    event.items.forEach(async function (item) {
-      if (itemName === item.name) {
-        const itemsBefore = item.quantity;
-        const itemsNow = parseInt(itemQuantity) + parseInt(itemsBefore);
-        await Events.findByIdAndUpdate(id, { items: { name: itemName, quantity: itemsNow } }, { new: true });
-        return res.redirect(`/events/${id}`);
-      }
-    });
-    // is creator
-    const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
-    res.redirect(`/events/${id}`);
+    const item = await Items.create(itemObject);
+    const itemId = item._id;
+    console.log(itemId);
+    const eventUpdate = await Events.findByIdAndUpdate(event, { $push: { items: { itemId } } }, { new: true });
+    res.redirect(`/events/${event}`);
   } catch (err) {
     next(err);
   }
@@ -85,17 +86,36 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
     if (event.carriers.length) {
       event.carriers.forEach(async itemData => {
         if (itemData.carrier === user.username) {
-          itemData.quantity += parseInt(itemQuantity);
+          let finalQuantity = itemData.quantity + parseInt(itemQuantity);
+          // await event.update({"carriers.carrier."})
+          await Events.findByIdAndUpdate(id, { carriers: user.username }, { quantity: finalQuantity });
           return res.redirect(`/events/${id}`);
         }
       });
-      const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { carriers: { items: itemName, carrier: user.username, quantity: itemQuantity } } }, { new: true });
-      res.redirect(`/events/${id}`);
-      console.log(event);
     }
+    const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { carriers: { items: itemName, carrier: user.username, quantity: itemQuantity } } }, { new: true });
+    res.redirect(`/events/${id}`);
+    return;
   } catch (err) {
     next(err);
   };
 });
 
 module.exports = router;
+
+// try {
+//   const event = await Events.findById(id);
+//   event.items.forEach(async function (item) {
+//     if (itemName === item.name) {
+//       const itemsBefore = item.quantity;
+//       const itemsNow = parseInt(itemQuantity) + parseInt(itemsBefore);
+//       await Events.findByIdAndUpdate(id, { items: { name: itemName, quantity: itemsNow } }, { new: true });
+//       return res.redirect(`/events/${id}`);
+//     }
+//   });
+//   // is creator
+//   const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
+//   res.redirect(`/events/${id}`);
+// } catch (err) {
+//   next(err);
+// }

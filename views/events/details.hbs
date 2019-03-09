@@ -20,10 +20,10 @@
 {{#if isCreator}}
 <form action="/events/add-item" method="POST">
   <label for="item-name">Item: </label>
-  <input type="text" name="itemName" id="item-name">
+  <input type="text" name="name" id="item-name">
   <label for="item-quantity">Quantity</label>
-  <input type="number" name="itemQuantity" id="item-quantity">
-  <input type="hidden" value="{{event._id}}" name="id">
+  <input type="number" name="quantity" id="item-quantity">
+  <input type="hidden" value="{{event._id}}" name="event">
   <button type="submit">Add Item</button>
 </form>
 {{/if}}
@@ -33,7 +33,7 @@
   {{#each event.items}}
   <li>{{this.quantity}}{{this.name}}</li>
   <form action="/events/take-item" method="POST" id="carry-form">
-    <input type="hidden" name="id" value="{{../event._id}}">
+    <input type="hidden" name="event" value="{{../event._id}}">
     {{!-- <script type="text/x-handlebars" data-template-name='app-view'>
     <select name="quantity" id="carry-form">
       {{#times this.quantity}}
@@ -42,8 +42,8 @@
     </select>
     </script> --}}
     <label for="quantity">Quantity: </label>
-    <input type="number" name="itemQuantity" value="1">
-    <input type="hidden" name="itemName" value="{{this.name}}">
+    <input type="number" name="quantity" value="1">
+    <input type="hidden" name="name" value="{{this.name}}">
     <button type="submit">Carry Item</button>
   </form>
   {{/each}}

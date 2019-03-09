@@ -5,6 +5,7 @@ const router = express.Router();
 const User = require('../models/User');
 const Events = require('../models/Events');
 const ObjectId = require('mongodb').ObjectID;
+const Items = require('../models/Items');
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 

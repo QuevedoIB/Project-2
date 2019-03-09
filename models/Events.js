@@ -51,26 +51,8 @@ const eventsSchema = new Schema({
     ref: 'User'
   }],
   items: [{
-    name: {
-      type: String
-    },
-    quantity: {
-      type: Number
-    },
-    status: {
-      enum: ['taken', 'available']
-    }
-  }],
-  carriers: [{
-    items: {
-      type: String
-    },
-    carrier: {
-      type: String
-    },
-    quantity: {
-      type: Number
-    }
+    type: ObjectId,
+    ref: 'Items'
   }]
 });
 
@@ -87,5 +69,28 @@ module.exports = Events;
 //   },
 //   status: {
 //     enum: ['taken', 'available']
+//   }
+// }]
+
+// items: [{
+//   name: {
+//     type: String
+//   },
+//   quantity: {
+//     type: Number
+//   },
+//   status: {
+//     enum: ['taken', 'available']
+//   }
+// }],
+// carriers: [{
+//   items: {
+//     type: String
+//   },
+//   carrier: {
+//     type: String
+//   },
+//   quantity: {
+//     type: Number
 //   }
 // }]
