@@ -31,7 +31,7 @@
 {{#if event.items}}
 <ul>
   {{#each event.items}}
-  <li>{{this.name}}</li>
+  <li>{{this.quantity}},{{this.name}}</li>
   <form action="/take-item" method="POST"></form>
   <button type="submit">Carry Item</button>
   {{/each}}

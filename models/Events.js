@@ -4,23 +4,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-const itemsSchema = new Schema({
-  name: {
-    type: String
-  },
-  quantity: {
-    type: Number
-  },
-  status: {
-    type: String
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  }
-});
-
-const Items = mongoose.model('Items', itemsSchema);
+// const itemsSchema = new Schema({
+//   name: {
+//     type: String
+//   },
+//   quantity: {
+//     type: Number,
+//     min: 0,
+//     default: 1
+//   },
+//   status: {
+//     type: String
+//   },
+//   user: {
+//     type: Schema.ObjectId,
+//     ref: 'User',
+//     quantityTaken: {
+//       type: Number
+//     } // cantidad de items que coge el usuario (probando)
+//   }
+// });
 
 const eventsSchema = new Schema({
   owner: {
@@ -47,7 +50,17 @@ const eventsSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   }],
-  items: [{ type: Schema.ObjectId, ref: 'Items' }]
+  items: [{
+    name: {
+      type: String
+    },
+    quantity: {
+      type: Number
+    },
+    status: {
+      enum: ['taken', 'available']
+    }
+  }]
 });
 
 const Events = mongoose.model('Events', eventsSchema);

@@ -60,8 +60,18 @@ router.get('/:id', requireLogged, async (req, res, next) => {
 router.post('/add-item', requireLogged, async (req, res, next) => {
   const { id, itemName, itemQuantity } = req.body;
   try {
-    const event = await Events.findById(id).populate('owner');
+    const event = await Events.findById(id);
+    event.items.forEach(async function (item) {
+      if (itemName === item.name) {
+        const itemsBefore = item.quantity;
+        const itemsNow = parseInt(itemQuantity) + parseInt(itemsBefore);
+        await Events.findByIdAndUpdate(id, { items: { name: itemName, quantity: itemsNow } }, { new: true });
+        return res.redirect(`/events/${id}`);
+      }
+    });
+
     // is creator
+
     const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
     res.redirect(`/events/${id}`);
   } catch (err) {
