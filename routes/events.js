@@ -84,7 +84,6 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
     const itemArray = await Items.find({ $and: [{ name }, { event }] }).lean();
     if (itemArray) {
       const newQuantity = itemArray[0].quantity - parseInt(quantity);
-      console.log(newQuantity);
       if (itemArray[0].carriers.length) {
         const checkUsers = itemArray[0].carriers.some(e => e.user == user._id);
         if (checkUsers) {
@@ -96,6 +95,10 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
             return carrierData;
           });
           await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'carriers': carrier, 'quantity': newQuantity } }, { new: true });
+          const itemQuantityUpdated = await Items.find({ $and: [{ name }, { event }] }).lean();
+          if (itemQuantityUpdated[0].quantity < 1) {
+            await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'status': '' } }, { new: true });
+          }
           return res.redirect(`/events/${event}`);
         } else {
           const newCarrier = {
@@ -104,6 +107,10 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
           };
           await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'quantity': newQuantity } }, { new: true });
           await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
+          const itemQuantityUpdated = await Items.find({ $and: [{ name }, { event }] }).lean();
+          if (itemQuantityUpdated[0].quantity < 1) {
+            await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'status': '' } }, { new: true });
+          }
           return res.redirect(`/events/${event}`);
         }
       }
@@ -113,6 +120,11 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
       };
       await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'quantity': newQuantity } }, { new: true });
       await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
+      const itemQuantityUpdated = await Items.find({ $and: [{ name }, { event }] }).lean();
+      console.log(itemQuantityUpdated);
+      if (itemQuantityUpdated[0].quantity < 1) {
+        await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'status': '' } }, { new: true });
+      }
       res.redirect(`/events/${event}`);
     };
   } catch (err) {

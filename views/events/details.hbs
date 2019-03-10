@@ -31,7 +31,8 @@
 {{#if event.items}}
 <ul>
   {{#each event.items}}
-  <li>{{this.quantity}}{{this.name}}</li>
+  {{#if this.status}}
+  <li>Quantity: {{this.quantity}} Item: {{this.name}} Status: {{this.status}}</li>
   <form action="/events/take-item" method="POST" id="carry-form">
     <input type="hidden" name="event" value="{{../event._id}}">
     {{!-- <script type="text/x-handlebars" data-template-name='app-view'>
@@ -46,6 +47,7 @@
     <input type="hidden" name="name" value="{{this.name}}">
     <button type="submit">Carry Item</button>
   </form>
+  {{/if}}
   {{/each}}
 </ul>
 {{/if}}

@@ -22,7 +22,8 @@ const itemsSchema = new Schema({
     default: 1
   },
   status: {
-    type: String
+    type: String,
+    default: 'Avaliable'
   },
   carriers: [carrier],
   event: {
