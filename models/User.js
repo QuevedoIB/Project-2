@@ -19,8 +19,8 @@ const userSchema = new Schema({
   imageUrl: {
     type: String
     // default: 'https://www.caduceosalud.es/wp-content/uploads/2013/09/silueta.png'
-  }
-
+  },
+  googleID: String
 });
 
 const User = mongoose.model('User', userSchema);

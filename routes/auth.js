@@ -3,11 +3,21 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 const saltRounds = 10;
 const { requireAnon, requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
 /* SIGNUP */
+router.get('/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+router.get('/google/signup',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function (req, res) {
+    res.redirect('/profile');
+  });
+
 router.get('/signup', (req, res, next) => {
   res.render('auth/signup');
 });

@@ -26,7 +26,9 @@
     "mongoose": "^5.4.17",
     "morgan": "~1.9.0",
     "multer": "^1.4.1",
-    "multer-storage-cloudinary": "^2.2.1"
+    "multer-storage-cloudinary": "^2.2.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^5.15.1",

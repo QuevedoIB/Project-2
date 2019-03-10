@@ -9,6 +9,10 @@ const hbs = require('hbs');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const User = require('./models/User');
+
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const eventsRouter = require('./routes/events');
@@ -54,6 +58,18 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/events', eventsRouter);
 app.use('/people', peopleRouter);
+
+passport.use(new GoogleStrategy({
+  clientID: '229874289325-t5r7h8hp1flmmv13i8m22elbe977hq7n.apps.googleusercontent.com',
+  clientSecret: 'kjv-mJSsxu8W6A8euIk5M2di',
+  callbackURL: '/auth/google/signup'
+},
+function (accessToken, refreshToken, profile, done) {
+  User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
 
 app.use((req, res, next) => {
   res.status(404);

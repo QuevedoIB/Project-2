@@ -11,7 +11,6 @@ router.get('/', (req, res, next) => {
 
 router.get('/profile', (req, res, next) => {
   const currentUser = req.session.currentUser;
-  console.log(currentUser);
   res.render('profile/profile', currentUser);
 });
 
