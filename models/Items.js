@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+const carrier = new Schema({
+  quantity: Number,
+  user: {
+    type: ObjectId,
+    ref: 'User'
+  }
+});
+
 const itemsSchema = new Schema({
   name: {
     type: String
@@ -16,10 +24,7 @@ const itemsSchema = new Schema({
   status: {
     type: String
   },
-  carriers: [{
-    type: ObjectId,
-    ref: 'User'
-  }],
+  carriers: [carrier],
   event: {
     type: ObjectId,
     ref: 'Event'
@@ -29,3 +34,12 @@ const itemsSchema = new Schema({
 const Items = mongoose.model('Items', itemsSchema);
 
 module.exports = Items;
+
+// carriers: [[{
+//   type: ObjectId,
+//   ref: 'User'
+// },
+//   quantity: {
+//     type: Number
+//   }
+// }]],
