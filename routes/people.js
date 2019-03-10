@@ -54,7 +54,7 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
     let alreadyAttending = false;
     if (guest) {
       const event = await Events.findById(eventId);
-      event.attendees.forEach((attendee) => {
+      event.attendees.forEach(attendee => {
         if (attendee == guestId) {
           // flash user already attending to that event
           alreadyAttending = true;

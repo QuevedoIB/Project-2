@@ -81,36 +81,26 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
   const { quantity, name, event } = req.body;
   const user = req.session.currentUser;
   try {
-    const eventData = await Events.findById(event).populate('items');
-    eventData.items.forEach(async item => {
-      try {
-        if (item.name == name) {
-          item.carriers.forEach(async carrier => {
-            if (carrier.user == user._id) {
-              let finalQuantity = quantity + carrier.quantity;
-              // testing
-
-              eventData.items.update({ 'carriers': { $elemMatch: { 'user': user._id } } }, { $set: { 'carriers.$.quantity': finalQuantity } });
-
-              // await carrier.update({ $inc: { 'quantity': parseInt(quantity) } });
-              console.log(carrier);
-              // logica de restar a la quantity de item aqui
-              return res.redirect(`/events/${event}`);
-            }
-          });
-          const newCarrier = {
-            'user': user._id,
-            'quantity': quantity
-          };
-          await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
-        }
-      } catch (err) {
-        next(err);
+    const itemArray = await Items.find({ $and: [{ name }, { event }] }).lean();
+    if (itemArray) {
+      if (itemArray[0].carriers.length) {
+        const carrier = itemArray[0].carriers.map(carrierData => {
+          if (carrierData.user == user._id) {
+            let finalQuantity = parseInt(quantity) + carrierData.quantity;
+            carrierData.quantity = finalQuantity;
+            console.log(finalQuantity);
+          }
+        });
+        await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { carrier } }, { new: true });
+        return res.redirect(`/events/${event}`);
       }
-    });
-    // const itemUpdate = await Items.findByIdAndUpdate(eventData.items._id, { $push: { carriers: newItem } }, { new: true });
-    console.log(eventData.items);
-    res.redirect(`/events/${event}`);
+      const newCarrier = {
+        user: user._id,
+        quantity: quantity
+      };
+      await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
+      res.redirect(`/events/${event}`);
+    };
   } catch (err) {
     next(err);
   }
@@ -118,43 +108,4 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
 
 module.exports = router;
 
-// try {
-//   const event = await Events.findById(id);
-//   event.items.forEach(async function (item) {
-//     if (itemName === item.name) {
-//       const itemsBefore = item.quantity;
-//       const itemsNow = parseInt(itemQuantity) + parseInt(itemsBefore);
-//       await Events.findByIdAndUpdate(id, { items: { name: itemName, quantity: itemsNow } }, { new: true });
-//       return res.redirect(`/events/${id}`);
-//     }
-//   });
-//   // is creator
-//   const eventUpdate = await Events.findByIdAndUpdate(id, { $push: { items: { name: itemName, quantity: itemQuantity } } }, { new: true });
-//   res.redirect(`/events/${id}`);
-// } catch (err) {
-//   next(err);
-// }
-
-// if (eventData.items.carriers) {
-//   eventData.items.carriers.forEach(async itemData => {
-//     if (itemData._id === user._id) {
-//       let finalQuantity = itemData.quantity + parseInt(quantity);
-//       console.log(itemData);
-//       // await event.update({"carriers.carrier."})
-//       // await Items.findByIdAndUpdate(event.items._id, { carriers: user.username }, { quantity: finalQuantity });
-//       return res.redirect(`/events/${event}`);
-//     }
-//   });
-// }
-// const newItem = {
-//   _id: user._id,
-//   'quantity': quantity
-// };
-// const itemUpdate = await Items.findByIdAndUpdate(eventData.items._id, { $push: { carriers: newItem } }, { new: true });
-// console.log(eventData.items._id);
-// res.redirect(`/events/${event}`);
-// return;
-// } catch (err) {
-// next(err);
-// };
-// })
+// { $set: { 'carriers': changedCarriers } }, { new: true });
