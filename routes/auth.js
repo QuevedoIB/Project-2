@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+
 const saltRounds = 10;
 const { requireAnon, requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
@@ -25,6 +26,7 @@ router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
         username,
         name,
         password: hashedPassword
+
       };
       const createdUser = await User.create(newUser);
       req.session.currentUser = createdUser;

@@ -1,5 +1,18 @@
 <h1>Profile page</h1>
+<p>{{username}}</p>
+<img src="{{imageUrl}}" alt="profile-picture">
 
+<form method="POST" action="/profile-image" enctype="multipart/form-data">
+  <div>
+    <label>Upload a picture</label>
+    <input type="file" name="image">
+  </div>
+
+  <div class="field submit">
+    <button type="submit">Upload</button>
+  </div>
+
+</form>
 <a href="/events/new"> <img src="images/add-event-image.png" /></a>
 <a href="/events">Events</a>
 

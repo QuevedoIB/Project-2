@@ -105,9 +105,8 @@ router.post('/leave-event', requireLogged, async (req, res, next) => {
         }
       });
     });
-
-    // NO BORRAR const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(user._id));
-    // NO BORRAR const updatedEvent = await Events.findByIdAndUpdate(id, { attendees: filteredAttendees }, { new: true });
+    const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(user._id));
+    const updatedEvent = await Events.findByIdAndUpdate(id, { attendees: filteredAttendees }, { new: true });
 
     res.redirect('/profile');
   } catch (err) {

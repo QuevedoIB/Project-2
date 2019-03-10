@@ -15,6 +15,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  imageUrl: {
+    type: String
+    // default: 'https://www.caduceosalud.es/wp-content/uploads/2013/09/silueta.png'
   }
 
 });
