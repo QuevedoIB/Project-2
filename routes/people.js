@@ -74,7 +74,7 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
 
 router.post('/delete-people', requireLogged, async (req, res, next) => {
   const { guestId, eventId } = req.body;
-  console.log(guestId, 'hola', eventId);
+
   try {
     const event = await Events.findById(eventId);
     const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(guestId));
@@ -89,11 +89,25 @@ router.post('/leave-event', requireLogged, async (req, res, next) => {
   const { id } = req.body;
   try {
     const user = req.session.currentUser;
-    const event = await Events.findById(id);
-    const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(user._id));
-    console.log(event.attendees);
-    const updatedEvent = await Events.findByIdAndUpdate(id, { attendees: filteredAttendees }, { new: true });
-    console.log(updatedEvent.attendees);
+    const event = await Events.findById(id).populate('items');
+    event.items.forEach(item => {
+      let itemName = item.name;
+      item.carriers.forEach(async carrier => {
+        try {
+          if (carrier.user == user._id) {
+            const finalQuantity = carrier.quantity + item.quantity;
+            console.log(finalQuantity);
+            await Items.findOneAndUpdate({ $and: [{ 'name': itemName }, { event }] }, { $set: { 'quantity': finalQuantity } });
+          }
+        } catch (err) {
+          next(err);
+        }
+      });
+    });
+
+    // NO BORRAR const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(user._id));
+    // NO BORRAR const updatedEvent = await Events.findByIdAndUpdate(id, { attendees: filteredAttendees }, { new: true });
+
     res.redirect('/profile');
   } catch (err) {
     next(err);
