@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const hbs = require('hbs');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -33,6 +34,8 @@ app.use(session({
   }
 }));
 
+app.use(flash());
+
 mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
   useNewUrlParser: true,
@@ -48,6 +51,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+hbs.registerPartials(path.join(__dirname, '/views/partials'));
 
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.currentUser;

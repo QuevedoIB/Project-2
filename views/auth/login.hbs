@@ -3,14 +3,14 @@
 
   <form method="POST" action="/auth/login">
 
-    <div class="field" >
+    <div class="field">
       <label>Username</label>
-      <input type="text" name="username"/>
+      <input type="text" name="username" />
     </div>
 
-    <div class="field" >
+    <div class="field">
       <label>Password</label>
-      <input type="password" name="password"/>
+      <input type="password" name="password" />
     </div>
 
     <div class="field submit">
@@ -19,3 +19,5 @@
 
   </form>
 </div>
+
+{{> flash}}

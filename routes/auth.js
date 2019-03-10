@@ -19,7 +19,10 @@ router.get('/google/signup',
   });
 
 router.get('/signup', (req, res, next) => {
-  res.render('auth/signup');
+  const data = {
+    messages: req.flash('validation')
+  };
+  res.render('auth/signup', data);
 });
 
 router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
@@ -27,7 +30,7 @@ router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
   try {
     const result = await User.findOne({ username });
     if (result) {
-      // the username is taken
+      req.flash('validation', 'The username is taken');
       res.redirect('/auth/signup');
     } else {
       const salt = bcrypt.genSaltSync(saltRounds);
@@ -49,7 +52,10 @@ router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
 
 /* LOGIN */
 router.get('/login', requireAnon, (req, res, next) => {
-  res.render('auth/login');
+  const data = {
+    messages: req.flash('validation')
+  };
+  res.render('auth/login', data);
 });
 
 router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) => {
@@ -57,7 +63,7 @@ router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) =>
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      // flash username or password incorrect
+      req.flash('validation', 'User or password incorrect');
       res.redirect('/auth/login');
       return;
     }
@@ -66,7 +72,7 @@ router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) =>
       req.session.currentUser = user;
       res.redirect('/profile');
     } else {
-      // flash username or password incorrect
+      req.flash('validation', 'User or password incorrect');
       // redirigir
       res.redirect('/auth/login');
     }
