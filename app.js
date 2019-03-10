@@ -64,9 +64,11 @@ app.use('/events', eventsRouter);
 app.use('/people', peopleRouter);
 
 passport.use(new GoogleStrategy({
-  clientID: '229874289325-t5r7h8hp1flmmv13i8m22elbe977hq7n.apps.googleusercontent.com',
-  clientSecret: 'kjv-mJSsxu8W6A8euIk5M2di',
-  callbackURL: '/auth/google/signup'
+  // -------------------------- Insert keys
+  // {whatever: process.env.whatever}
+  clientID: process.env.clientID,
+  clientSecret: process.env.clientSecret,
+  callbackURL: process.env.callbackURL
 },
 function (accessToken, refreshToken, profile, done) {
   User.findOrCreate({ googleId: profile.id }, function (err, user) {

@@ -69,4 +69,11 @@
 
 <a href="/people/{{event._id}}/list">Search people</a>
 
+{{#if isCreator}}
+<form action="/events/delete-event" method="POST">
+  <input type="hidden" name="event" value="{{event._id}}">
+  <button type="submit">Delete Event</button>
+</form>
+{{/if}}
+
 {{!-- <script type="text/x-handlebars" src="/javascripts/helpers.js" id="t"></script> --}}

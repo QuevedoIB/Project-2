@@ -121,12 +121,27 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
       await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'quantity': newQuantity } }, { new: true });
       await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
       const itemQuantityUpdated = await Items.find({ $and: [{ name }, { event }] }).lean();
-      console.log(itemQuantityUpdated);
+
       if (itemQuantityUpdated[0].quantity < 1) {
         await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'status': '' } }, { new: true });
       }
       res.redirect(`/events/${event}`);
     };
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/delete-event', requireLogged, async (req, res, next) => {
+  const user = req.session.currentUser;
+  const { event } = req.body;
+  try {
+    const eventData = await Events.findById(event).populate('owner');
+    const eventOwnerId = eventData.owner._id;
+    if (eventOwnerId.equals(user._id)) {
+      await Events.findByIdAndDelete(event);
+      return res.redirect('/profile');
+    }
   } catch (err) {
     next(err);
   }
