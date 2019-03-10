@@ -88,10 +88,11 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
           if (carrierData.user == user._id) {
             let finalQuantity = parseInt(quantity) + carrierData.quantity;
             carrierData.quantity = finalQuantity;
-            console.log(finalQuantity);
           }
+          return carrierData;
         });
-        await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { carrier } }, { new: true });
+
+        await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'carriers': carrier } }, { new: true });
         return res.redirect(`/events/${event}`);
       }
       const newCarrier = {
