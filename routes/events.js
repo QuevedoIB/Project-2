@@ -83,6 +83,8 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
   try {
     const itemArray = await Items.find({ $and: [{ name }, { event }] }).lean();
     if (itemArray) {
+      const newQuantity = itemArray[0].quantity - parseInt(quantity);
+      console.log(newQuantity);
       if (itemArray[0].carriers.length) {
         const checkUsers = itemArray[0].carriers.some(e => e.user == user._id);
         if (checkUsers) {
@@ -93,14 +95,14 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
             }
             return carrierData;
           });
-
-          await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'carriers': carrier } }, { new: true });
+          await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'carriers': carrier, 'quantity': newQuantity } }, { new: true });
           return res.redirect(`/events/${event}`);
         } else {
           const newCarrier = {
             user: user._id,
             quantity: quantity
           };
+          await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'quantity': newQuantity } }, { new: true });
           await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
           return res.redirect(`/events/${event}`);
         }
@@ -109,6 +111,7 @@ router.post('/take-item', requireLogged, async (req, res, next) => {
         user: user._id,
         quantity: quantity
       };
+      await Items.findOneAndUpdate({ $and: [{ name }, { event }] }, { $set: { 'quantity': newQuantity } }, { new: true });
       await Items.findOneAndUpdate({ name }, { $push: { carriers: newCarrier } }, { new: true });
       res.redirect(`/events/${event}`);
     };
