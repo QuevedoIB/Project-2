@@ -96,8 +96,9 @@ router.post('/leave-event', requireLogged, async (req, res, next) => {
         try {
           if (carrier.user == user._id) {
             const finalQuantity = carrier.quantity + item.quantity;
-            console.log(finalQuantity);
-            await Items.findOneAndUpdate({ $and: [{ 'name': itemName }, { event }] }, { $set: { 'quantity': finalQuantity } });
+            const itemData = await Items.find({ $and: [{ 'name': itemName }, { event }] }).lean();
+            const filteredCarriers = itemData[0].carriers.filter(carrier => !carrier.user.equals(user._id));
+            await Items.findOneAndUpdate({ $and: [{ 'name': itemName }, { event }] }, { $set: { 'quantity': finalQuantity, 'carriers': filteredCarriers } });
           }
         } catch (err) {
           next(err);
