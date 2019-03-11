@@ -6,30 +6,50 @@ padding: 0;
 margin: 0;
 font-family: 'Lato', sans-serif;
 height: 100%;
+font-size: 16px;
+background: #EEEEEE;
 }
 
-nav {
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: white;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+html {
+ height: 100%;
+}
+
+html {
+ box-sizing: border-box;
+}
+
+*,* :before, *:after {
+ box-sizing: inherit;
+}
+
+footer {
+ position: fixed;
+ bottom: 0;
+ background-color: white;
+ width: 100%;
+ height: 50px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
 
 .logs a {
-  margin-right: 5px;
-  text-decoration: none;
+ margin-right: 5px;
+ text-decoration: none;
 }
 
 .logs a:hover{
-  text-decoration: underline;
-  font-size: 20px;
+ text-decoration: underline;
+ font-size: 20px;
 }
 
 a {
 color: #00B7FF;
+}
+
+a.submit {
+ color: white;
+ text-decoration: none;
 }
 
 h2 {
@@ -37,13 +57,6 @@ h2 {
 -moz-user-select: none; /* mozilla browsers */
 -khtml-user-select: none; /* webkit (konqueror) browsers */
 -ms-user-select: none; /* IE10+ */
-}
-
-li {
-  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
-  -moz-user-select: none; /* mozilla browsers */
-  -khtml-user-select: none; /* webkit (konqueror) browsers */
-  -ms-user-select: none; /* IE10+ */
 }
 
 .show {
@@ -79,102 +92,4 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-}
-
-.form {
-width: 70%;
-
-}
-
-.field {
-width: 100%;
-height: 52px;
-margin-bottom: 30px;
-}
-
-input{
-width: 92%;
-height: 100%;
-padding-left: 20px;
-border: none;
-border-radius: 30px;
-background-color: #EAEAEA;
-}
-
-input::placeholder {
-color: #404040;
-font-size: 16px;
-}
-
-.submit {
-width: 100%;
-height: 52px;
-margin-bottom: 30px;
-border: none;
-border-radius: 30px;
-background-color: #4E96BA;
-color: white;
-font-size: 25px;
-}
-
-h2 {
- -webkit-user-select: none; /* webkit (safari, chrome) browsers */
- -moz-user-select: none; /* mozilla browsers */
- -khtml-user-select: none; /* webkit (konqueror) browsers */
- -ms-user-select: none; /* IE10+ */
-}
-
-.show {
- display: contents;
-}
-
-.hide {
- display: none;
-}
-
-#owned-tab {
- padding: 5px;
- border: 1px solid black;
-}
-
-#participating-tab {
- padding: 5px;
- border: 1px solid black;
-}
-
-#finished-tab {
- padding: 5px;
- border: 1px solid black;
-}
-
-
-meter {
- /* Reset the default appearance */
- -webkit-appearance: none;
-    -moz-appearance: none;
-         appearance: none;
-
- margin: 0 auto 1em;
- width: 100%;
- height: 50px;
-
- /* Applicable only to Firefox */
- background: none;
- background-color:white;
-}
-
-meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-meter[value="4"]::-webkit-meter-optimum-value { background: green; }
-
-/* Gecko based browsers */
-meter[value="1"]::-moz-meter-bar { background: red; }
-meter[value="2"]::-moz-meter-bar { background: yellow; }
-meter[value="3"]::-moz-meter-bar { background: orange; }
-meter[value="4"]::-moz-meter-bar { background: green; }
-
-#map {
-  height: 500px;
-  width: 500px;
 }

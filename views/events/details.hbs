@@ -1,54 +1,48 @@
-<h1>Event details page</h1>
+<section class="header event">
+  <h2>{{event.name}}</h2>
+  <i class="far fa-calendar-alt">
+    <p class="date inline">{{event.date}}</p>
+  </i>
+</section>
 
-<h2>{{event.name}}</h2>
-
-<h3>Creator: {{event.owner.name}}</h3>
-
-<p>{{event.location}}</p>
+<div class="event-description">
+  <i class="fas fa-user-shield"></i>
+  <h3 class="inline">{{event.owner.name}}</h3>
+  <i class="fas fa-map-marker-alt"></i>
+  <p class="inline">{{event.location}}</p>
+</div>
 
 {{!-- <div id="map">
 
 </div> --}}
 
-<p>{{event.date}}</p>
-
-<p>{{event.description}}</p>
-
-<a href="/profile">My profile</a>
-
-<form action="/people/leave-event" method="POST">
-
-  <input type="hidden" value="{{event._id}}" name="id">
-  <button type="submit">Leave event</button>
-</form>
+<p class="description">{{event.description}}</p>
 
 {{#if isCreator}}
-<form action="/events/add-item" method="POST">
-  <label for="item-name">Item: </label>
-  <input type="text" name="name" id="item-name">
-  <label for="item-quantity">Quantity</label>
-  <input type="number" name="quantity" id="item-quantity">
+<form action="/events/add-item" method="POST" class="add-item">
+  <h3>Item</h3>
+  <div class="field">
+    <input type="text" name="name" id="item-name" placeholder="What item?">
+  </div>
+  <div class="field">
+    <input type="number" name="quantity" id="item-quantity" placeholder="How many?">
+  </div>
   <input type="hidden" value="{{event._id}}" name="event">
-  <button type="submit">Add Item</button>
+  <div class="field">
+    <button class="submit" type="submit">Add Item</button>
+  </div>
 </form>
 {{/if}}
 
 {{> flash}}
 
 {{#if event.items}}
-<ul>
+<ul class="event-items">
   {{#each event.items}}
   {{#if this.status}}
   <li>Quantity: {{this.quantity}} Item: {{this.name}} Status: {{this.status}}</li>
-  <form action="/events/take-item" method="POST" id="carry-form">
+  <form action="/events/take-item" id="carry-form" method="POST">
     <input type="hidden" name="event" value="{{../event._id}}">
-    {{!-- <script type="text/x-handlebars" data-template-name='app-view'>
-    <select name="quantity" id="carry-form">
-      {{#times this.quantity}}
-      <option value="{{this}}">{{this}}</option>
-      {{/times}}
-    </select>
-    </script> --}}
     <label for="quantity">Quantity: </label>
     <input type="number" name="quantity" value="1">
     <input type="hidden" name="name" value="{{this.name}}">
@@ -89,11 +83,19 @@
 </form>
 {{/if}}
 
+<a href="/profile">My profile</a>
+
+<form action="/people/leave-event" method="POST">
+
+  <input type="hidden" value="{{event._id}}" name="id">
+  <button type="submit">Leave event</button>
+</form>
+
 <script src="/javascripts/carrying-list.js"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="/javascripts/date.js"></script>
 
 {{!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 
 <script src="/javascripts/map.js"></script> --}}
-
-{{!-- <script type="text/x-handlebars" src="/javascripts/helpers.js" id="t"></script> --}}

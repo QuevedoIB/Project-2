@@ -1,4 +1,40 @@
-<h1>Profile page</h1>
+<section class="header">
+  <img class="profile" src="{{imageUrl}}">
+  <p>{{username}}</p>
+</section>
+
+<section class="profile-buttons">
+  <div>
+    <a class="submit" href="/events/new">New event</a>
+  </div>
+
+  <div>
+    <a class="submit" href="/events">My events</a>
+  </div>
+</section>
+
+
+{{!-- <form method="POST" action="/profile-image" enctype="multipart/form-data">
+ <div>
+   <label>Upload a picture</label>
+   <input type="file" name="image">
+ </div>
+
+ <div class="field submit">
+   <button type="submit">Upload</button>
+ </div> --}}
+
+</form>
+<section class="profile-footer">
+  <a href="/auth/change-password">Change Password</a>
+  <a href="/">Back to Home</a>
+  {{> footer}}
+</section>
+
+
+
+
+{{!-- <h1>Profile page</h1>
 <p>{{username}}</p>
 
 <a href="/auth/change-password">Change Info</a>
@@ -18,4 +54,4 @@
 <a href="/events/new"> <img src="images/add-event-image.png" /></a>
 <a href="/events">Events</a>
 
-<a href="/">Back to Home</a>
+<a href="/">Back to Home</a> --}}
