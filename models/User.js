@@ -23,6 +23,10 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true
+  },
+  googleUser: {
+    type: Boolean,
+    default: false
   }
 });
 

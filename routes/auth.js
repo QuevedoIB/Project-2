@@ -79,6 +79,7 @@ router.post('/logout', requireLogged, (req, res, next) => {
 });
 
 router.get('/change-password', requireLogged, (req, res, next) => {
+  console.log(req.session.currentUser);
   const data = {
     messages: req.flash('validation')
   };
@@ -86,9 +87,13 @@ router.get('/change-password', requireLogged, (req, res, next) => {
 });
 
 router.post('/change-password', requireLogged, async (req, res, next) => {
-  const { currentPass, newPass } = req.body;
+  const { newName, currentPass, newPass } = req.body;
   const userSession = req.session.currentUser;
   try {
+    if (userSession.googleUser) {
+      await User.findByIdAndUpdate(userSession._id, { $set: { name: newName } });
+      return res.redirect('/profile');
+    }
     const user = await User.findById(userSession._id);
     if (bcrypt.compareSync(currentPass, user.password)) {
       const salt = bcrypt.genSaltSync(saltRounds);
@@ -117,7 +122,8 @@ router.get('/google-credentials', async (req, res, next) => {
       username: userData.email,
       name: userData.email,
       password: hashedPassword,
-      email: userData.email
+      email: userData.email,
+      googleUser: true
     };
     const user = await User.find({ $and: [{ username: userData.email }, { password: hashedPassword }] });
     if (user.length) {
