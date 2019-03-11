@@ -55,10 +55,14 @@
 
 <ul>
   {{#each event.attendees}}
-  <li>{{this.username}}</li>
-  {{#each items}}
-  <li>Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
-  {{/each}}
+  <li>
+    <ul>{{this.username}}
+      {{#each items}}
+      <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
+      {{/each}}
+    </ul>
+  </li>
+
   {{#if ../isCreator}}
   <form action="/people/delete-people" method="POST">
     <input type="hidden" value="{{../event._id}}" name="eventId">
