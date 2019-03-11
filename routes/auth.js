@@ -81,14 +81,36 @@ router.post('/login', requireAnon, requireFieldsLogIn, async (req, res, next) =>
   }
 });
 
-// router.post('/logout', requireLogged, (req, res, next) => {
-//   delete req.session.currentUser;
-//   res.redirect('/');
-// });
-
 router.post('/logout', requireLogged, (req, res, next) => {
   delete req.session.currentUser;
   res.redirect('/');
+});
+
+router.get('/change-password', requireLogged, (req, res, next) => {
+  res.render('auth/change-password');
+});
+
+router.post('/change-password', requireLogged, async (req, res, next) => {
+  const { currentPass, newPass } = req.body;
+  const userSession = req.session.currentUser;
+  try {
+    const user = await User.findById(userSession._id);
+    console.log(user);
+    if (bcrypt.compareSync(currentPass, user.password)) {
+      const salt = bcrypt.genSaltSync(saltRounds);
+      const hashedPassword = bcrypt.hashSync(newPass, salt);
+      const user = await User.findByIdAndUpdate(userSession._id, { $set: { password: hashedPassword } }, { new: true });
+      // guardar la sesion
+      req.session.currentUser = user;
+      res.redirect('/profile');
+    } else {
+      req.flash('validation', 'User or password incorrect');
+      // redirigir
+      res.redirect('/auth/login');
+    }
+  } catch (err) {
+
+  }
 });
 
 module.exports = router;
