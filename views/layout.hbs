@@ -9,22 +9,6 @@
 </head>
 
 <body>
-  <nav>
-    <img src="" alt="logo">
-    {{#if currentUser}}
-    <div class="logs">
-      <p>{{currentUser.username}}</p>
-      <form action="/auth/logout" method="POST">
-        <button type="submit">Log out</button>
-      </form>
-    </div>
-    {{else}}
-    <div class="logs">
-      <a href="/auth/signup">Sign up</a>
-      <a href="/auth/login">Log in</a>
-    </div>
-    {{/if}}
-  </nav>
   {{{body}}}
 </body>
 

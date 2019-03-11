@@ -1,32 +1,50 @@
-<h1>Event List page</h1>
+<article class="header">
+  <img class="profile" src="{{user.imageUrl}}">
+  <p>{{user.username}}</p>
+</article>
 
-<a href="/profile">Back to profile</a>
+<article id="events">
 
-<div>
-  <h2 id="owned-tab">Events Owned</h2>
-  <ul id="owned-events">
+  <div id="owned-tab">
+    <h2>My Events</h2>
+  </div>
+
+  <div id="participating-tab">
+    <h2>Events I'm In</h2>
+  </div>
+
+  <div id="finished-tab">
+    <h2>Finished Events</h2>
+  </div>
+
+</article>
+
+<div class="show-events">
+
+  <ul id="owned-events" class="show">
     {{#each events.owned}}
     <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
     {{/each}}
   </ul>
-</div>
 
-<div>
-  <h2 id="participating-tab">Events Participating</h2>
   <ul id="participating-events" class="hide">
     {{#each events.participating}}
     <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
     {{/each}}
   </ul>
-</div>
 
-<div>
-  <h2 id="finished-tab">Events Finished</h2>
   <ul id="finished-events" class="hide">
     {{#each events.finished}}
     <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
     {{/each}}
   </ul>
+
 </div>
+
+<div class="list-new-button">
+  <a class="list-new-event-button" href="events/new">New Event</a>
+</div>
+
+{{!-- <a href="/profile">Back to profile</a> --}}
 
 <script src="/javascripts/event-list.js"></script>
