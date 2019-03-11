@@ -87,7 +87,10 @@ router.post('/logout', requireLogged, (req, res, next) => {
 });
 
 router.get('/change-password', requireLogged, (req, res, next) => {
-  res.render('auth/change-password');
+  const data = {
+    messages: req.flash('validation')
+  };
+  res.render('auth/change-password', data);
 });
 
 router.post('/change-password', requireLogged, async (req, res, next) => {
@@ -95,7 +98,6 @@ router.post('/change-password', requireLogged, async (req, res, next) => {
   const userSession = req.session.currentUser;
   try {
     const user = await User.findById(userSession._id);
-    console.log(user);
     if (bcrypt.compareSync(currentPass, user.password)) {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(newPass, salt);
@@ -104,9 +106,9 @@ router.post('/change-password', requireLogged, async (req, res, next) => {
       req.session.currentUser = user;
       res.redirect('/profile');
     } else {
-      req.flash('validation', 'User or password incorrect');
+      req.flash('validation', 'Password incorrect');
       // redirigir
-      res.redirect('/auth/login');
+      res.redirect('/auth/change-password');
     }
   } catch (err) {
 
