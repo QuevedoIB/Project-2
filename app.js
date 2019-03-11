@@ -63,21 +63,6 @@ app.use('/auth', authRouter);
 app.use('/events', eventsRouter);
 app.use('/people', peopleRouter);
 
-passport.use(new GoogleStrategy({
-  // -------------------------- Insert keys
-  // {whatever: process.env.whatever}
-  clientID: process.env.clientID,
-  clientSecret: process.env.clientSecret,
-  callbackURL: process.env.callbackURL
-},
-function (accessToken, refreshToken, profile, done) {
-  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    console.log('HOLA', profile.id);
-    return done(err, user);
-  });
-}
-));
-
 app.use((req, res, next) => {
   res.status(404);
   res.render('not-found');

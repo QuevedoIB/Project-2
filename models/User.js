@@ -17,10 +17,13 @@ const userSchema = new Schema({
     required: true
   },
   imageUrl: {
-    type: String
-    // default: 'https://www.caduceosalud.es/wp-content/uploads/2013/09/silueta.png'
+    type: String,
+    default: 'https://www.caduceosalud.es/wp-content/uploads/2013/09/silueta.png'
   },
-  googleID: String
+  email: {
+    type: String,
+    required: true
+  }
 });
 
 const User = mongoose.model('User', userSchema);

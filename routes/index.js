@@ -3,13 +3,17 @@ const express = require('express');
 const router = express.Router();
 const parser = require('../helpers/file-upload');
 const User = require('../models/User');
+const { urlGoogle } = require('../helpers/google-util');
+const { requireLogged } = require('../middlewares/auth');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index');
+  const url = urlGoogle();
+
+  res.render('index', { url });
 });
 
-router.get('/profile', (req, res, next) => {
+router.get('/profile', requireLogged, (req, res, next) => {
   const currentUser = req.session.currentUser;
   res.render('profile/profile', currentUser);
 });

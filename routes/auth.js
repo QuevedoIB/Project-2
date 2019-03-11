@@ -3,20 +3,12 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const passport = require('passport');
+const { getGoogleAccountFromCode } = require('../helpers/google-util');
 
 const saltRounds = 10;
 const { requireAnon, requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
 /* SIGNUP */
-router.get('/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
-
-router.post('/google/signup',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function (req, res) {
-    res.redirect('/profile');
-  });
 
 router.get('/signup', (req, res, next) => {
   const data = {
@@ -111,7 +103,32 @@ router.post('/change-password', requireLogged, async (req, res, next) => {
       res.redirect('/auth/change-password');
     }
   } catch (err) {
+    next(err);
+  }
+});
 
+router.get('/google-credentials', async (req, res, next) => {
+  const { code } = req.query;
+  const userData = await getGoogleAccountFromCode(code);
+  try {
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = bcrypt.hashSync(userData.id, salt);
+    const newUser = {
+      username: userData.email,
+      name: userData.email,
+      password: hashedPassword,
+      email: userData.email
+    };
+    const user = await User.find({ $and: [{ username: userData.email }, { password: hashedPassword }] });
+    if (user.length) {
+      req.session.currentUser = user;
+    } else {
+      const createdUser = await User.create(newUser);
+      req.session.currentUser = createdUser;
+    }
+    return res.redirect('/profile');
+  } catch (err) {
+    next(err);
   }
 });
 
