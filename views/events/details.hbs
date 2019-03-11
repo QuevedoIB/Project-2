@@ -6,6 +6,10 @@
 
 <p>{{event.location}}</p>
 
+{{!-- <div id="map">
+
+</div> --}}
+
 <p>{{event.date}}</p>
 
 <p>{{event.description}}</p>
@@ -28,6 +32,8 @@
   <button type="submit">Add Item</button>
 </form>
 {{/if}}
+
+{{> flash}}
 
 {{#if event.items}}
 <ul>
@@ -84,5 +90,10 @@
 {{/if}}
 
 <script src="/javascripts/carrying-list.js"></script>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+
+<script src="/javascripts/map.js"></script>
 
 {{!-- <script type="text/x-handlebars" src="/javascripts/helpers.js" id="t"></script> --}}

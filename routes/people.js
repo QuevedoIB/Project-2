@@ -32,7 +32,11 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
       event
     };
     if (!username || username === req.session.currentUser.username) {
-      res.render('people/search', { eventContent });
+      const data = {
+        messages: req.flash('validation')
+      };
+      req.flash('validation', 'Incorrect user');
+      res.render('people/search', { eventContent, data });
       return;
     }
     const searchedUser = await User.findOne({ username });

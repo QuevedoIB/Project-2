@@ -24,18 +24,20 @@ router.get('/', requireLogged, async (req, res, next) => {
 });
 
 router.get('/new', requireLogged, (req, res, next) => {
-  res.render('profile/new');
+  const data = {
+    messages: req.flash('validation')
+  };
+  res.render('profile/new', data);
 });
 
 router.post('/add', async (req, res, next) => {
   let owner = req.session.currentUser._id;
-  // if (req.session.currentUser[0].googleUser) {
-  //   owner = req.session.currentUser[0]._id;
-  // }
+
   const { name, description, location, date } = req.body;
   const event = { owner, name, description, location, date };
   if (!owner || !name || !location || !date) {
-    // required fields
+    // required fields flash
+    req.flash('validation', 'Missing fields');
     res.redirect('/events/new');
     return;
   };
@@ -50,6 +52,9 @@ router.post('/add', async (req, res, next) => {
 router.get('/:id', requireLogged, async (req, res, next) => {
   const { id } = req.params;
   const currentUserId = req.session.currentUser._id;
+  const data = {
+    messages: req.flash('validation')
+  };
   try {
     const event = await Events.findById(id).populate('owner').populate('attendees').populate('items').lean();
     let isCreator = false;
@@ -57,10 +62,6 @@ router.get('/:id', requireLogged, async (req, res, next) => {
       isCreator = true;
     }
 
-    // const Carrier = {
-    //   item:
-    //     quantity:
-    // }<<
     event.attendees.forEach(attendee => {
       event.items.forEach(item => {
         item.carriers.forEach(carrier => {
@@ -76,7 +77,7 @@ router.get('/:id', requireLogged, async (req, res, next) => {
         });
       });
     });
-    res.render('events/details', { event, isCreator });
+    res.render('events/details', { event, isCreator, data });
   } catch (err) {
     next(err);
   }
@@ -86,7 +87,8 @@ router.post('/add-item', requireLogged, async (req, res, next) => {
   const { event, name, quantity } = req.body;
   const itemObject = { name, quantity, event };
   if (!name || !quantity || !event) {
-    // required fields
+    // required fields flash
+    req.flash('validation', 'Missing fields');
     res.redirect(`/events/${event}`);
     return;
   };

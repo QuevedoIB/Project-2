@@ -44,7 +44,8 @@ const eventsSchema = new Schema({
   },
   location: {
     type: String,
-    required: true
+    required: true,
+    default: 'Point'
   },
   attendees: [{
     type: ObjectId,
@@ -55,6 +56,8 @@ const eventsSchema = new Schema({
     ref: 'Items'
   }]
 });
+
+eventsSchema.index({ location: '2dsphere' });
 
 const Events = mongoose.model('Events', eventsSchema);
 

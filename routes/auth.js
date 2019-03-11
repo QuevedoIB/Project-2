@@ -79,7 +79,6 @@ router.post('/logout', requireLogged, (req, res, next) => {
 });
 
 router.get('/change-password', requireLogged, (req, res, next) => {
-  console.log(req.session.currentUser);
   const data = {
     messages: req.flash('validation')
   };
