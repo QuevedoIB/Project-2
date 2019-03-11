@@ -62,7 +62,7 @@
 <ul>
   {{#each event.attendees}}
   <li>
-    <ul>{{this.username}}
+    <ul class="attendees">{{this.username}}
       {{#each items}}
       <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
       {{/each}}
@@ -91,9 +91,9 @@
 
 <script src="/javascripts/carrying-list.js"></script>
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+{{!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 
-<script src="/javascripts/map.js"></script>
+<script src="/javascripts/map.js"></script> --}}
 
 {{!-- <script type="text/x-handlebars" src="/javascripts/helpers.js" id="t"></script> --}}
