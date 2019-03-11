@@ -1,5 +1,7 @@
 {{#if messages.length}}
-<ul class="validation">
-  {{#each messages}}<li>{{this}}</li>{{/each}}
-</ul>
+<div class="validation">
+  {{#each messages}}
+  <p>{{this}}</p>
+  {{/each}}
+</div>
 {{/if}}

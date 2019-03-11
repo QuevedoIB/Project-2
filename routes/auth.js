@@ -12,7 +12,7 @@ const { requireAnon, requireLogged, requireFieldsSignUp, requireFieldsLogIn } = 
 router.get('/google',
   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-router.get('/google/signup',
+router.post('/google/signup',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function (req, res) {
     res.redirect('/profile');

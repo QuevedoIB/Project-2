@@ -148,5 +148,3 @@ router.post('/delete-event', requireLogged, async (req, res, next) => {
 });
 
 module.exports = router;
-
-// { $set: { 'carriers': changedCarriers } }, { new: true });

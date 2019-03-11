@@ -1,56 +1,159 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+padding: 0;
+margin: 0;
+font-family: 'Lato', sans-serif;
+height: 100%;
+}
+
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logs a {
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.logs a:hover{
+  text-decoration: underline;
+  font-size: 20px;
 }
 
 a {
-  color: #00B7FF;
+color: #00B7FF;
 }
 
 h2 {
-  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
-  -moz-user-select: none; /* mozilla browsers */
-  -khtml-user-select: none; /* webkit (konqueror) browsers */
-  -ms-user-select: none; /* IE10+ */
+-webkit-user-select: none; /* webkit (safari, chrome) browsers */
+-moz-user-select: none; /* mozilla browsers */
+-khtml-user-select: none; /* webkit (konqueror) browsers */
+-ms-user-select: none; /* IE10+ */
 }
 
 .show {
-  display: contents;
+display: contents;
 }
 
 .hide {
-  display: none;
+display: none;
 }
 
 #owned-tab {
-  padding: 5px;
-  border: 1px solid black;
+padding: 5px;
+border: 1px solid black;
 }
 
 #participating-tab {
-  padding: 5px;
-  border: 1px solid black;
+padding: 5px;
+border: 1px solid black;
 }
 
 #finished-tab {
-  padding: 5px;
-  border: 1px solid black;
+padding: 5px;
+border: 1px solid black;
+}
+
+.auth {
+background-image: url('/images/login.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+width: 100%;
+height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+.form {
+width: 70%;
+
+}
+
+.field {
+width: 100%;
+height: 52px;
+margin-bottom: 30px;
+}
+
+input{
+width: 92%;
+height: 100%;
+padding-left: 20px;
+border: none;
+border-radius: 30px;
+background-color: #EAEAEA;
+}
+
+input::placeholder {
+color: #404040;
+font-size: 16px;
+}
+
+.submit {
+width: 100%;
+height: 52px;
+margin-bottom: 30px;
+border: none;
+border-radius: 30px;
+background-color: #4E96BA;
+color: white;
+font-size: 25px;
+}
+
+h2 {
+ -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+ -moz-user-select: none; /* mozilla browsers */
+ -khtml-user-select: none; /* webkit (konqueror) browsers */
+ -ms-user-select: none; /* IE10+ */
+}
+
+.show {
+ display: contents;
+}
+
+.hide {
+ display: none;
+}
+
+#owned-tab {
+ padding: 5px;
+ border: 1px solid black;
+}
+
+#participating-tab {
+ padding: 5px;
+ border: 1px solid black;
+}
+
+#finished-tab {
+ padding: 5px;
+ border: 1px solid black;
 }
 
 
 meter {
-  /* Reset the default appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+ /* Reset the default appearance */
+ -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
 
-  margin: 0 auto 1em;
-  width: 100%;
-  height: 0.5em;
+ margin: 0 auto 1em;
+ width: 100%;
+ height: 50px;
 
-  /* Applicable only to Firefox */
-  background: none;
-  background-color: rgba(0, 0, 0, 0.1);
+ /* Applicable only to Firefox */
+ background: none;
+ background-color:white;
 }
 
 meter[value="1"]::-webkit-meter-optimum-value { background: red; }
