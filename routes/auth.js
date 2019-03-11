@@ -126,7 +126,6 @@ router.get('/google-credentials', async (req, res, next) => {
       googleUser: true
     };
     const user = await User.find({ $and: [{ username: userData.email }, { email: userData.email }] });
-    console.log(user);
 
     if (user.length) {
       req.session.currentUser = user[0];

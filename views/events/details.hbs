@@ -56,6 +56,9 @@
 <ul>
   {{#each event.attendees}}
   <li>{{this.username}}</li>
+  {{#each items}}
+  <li>Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
+  {{/each}}
   {{#if ../isCreator}}
   <form action="/people/delete-people" method="POST">
     <input type="hidden" value="{{../event._id}}" name="eventId">
@@ -75,5 +78,7 @@
   <button type="submit">Delete Event</button>
 </form>
 {{/if}}
+
+<script src="/javascripts/carrying-list.js"></script>
 
 {{!-- <script type="text/x-handlebars" src="/javascripts/helpers.js" id="t"></script> --}}

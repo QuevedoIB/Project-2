@@ -29,7 +29,6 @@ router.get('/new', requireLogged, (req, res, next) => {
 
 router.post('/add', async (req, res, next) => {
   let owner = req.session.currentUser._id;
-  console.log(req.session.currentUser);
   // if (req.session.currentUser[0].googleUser) {
   //   owner = req.session.currentUser[0]._id;
   // }
@@ -52,11 +51,31 @@ router.get('/:id', requireLogged, async (req, res, next) => {
   const { id } = req.params;
   const currentUserId = req.session.currentUser._id;
   try {
-    const event = await Events.findById(id).populate('owner').populate('attendees').populate('items');
+    const event = await Events.findById(id).populate('owner').populate('attendees').populate('items').lean();
     let isCreator = false;
     if (event.owner._id.equals(currentUserId)) {
       isCreator = true;
     }
+
+    // const Carrier = {
+    //   item:
+    //     quantity:
+    // }<<
+    event.attendees.forEach(attendee => {
+      event.items.forEach(item => {
+        item.carriers.forEach(carrier => {
+          if (attendee._id.equals(carrier.user)) {
+            if (!attendee.items) {
+              attendee.items = [];
+            }
+            attendee.items.push({
+              itemName: item.name,
+              quantity: carrier.quantity
+            });
+          }
+        });
+      });
+    });
     res.render('events/details', { event, isCreator });
   } catch (err) {
     next(err);
