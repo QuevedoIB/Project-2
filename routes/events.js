@@ -28,7 +28,11 @@ router.get('/new', requireLogged, (req, res, next) => {
 });
 
 router.post('/add', async (req, res, next) => {
-  const owner = req.session.currentUser._id;
+  let owner = req.session.currentUser._id;
+  console.log(req.session.currentUser);
+  // if (req.session.currentUser[0].googleUser) {
+  //   owner = req.session.currentUser[0]._id;
+  // }
   const { name, description, location, date } = req.body;
   const event = { owner, name, description, location, date };
   if (!owner || !name || !location || !date) {

@@ -18,7 +18,7 @@ router.get('/signup', (req, res, next) => {
 });
 
 router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
-  const { username, name, password } = req.body;
+  const { username, name, password, email } = req.body;
   try {
     const result = await User.findOne({ username });
     if (result) {
@@ -30,8 +30,8 @@ router.post('/signup', requireFieldsSignUp, async (req, res, next) => {
       const newUser = {
         username,
         name,
-        password: hashedPassword
-
+        password: hashedPassword,
+        email
       };
       const createdUser = await User.create(newUser);
       req.session.currentUser = createdUser;
@@ -125,9 +125,11 @@ router.get('/google-credentials', async (req, res, next) => {
       email: userData.email,
       googleUser: true
     };
-    const user = await User.find({ $and: [{ username: userData.email }, { password: hashedPassword }] });
+    const user = await User.find({ $and: [{ username: userData.email }, { email: userData.email }] });
+    console.log(user);
+
     if (user.length) {
-      req.session.currentUser = user;
+      req.session.currentUser = user[0];
     } else {
       const createdUser = await User.create(newUser);
       req.session.currentUser = createdUser;
