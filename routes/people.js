@@ -76,9 +76,26 @@ router.post('/delete-people', requireLogged, async (req, res, next) => {
   const { guestId, eventId } = req.body;
 
   try {
-    const event = await Events.findById(eventId);
+    const event = await Events.findById(eventId).populate('items');
+    const user = await User.findById(guestId);
+    event.items.forEach(item => {
+      let itemName = item.name;
+      item.carriers.forEach(async carrier => {
+        try {
+          if (carrier.user.equals(user._id)) {
+            const finalQuantity = carrier.quantity + item.quantity;
+            const itemData = await Items.find({ $and: [{ 'name': itemName }, { event }] }).lean();
+            const filteredCarriers = itemData[0].carriers.filter(carrier => !carrier.user.equals(user._id));
+            await Items.findOneAndUpdate({ $and: [{ 'name': itemName }, { event }] }, { $set: { 'quantity': finalQuantity, 'carriers': filteredCarriers } });
+          }
+        } catch (err) {
+          next(err);
+        }
+      });
+    });
+
     const filteredAttendees = event.attendees.filter(attendee => !attendee._id.equals(guestId));
-    const eventUpdate = await Events.findByIdAndUpdate(eventId, { attendees: filteredAttendees }, { new: true });
+    const updatedEvent = await Events.findByIdAndUpdate(eventId, { attendees: filteredAttendees }, { new: true });
     res.redirect(`/events/${eventId}`);
   } catch (err) {
     next(err);
@@ -94,7 +111,7 @@ router.post('/leave-event', requireLogged, async (req, res, next) => {
       let itemName = item.name;
       item.carriers.forEach(async carrier => {
         try {
-          if (carrier.user == user._id) {
+          if (carrier.user.equals(user._id)) {
             const finalQuantity = carrier.quantity + item.quantity;
             const itemData = await Items.find({ $and: [{ 'name': itemName }, { event }] }).lean();
             const filteredCarriers = itemData[0].carriers.filter(carrier => !carrier.user.equals(user._id));
