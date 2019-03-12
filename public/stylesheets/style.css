@@ -646,9 +646,10 @@ justify-content: center;
   background: green;
 }
 
-.visibility {
-  visibility: hidden;
+.google {
+  width: 300px;
 }
+
 /* 
 .info-box {
   height: 100px;
