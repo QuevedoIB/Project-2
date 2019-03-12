@@ -36,7 +36,6 @@ const mainMap = () => {
           })
           .then(function (myJson) {
             let directions = myJson;
-            console.log(directions);
             const kms = directions.routes[0].distance / 1000;
             const twoDecDistance = Math.round((kms) * 100) / 100;
             document.getElementById('distance-location').innerText = `${twoDecDistance} km away of the event`;

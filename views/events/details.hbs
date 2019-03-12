@@ -16,15 +16,16 @@
 <div id="map">
 
 </div>
-<div class='info-box'>
-  <p>Draw your route using the draw tools (25 points max)</p>
-  <div id='calculated-line'></div>
-</div>
 
 <p class="description">{{event.description}}</p>
 
 {{#if isCreator}}
-<form action="/events/add-item" method="POST" class="add-item">
+<div class="add-buttons">
+  <button class="add submit">Add items</button>
+  <a class="add submit big" href="/people/{{event._id}}/list">Search people</a>
+</div>
+
+<form action="/events/add-item" method="POST" class="add-item" id="hide">
   <h3>Item</h3>
   <div class="field">
     <input type="text" name="name" id="item-name" placeholder="What item?">
@@ -34,7 +35,7 @@
   </div>
   <input type="hidden" value="{{event._id}}" name="event">
   <div class="field">
-    <button class="submit" type="submit">Add Item</button>
+    <button class="submit small-blue" type="submit">Add Item</button>
   </div>
 </form>
 {{/if}}
@@ -42,17 +43,22 @@
 {{> flash}}
 
 {{#if event.items}}
+
+
 <ul class="event-items">
+  <h3 class="item-list">Item List</h3>
   {{#each event.items}}
   {{#if this.status}}
-  <li>Quantity: {{this.quantity}} Item: {{this.name}} Status: {{this.status}}</li>
-  <form action="/events/take-item" id="carry-form" method="POST">
-    <input type="hidden" name="event" value="{{../event._id}}">
-    <label for="quantity">Quantity: </label>
-    <input type="number" name="quantity" value="1">
-    <input type="hidden" name="name" value="{{this.name}}">
-    <button type="submit">Carry Item</button>
-  </form>
+  <div class="item-flex">
+    <li><span class="blue">{{this.quantity}}</span> {{this.name}}</li>
+    <form action="/events/take-item" id="carry-form" method="POST">
+      <input type="hidden" name="event" value="{{../event._id}}">
+      <input type="number" name="quantity" value="1" placeholder="quantity">
+      <input type="hidden" name="name" value="{{this.name}}">
+      <button class="submit small-blue" type="submit">Carry Item</button>
+    </form>
+  </div>
+
   {{/if}}
   {{/each}}
 </ul>
@@ -79,7 +85,7 @@
 </ul>
 
 
-<a href="/people/{{event._id}}/list">Search people</a>
+
 
 {{#if isCreator}}
 <form action="/events/delete-event" method="POST">
@@ -88,14 +94,13 @@
 </form>
 {{/if}}
 
-<a href="/profile">My profile</a>
-
 <form action="/people/leave-event" method="POST">
-
   <input type="hidden" value="{{event._id}}" name="id">
   <button type="submit">Leave event</button>
 </form>
 
+
+<script src="/javascripts/form.js"></script>
 <script src="/javascripts/carrying-list.js"></script>
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="/javascripts/date.js"></script>

@@ -172,4 +172,51 @@ router.post('/delete-event', requireLogged, async (req, res, next) => {
   }
 });
 
+// ---------------------------------------------------
+
+router.get('/:id/send-email', requireLogged, async (req, res, next) => {
+  const { id } = req.params;
+  const currentUser = req.session.currentUser;
+  try {
+    const event = await Events.findById(id).populate('attendees');
+    res.render('events/send-email', { event, currentUser });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/:id/send-email', requireLogged, async (req, res, next) => {
+  const { id } = req.params;
+  const currentUser = req.session.currentUser;
+  const { subject, message } = req.body;
+  try {
+    const event = await Events.findById(id).populate('attendees');
+    const attend = event.attendees;
+    let mails = [];
+    attend.forEach((att) => {
+      mails.push(att.email);
+    });
+    /// ////////send email ////////////////
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'ironsugarkane@gmail.com',
+        pass: 'kanesugar1!'
+      }
+    });
+    transporter.sendMail({
+      from: 'Esplit project - pending invitation',
+      to: mails,
+      subject: subject,
+      html: `<p>${message}</p><p><a href="http://localhost:3000/">Click here</a></p>`
+    })
+      .then(info => console.log(info))
+      .catch(error => console.log(error));
+
+    res.redirect(`/events/${id}`);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

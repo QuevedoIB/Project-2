@@ -193,17 +193,6 @@ justify-content: center;
     background-color:white;
     }
  
-    meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-    meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-    meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-    meter[value="4"]::-webkit-meter-optimum-value { background: green; }
- 
-    /* Gecko based browsers */
-    meter[value="1"]::-moz-meter-bar { background: red; }
-    meter[value="2"]::-moz-meter-bar { background: yellow; }
-    meter[value="3"]::-moz-meter-bar { background: orange; }
-    meter[value="4"]::-moz-meter-bar { background: green; }
- 
     .header {
      background-image: url("/images/trianglify.png");
      height: 30%;
@@ -372,7 +361,6 @@ justify-content: center;
     .big {
       width: 35%;
     }
- 
  
     #map {
       height: 50vh;
@@ -559,17 +547,18 @@ justify-content: center;
         right: 10%;
         text-align: right;
     }
-
+ 
+ 
     #trigger, #burger, #burger:before, #burger:after {
       position: absolute;
-      top: 25px;
-      left: 25px;
-      background: #03A9F4;
+      top: 10px;
+      left: 10px;
+      background: #4E96BA;
       width: 30px;
-      height: 5px;
+      height: 4px;
       transition: .2s ease;
       cursor: pointer;
-      z-index: 1;
+      z-index: 10;
   }
   #trigger {
       height: 10px;
@@ -608,13 +597,14 @@ justify-content: center;
   #menu {
       position: absolute;
       margin: 0; padding: 0;
-      width: 100px;
-      height: 50px;
-      /* background-color: #fff;
+      width: 70px;
+      height: 60px;
+      background-color: white;
       border-bottom-right-radius: 100%;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.26); */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.26);
       animation: not-checked-anim .2s both;
       transition: .2s;
+      z-index: 9;
   }
   #menu-toggle:checked + #trigger + #burger + #menu {
       animation: checked-anim 1s ease both;
@@ -624,6 +614,10 @@ justify-content: center;
   }
   [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
       display: none;
+  }
+ 
+  .index {
+    padding-top: 100px;
   }
 
 
@@ -642,3 +636,17 @@ justify-content: center;
 .green-bg {
   background: green;
 }
+/* 
+.info-box {
+  height: 100px;
+  width: 150px;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, .9);
+  padding: 15px;
+  text-align: left;
+  font-family: 'Arial';
+  margin: 0;
+  font-size: 13px;
+} */
