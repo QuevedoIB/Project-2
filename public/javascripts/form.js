@@ -1,5 +1,4 @@
 'use strict';
-
 const mainForm = () => {
   const displayTab = (event, button) => {
     const selectedForm = document.querySelector('.add-item');
@@ -10,5 +9,4 @@ const mainForm = () => {
     displayTab(event, selectedButton);
   });
 };
-
 window.addEventListener('load', mainForm);
