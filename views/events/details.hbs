@@ -1,6 +1,8 @@
 <section class="header event">
   <h2>{{event.name}}</h2>
+  {{#if event.imageUrl}}
   <img class="event-picture" src="{{event.imageUrl}}" />
+  {{/if}}
   <i class="far fa-calendar-alt">
     <p class="date inline">{{event.date}}</p>
   </i>
@@ -89,17 +91,16 @@
 
 
 {{#if isCreator}}
-<form action="/events/delete-event" method="POST">
+<form class="container" action="/events/delete-event" method="POST">
   <input type="hidden" name="event" value="{{event._id}}">
-  <button type="submit">Delete Event</button>
+  <button class="small-blue submit" type="submit">Delete Event</button>
+</form>
+{{else}}
+<form class="container" action="/people/leave-event" method="POST">
+  <input type="hidden" value="{{event._id}}" name="id">
+  <button class="small-blue submit" type="submit">Leave event</button>
 </form>
 {{/if}}
-
-<form action="/people/leave-event" method="POST">
-  <input type="hidden" value="{{event._id}}" name="id">
-  <button type="submit">Leave event</button>
-</form>
-
 
 <script src="/javascripts/form.js"></script>
 <script src="/javascripts/carrying-list.js"></script>

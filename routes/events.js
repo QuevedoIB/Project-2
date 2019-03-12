@@ -8,7 +8,7 @@ const Items = require('../models/Items');
 const ObjectId = require('mongodb').ObjectID;
 const parser = require('../helpers/file-upload');
 
-const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
+const { requireLogged } = require('../middlewares/auth');
 
 router.get('/', requireLogged, async (req, res, next) => {
   const user = req.session.currentUser;
@@ -19,6 +19,35 @@ router.get('/', requireLogged, async (req, res, next) => {
     const finished = await Events.find({ date: { $lt: currentDate } });
     const events = { owned, participating, finished };
     res.render('events/list', { events, user });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/search-event', requireLogged, async (req, res, next) => {
+  const { name } = req.query;
+
+  try {
+    const eventsSearched = await Events.find({ $or: [{ name: name }, { username: name }] });
+    if (!eventsSearched) {
+      const data = {
+        messages: req.flash('validation')
+      };
+      req.flash('validation', 'Incorrect user');
+      res.redirect('/events', data);
+      return;
+    }
+
+    console.log(eventsSearched._id);
+
+    const user = req.session.currentUser;
+    const currentDate = new Date().toISOString();
+    const owned = await Events.find({ owner: user._id });
+    const participating = await Events.find({ attendees: { '$in': [user._id] } });
+    const finished = await Events.find({ date: { $lt: currentDate } });
+    const events = { owned, participating, finished };
+
+    res.render('events/list', { events, user, eventsSearched });
   } catch (err) {
     next(err);
   }

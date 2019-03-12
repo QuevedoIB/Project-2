@@ -424,11 +424,17 @@ justify-content: center;
     }
  
     .small-blue {
-      background: #00CAC4;
+      /* background: #00CAC4; */
       width: 30%;
       height: 30px;
       font-size: 14px;
       display: inline-block;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
  
     .profile-edit a{
