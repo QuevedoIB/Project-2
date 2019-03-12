@@ -7,7 +7,11 @@ const mainMap = () => {
     navigator.geolocation.getCurrentPosition(hasLocation, error);
   }
 
-  function hasLocation(position) {
+  function error (error) {
+    console.log(`There was an error: ${error} `);
+  }
+
+  function hasLocation (position) {
     let coords;
 
     const locationElement = document.getElementById('location');
@@ -25,9 +29,18 @@ const mainMap = () => {
       })
       .then(function (myJson) {
         eventLocation = myJson.features[0].center;
-        console.log(coords[0], coords[1], eventLocation[0], eventLocation[1]);
-        distance(coords[0], coords[1], eventLocation[0], eventLocation[1]);
-        getDistanceFromLatLonInKm(coords[0], coords[1], eventLocation[0], eventLocation[1]);
+        // distance(coords[0], coords[1], eventLocation[0], eventLocation[1]);
+        fetch(`https://api.mapbox.com/directions/v5/mapbox/cycling/${longitude},${latitude};${eventLocation[0]},${eventLocation[1]}?access_token=pk.eyJ1IjoiaXZhbm1hcHMiLCJhIjoiY2pzeDNkZHo0MGU2ZjQ1bzV3ZGExNXRmMCJ9.Yc4_1JYlXjBEZ-mXzuETgA`)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (myJson) {
+            let directions = myJson;
+            const kms = directions.routes[0].distance / 1000;
+            const twoDecDistance = Math.round((kms) * 100) / 100;
+            document.getElementById('distance-location').innerText = `${twoDecDistance} km away of the event`;
+            console.log(directions.routes[0].distance);
+          });
       });
 
     const mapDiv = document.getElementById('map');
@@ -100,30 +113,55 @@ const mainMap = () => {
           }
         });
       });
+      map.addLayer({
+        'id': 'route',
+        'type': 'line',
+        'source': {
+          'type': 'geojson',
+          'data': {
+            'type': 'Feature',
+            'properties': {},
+            'geometry': {
+              'type': 'LineString',
+              'coordinates': [
+                coords,
+                eventLocation
+              ]
+            }
+          }
+        },
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        'paint': {
+          'line-color': '#888',
+          'line-width': 8
+        }
+      });
     });
 
-    function distance(lat1, lon1, lat2, lon2) {
-      var p = 0.017453292519943295; // Math.PI / 180
-      var c = Math.cos;
-      var a = 0.5 - c((lat2 - lat1) * p) / 2 +
-        c(lat1 * p) * c(lat2 * p) *
-        (1 - c((lon2 - lon1) * p)) / 2;
+    // function distance (lat1, lon1, lat2, lon2) {
+    //   var p = 0.017453292519943295; // Math.PI / 180
+    //   var c = Math.cos;
+    //   var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+    //     c(lat1 * p) * c(lat2 * p) *
+    //     (1 - c((lon2 - lon1) * p)) / 2;
 
-      const answer = Math.round((12742 * Math.asin(Math.sqrt(a))) * 100) / 100;// 2 * R; R = 6371 km
+    //   const answer = Math.round((12742 * Math.asin(Math.sqrt(a))) * 100) / 100;// 2 * R; R = 6371 km
 
-      document.getElementById('distance-location').innerText = `${answer} km away of the event`;
-    }
+    //   document.getElementById('distance-location').innerText = `${answer} km away of the event`;
+    // }
+
+    // -------------------------------------------------
 
     // base path = https://api.mapbox.com
     // request    = /geocoding/v5/{endpoint}/{search_text}.json
-
-    function error(error) {
-      console.log(`There was an error: ${error} `);
-    }
 
     // Cambiar el centro y el zoom del mapa para tu ubicación
     // Crear una ruta o añadir las coordernadas en el template usando elementos hidden
     // añadir un marker con la coordenadas de la tortilla
   };
+};
 
-  window.addEventListener('load', mainMap);
+window.addEventListener('load', mainMap);
