@@ -1,6 +1,22 @@
 'use strict';
 
 const mainMap = () => {
+  const mapIcon = document.getElementById('map-icon');
+  let mapElement = document.getElementById('map');
+
+  function showMap (mapElement) {
+    if (mapElement.classList.contains('map-height-none')) {
+      mapElement.classList.remove('map-height-none');
+      mapElement.classList.add('map-height');
+      console.log('hola');
+    } else {
+      mapElement.classList.remove('map-height');
+      mapElement.classList.add('map-height-none');
+    }
+  }
+
+  mapIcon.addEventListener('click', () => showMap(mapElement));
+
   if (!navigator.geolocation) {
     console.log('Geolocation is not supported by your browser');
   } else {
@@ -43,6 +59,7 @@ const mainMap = () => {
       });
 
     const mapDiv = document.getElementById('map');
+
     const map = new mapboxgl.Map({
       container: mapDiv,
       style: 'mapbox://styles/mapbox/streets-v11',

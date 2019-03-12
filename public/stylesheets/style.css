@@ -363,10 +363,19 @@ justify-content: center;
     }
  
     #map {
+      
+     }
+     
+     .map-height {
       height: 50vh;
       width: 100%;
-     }	    
- 
+     }
+
+     .map-height-none {
+      height: 0;
+      width: 0;
+     }
+
     .item-list {
       color: white;
       text-align: center;
@@ -635,6 +644,10 @@ justify-content: center;
 
 .green-bg {
   background: green;
+}
+
+.visibility {
+  visibility: hidden;
 }
 /* 
 .info-box {
