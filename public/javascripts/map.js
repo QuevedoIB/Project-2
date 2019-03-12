@@ -30,16 +30,16 @@ const mainMap = () => {
       .then(function (myJson) {
         eventLocation = myJson.features[0].center;
         // distance(coords[0], coords[1], eventLocation[0], eventLocation[1]);
-        fetch(`https://api.mapbox.com/directions/v5/mapbox/cycling/${longitude},${latitude};${eventLocation[0]},${eventLocation[1]}?access_token=pk.eyJ1IjoiaXZhbm1hcHMiLCJhIjoiY2pzeDNkZHo0MGU2ZjQ1bzV3ZGExNXRmMCJ9.Yc4_1JYlXjBEZ-mXzuETgA`)
+        fetch(`https://api.mapbox.com/directions/v5/mapbox/cycling/${longitude},${latitude};${eventLocation[0]},${eventLocation[1]}?steps=true&voice_instructions=true&banner_instructions=true&voice_units=imperial&waypoint_names=Home;Work&access_token=pk.eyJ1IjoiaXZhbm1hcHMiLCJhIjoiY2pzeDNkZHo0MGU2ZjQ1bzV3ZGExNXRmMCJ9.Yc4_1JYlXjBEZ-mXzuETgA`)
           .then(function (response) {
             return response.json();
           })
           .then(function (myJson) {
             let directions = myJson;
+            console.log(directions);
             const kms = directions.routes[0].distance / 1000;
             const twoDecDistance = Math.round((kms) * 100) / 100;
             document.getElementById('distance-location').innerText = `${twoDecDistance} km away of the event`;
-            console.log(directions.routes[0].distance);
           });
       });
 
