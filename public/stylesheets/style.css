@@ -1,38 +1,424 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+padding: 0;
+margin: 0;
+font-family: 'Lato', sans-serif;
+height: 100%;
+font-size: 16px;
+background: #EEEEEE;
+}
+
+html {
+ height: 100%;
+}
+
+html {
+ box-sizing: border-box;
+}
+
+*,* :before, *:after {
+ box-sizing: inherit;
+}
+
+footer {
+ position: fixed;
+ bottom: 0;
+ background-color: white;
+ width: 100%;
+ height: 50px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.logs a {
+ margin-right: 5px;
+ text-decoration: none;
+}
+
+.logs a:hover{
+ text-decoration: underline;
+ font-size: 20px;
 }
 
 a {
-  color: #00B7FF;
+color: #00B7FF;
+}
+
+a.submit {
+ color: white;
+ text-decoration: none;
 }
 
 h2 {
+-webkit-user-select: none; /* webkit (safari, chrome) browsers */
+-moz-user-select: none; /* mozilla browsers */
+-khtml-user-select: none; /* webkit (konqueror) browsers */
+-ms-user-select: none; /* IE10+ */
+}
+
+.show {
+display: contents;
+}
+
+.hide {
+display: none;
+}
+
+#owned-tab {
+padding: 5px;
+border: 1px solid black;
+}
+
+#participating-tab {
+padding: 5px;
+border: 1px solid black;
+}
+
+#finished-tab {
+padding: 5px;
+border: 1px solid black;
+}
+
+.auth {
+background-image: url('/images/login.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+width: 100%;
+height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+.form {
+  width: 70%;
+  }
+  
+  .field {
+  width: 100%;
+  height: 52px;
+  margin-bottom: 30px;
+  }
+  
+  input{
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 30px;
+  background-color: #EAEAEA;
+  display: block;
+  padding: 0 10%;
+  }
+  
+  input::placeholder {
+  color: #9c9797;
+  font-size: 16px;
+  }
+  
+  .submit {
+  width: 100%;
+  height: 52px;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 30px;
+  background-color: #4E96BA;
+  color: white;
+  font-size: 25px;
+  }
+  
+  h2 {
   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
   -moz-user-select: none; /* mozilla browsers */
   -khtml-user-select: none; /* webkit (konqueror) browsers */
   -ms-user-select: none; /* IE10+ */
-}
-
-.show {
+  }
+  
+  li {
+   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+   -moz-user-select: none; /* mozilla browsers */
+   -khtml-user-select: none; /* webkit (konqueror) browsers */
+   -ms-user-select: none; /* IE10+ */
+  }
+  
+  .show {
   display: contents;
-}
-
-.hide {
+  }
+  
+  .hide {
   display: none;
-}
-
-#owned-tab {
+  }
+  
+  #owned-tab {
   padding: 5px;
   border: 1px solid black;
-}
-
-#participating-tab {
+  }
+  
+  #participating-tab {
   padding: 5px;
   border: 1px solid black;
-}
-
-#finished-tab {
+  }
+  
+  #finished-tab {
   padding: 5px;
   border: 1px solid black;
-}
+  }
+
+  meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    
+    margin: 0 auto 1em;
+    width: 100%;
+    height: 50px;
+    
+    /* Applicable only to Firefox */
+    background: none;
+    background-color:white;
+    }
+    
+    meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+    meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+    meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+    meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+    
+    /* Gecko based browsers */
+    meter[value="1"]::-moz-meter-bar { background: red; }
+    meter[value="2"]::-moz-meter-bar { background: yellow; }
+    meter[value="3"]::-moz-meter-bar { background: orange; }
+    meter[value="4"]::-moz-meter-bar { background: green; }
+    
+    .header {
+     background-image: url("/images/trianglify.png");
+     height: 30%;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     background-size: cover;
+     background-repeat: no-repeat;
+    }
+    
+    .profile {
+     width: 100px;
+     height: 100px;
+     border-radius: 100%;
+    }
+    
+    .header p {
+     font-size: 20px;
+     color: white;
+    }
+    
+    .profile-footer {
+     position: absolute;
+     bottom: 50px;
+    }
+    
+    .profile-buttons {
+     width: 70%;
+     height: 55%;
+     margin: 0 auto;
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     align-items: center;
+    }
+    
+    .profile-buttons div {
+     width: 100%;
+    }
+    
+    .profile-buttons a {
+     display: flex;
+     width: 100%;
+     align-items: center;
+     justify-content: center;
+     height: 62px;
+     font-size: 20px;
+    }
+    
+    .new {
+     background-image: url("/images/team.jpg");
+    }
+    
+    input.white {
+     background: white;
+     height: 45px;
+     font-size: 12px;
+    }
+    
+    .profile-buttons div.field{
+     margin-bottom: 10px;
+    }
+    
+    .profile-buttons .form {
+     margin-top: 30px;
+    }
+    
+    .inline {
+     display: inline-block;
+     margin-right: 20px;
+     margin-left: 10px;
+    }
+    
+    footer img {
+     width: 10%;
+    }
+    
+    .next {
+     margin-left: 10px;
+    }
+    
+    .event-description {
+     width: 70%;
+     height: 50px;
+     margin: 0 auto;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+    }
+    
+    .description {
+     text-align: center;
+     margin: 0;
+    }
+    
+    .items {
+     display: flex;
+    }
+    
+    form.add-item {
+     width: 70%;
+     margin: 20px auto;
+     border-radius: 10px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     background: white;
+    }
+    
+    form.add-item div {
+     width: 50%;
+    }
+    
+    form.add-item div {
+     margin-bottom: 5px;
+    }
+    
+    .add-item input {
+     width: 100%;
+     height: 30px;
+     margin: 0 auto;
+    }
+    
+    .add-item input::placeholder {
+     font-size: 12px;
+    }
+    
+    .add-item h3 {
+     color: black;
+     margin-right: 10px;
+    }
+    
+    .add-item button {
+     width: 100%;
+     height: 30px;
+     margin: 0 auto;
+     font-size: 14px;
+    }
+    
+    .event-items {
+    
+    }
+    
+    #map {
+     height: 500px;
+     width: 500px;
+    }
+
+
+
+
+
+  /* ----------------------- */
+
+
+
+
+
+    #events {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+      background: #00CAC4;
+      color: white;
+      }
+      
+      #owned-tab {
+      padding: 5px;
+      border: 1px solid rgb(145, 228, 228);
+      width: 33.33%;
+      text-align: center;
+      }
+      
+      #participating-tab {
+      padding: 5px;
+      border: 1px solid rgb(145, 228, 228);
+      width: 33.33%;
+      text-align: center;
+      }
+      
+      #finished-tab {
+      padding: 5px;
+      border: 1px solid rgb(145, 228, 228);
+      width: 33.33%;
+      text-align: center;
+      }
+      
+      #owned-tab h2,#participating-tab h2,#finished-tab h2 {
+      font-size: 0.9em;
+      }
+      
+      .show-events {
+        height: 20%;
+        margin: 100px;
+        overflow: scroll;
+      }
+      
+      #owned-events li, #participating-events li, #finished-events li {
+      list-style-type: none;
+      padding-bottom: 10px;
+      }
+      
+      #owned-events a, #participating-events a, #finished-events a {
+      text-decoration: none;
+      color: black;
+      }
+      
+      .list-new-button {
+      display: flex;
+      justify-content: center;
+      }
+      
+      .list-new-event-button {
+      padding: 15px 50px;
+      background: #4E96BA;
+      color: white;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 1.2;
+      font-weight: bolder;
+      text-align: center;
+      }
+      
+      .event {
+       background-image: url("/images/male-friends.jpg")
+      }

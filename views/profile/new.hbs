@@ -1,31 +1,26 @@
-<div class="form">
-  <h2>Add an event!</h2>
+<section class="header new">
+</section>
+<section class="profile-buttons">
+  <div class="form">
+    <form method="POST" action="/events/add">
+      <div class="field">
+        <input class="white" type="text" name="name" placeholder="Name:" />
+      </div>
+      <div class="field">
+        <input class="white" type="text" name="description" placeholder="Description:" />
+      </div>
+      <div class="field">
+        <input class="white" type="text" name="location" placeholder="Location:" />
+      </div>
+      <div class="field">
+        <input class="white" type="date" name="date" />
+      </div>
 
-  <form method="POST" action="/events/add">
+      {{> flash}}
 
-    <div class="field">
-      <label>Name</label>
-      <input type="text" name="name" />
-    </div>
-
-    <div class="field">
-      <label>Description</label>
-      <input type="text" name="description" />
-    </div>
-
-    <div class="field">
-      <label>Location</label>
-      <input type="text" name="location" />
-    </div>
-
-    <div class="field">
-      <label>Date</label>
-      <input type="Date" name="date" />
-    </div>
-
-    <div class="field submit">
-      <button type="submit">Create event</button>
-    </div>
-
-  </form>
-</div>
+      <div class="field">
+        <button class="submit" type="submit">Create event</button>
+      </div>
+    </form>
+  </div>
+</section>

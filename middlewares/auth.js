@@ -4,7 +4,7 @@ module.exports = {
   requireFieldsSignUp (req, res, next) {
     const { username, password, name } = req.body;
     if (!username || !password || !name) {
-      // flash (make sure you have all the fields)
+      req.flash('validation', 'Missing fields');
       res.redirect(`/auth/${req.path}`);
       return;
     }
@@ -13,7 +13,7 @@ module.exports = {
   requireFieldsLogIn (req, res, next) {
     const { username, password } = req.body;
     if (!username || !password) {
-      // flash (make sure you have all the fields)
+      req.flash('validation', 'Missing fields');
       res.redirect(`/auth/${req.path}`);
       return;
     }

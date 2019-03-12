@@ -1,44 +1,101 @@
-<h1>Event details page</h1>
+<section class="header event">
+  <h2>{{event.name}}</h2>
+  <i class="far fa-calendar-alt">
+    <p class="date inline">{{event.date}}</p>
+  </i>
+</section>
 
-<h2>{{name}}</h2>
+<div class="event-description">
+  <i class="fas fa-user-shield"></i>
+  <h3 class="inline">{{event.owner.name}}</h3>
+  <i class="fas fa-map-marker-alt"></i>
+  <p class="inline">{{event.location}}</p>
+</div>
 
-<h3>Creator: {{owner.name}}</h3>
+{{!-- <div id="map">
 
-<p>{{location}}</p>
+</div> --}}
 
-<p>{{date}}</p>
+<p class="description">{{event.description}}</p>
 
-<p>{{description}}</p>
-
-<a href="/profile">My profile</a>
-
-<form action="/events/add-item" method="POST">
-  <label for="item-name">Item: </label>
-  <input type="text" name="itemName" id="item-name">
-  <label for="item-quantity">Quantity</label>
-  <input type="number" name="itemQuantity" id="item-quantity">
-  <input type="hidden" value="{{_id}}" name="id">
-  <button type="submit">Add Item</button>
+{{#if isCreator}}
+<form action="/events/add-item" method="POST" class="add-item">
+  <h3>Item</h3>
+  <div class="field">
+    <input type="text" name="name" id="item-name" placeholder="What item?">
+  </div>
+  <div class="field">
+    <input type="number" name="quantity" id="item-quantity" placeholder="How many?">
+  </div>
+  <input type="hidden" value="{{event._id}}" name="event">
+  <div class="field">
+    <button class="submit" type="submit">Add Item</button>
+  </div>
 </form>
+{{/if}}
 
+{{> flash}}
 
-<ul>
-  {{#each items}}
-  <li>{{this.quantity}}</li>
-  <form action="/take-item" method="POST"></form>
-  <button type="submit">Carry Item</button>
+{{#if event.items}}
+<ul class="event-items">
+  {{#each event.items}}
+  {{#if this.status}}
+  <li>Quantity: {{this.quantity}} Item: {{this.name}} Status: {{this.status}}</li>
+  <form action="/events/take-item" id="carry-form" method="POST">
+    <input type="hidden" name="event" value="{{../event._id}}">
+    <label for="quantity">Quantity: </label>
+    <input type="number" name="quantity" value="1">
+    <input type="hidden" name="name" value="{{this.name}}">
+    <button type="submit">Carry Item</button>
+  </form>
+  {{/if}}
   {{/each}}
 </ul>
+{{/if}}
 
 <ul>
-  {{#each attendees}}
-  <li>{{this.username}}</li>
+  {{#each event.attendees}}
+  <li>
+    <ul class="attendees">{{this.username}}
+      {{#each items}}
+      <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
+      {{/each}}
+    </ul>
+  </li>
+
+  {{#if ../isCreator}}
   <form action="/people/delete-people" method="POST">
-    <input type="hidden" value="{{../_id}}" name="eventId">
+    <input type="hidden" value="{{../event._id}}" name="eventId">
     <input type="hidden" value="{{_id}}" name="guestId">
     <button type="submit">Remove user</button>
   </form>
+  {{/if}}
   {{/each}}
 </ul>
 
-<a href="/people/{{_id}}/list">Search people</a>
+
+<a href="/people/{{event._id}}/list">Search people</a>
+
+{{#if isCreator}}
+<form action="/events/delete-event" method="POST">
+  <input type="hidden" name="event" value="{{event._id}}">
+  <button type="submit">Delete Event</button>
+</form>
+{{/if}}
+
+<a href="/profile">My profile</a>
+
+<form action="/people/leave-event" method="POST">
+
+  <input type="hidden" value="{{event._id}}" name="id">
+  <button type="submit">Leave event</button>
+</form>
+
+<script src="/javascripts/carrying-list.js"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="/javascripts/date.js"></script>
+
+{{!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+
+<script src="/javascripts/map.js"></script> --}}

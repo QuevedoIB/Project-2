@@ -1,26 +1,35 @@
-<div class="form">
-  <h2>Sign Up</h2>
+<section class="auth">
+  <div class="form">
 
-  <form method="POST" action="/auth/signup">
+    <form method="POST" action="/auth/signup">
 
-    <div class="field" >
-      <label>Username</label>
-      <input type="text" name="username"/>
-    </div>
+      <div class="field">
+        <input type="text" name="username" placeholder="username:" />
+      </div>
 
-    <div class="field" >
-      <label>Name</label>
-      <input type="text" name="name"/>
-    </div>
+      <div class="field">
+        <input type="text" name="name" placeholder="name:" />
+      </div>
 
-    <div class="field" >
-      <label>Password</label>
-      <input type="password" name="password"/>
-    </div>
+      <div class="field">
+        <input type="text" name="email" placeholder="Email:" />
+      </div>
 
-    <div class="field submit">
-      <button type="submit">Sign Up</button>
-    </div>
+      <div class="field">
+        <input type="password" name="password" placeholder="Password:" id="pass" />
+      </div>
 
-  </form>
- </div>
+      <meter max="4" id="password-strength-meter">
+        <p id="password-strength-text"></p>
+      </meter>
+      <div class="field">
+        <button class="submit" type="submit">Sign Up</button>
+      </div>
+
+    </form>
+  </div>
+  {{> flash}}
+</section>
+
+<script src="/javascripts/password-strength.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
