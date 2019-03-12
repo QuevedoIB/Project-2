@@ -22,6 +22,10 @@ html {
  box-sizing: inherit;
 }
 
+h2, h3, p {
+  color: rgba(0,0,0,0.8);
+}
+
 footer {
  position: fixed;
  bottom: 0;
@@ -128,6 +132,9 @@ justify-content: center;
   background-color: #4E96BA;
   color: white;
   font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   }
   
   h2 {
@@ -150,6 +157,10 @@ justify-content: center;
   
   .hide {
   display: none;
+  }
+
+  form#hide {
+    display: none;
   }
   
   #owned-tab {
@@ -215,10 +226,10 @@ justify-content: center;
      color: white;
     }
     
-    .profile-footer {
+    /* .profile-footer {
      position: absolute;
      bottom: 50px;
-    }
+    } */
     
     .profile-buttons {
      width: 70%;
@@ -292,8 +303,22 @@ justify-content: center;
     .items {
      display: flex;
     }
-    
-    form.add-item {
+
+    .add-buttons {
+      display: flex;
+      justify-content: center;      
+      margin-top: 20px;      
+    }
+
+    .add {
+      margin-left: 20px;
+      width: 30%;
+      height: 40px;
+      font-size: 14px;      
+    }
+
+      
+    form.add-item {      
      width: 70%;
      margin: 20px auto;
      border-radius: 10px;
@@ -301,8 +326,8 @@ justify-content: center;
      flex-direction: column;
      justify-content: center;
      align-items: center;
-     background: white;
-    }
+     background: white;        
+    }    
     
     form.add-item div {
      width: 50%;
@@ -322,26 +347,107 @@ justify-content: center;
      font-size: 12px;
     }
     
-    .add-item h3 {
-     color: black;
-     margin-right: 10px;
+    .add-item h3 {     
+     margin-right: 10px;     
     }
     
     .add-item button {
      width: 100%;
      height: 30px;
      margin: 0 auto;
-     font-size: 14px;
+     font-size: 14px;     
     }
     
     .event-items {
-    
+      background: rgba(0,0,0,0.8);
+      margin-top: 0;
+      padding: 10px 40px;
     }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .big {
+      width: 35%;
+    }
+    
     
     #map {
      height: 500px;
      width: 500px;
     }
+
+    .item-list {
+      color: white;   
+      text-align: center;   
+    }
+
+    ul.event-items {
+      list-style-type: none;
+      
+    }
+
+    ul.event-items li {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .blue {
+      color: #00CAC4;
+      margin-left: 20px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+  
+
+
+    ul.event-items li::before {
+      content: "\2022";  
+      color:white;    
+    }
+
+    .item-flex {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+     }
+
+    .item-flex input {
+      width: 20%;
+      display: inline-block;
+      margin-right: 20px;
+      height: 30px;
+      padding: 0 7.5%;
+    }
+
+    .small-blue {
+      background: #00CAC4;
+      width: 30%;
+      height: 30px;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .profile-edit a{
+      text-align: center;
+    }
+
+    .profile-edit {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      padding-right: 20px;
+    }
+
+    .profile-edit img {
+      width: 50px;      
+      height: 50px;
+      margin-left: 15px;
+    }
+   
+
 
 
 
@@ -385,6 +491,7 @@ justify-content: center;
       
       #owned-tab h2,#participating-tab h2,#finished-tab h2 {
       font-size: 0.9em;
+      color: white;
       }
       
       .show-events {
@@ -419,6 +526,123 @@ justify-content: center;
       text-align: center;
       }
       
-      .event {
-       background-image: url("/images/male-friends.jpg")
-      }
+    
+
+      /* -------------------------------- */
+
+      @keyframes checked-anim {
+        50% {
+            width: 3000px;
+            height: 3000px;
+        }
+        100% {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+    }
+    @keyframes not-checked-anim {
+        0% {
+            width: 3000px;
+            height: 3000px;
+        }
+    }
+    .li, .a {
+        margin: 75px 0 -55px 0;
+        color: #03A9F4;
+        font: 14pt "Roboto", sans-serif;
+        font-weight: 700;
+        line-height: 1.8;
+        text-decoration: none;
+        text-transform: none;
+        list-style: none;
+        outline: 0;
+        display: none;
+    }
+    .li {
+        width: 230px;
+        text-indent: 56px;}
+    .a:focus {
+        display: block;
+        color: #333;
+        background-color: #eee;
+        transition: all .5s;
+    }
+    aside {
+        position: absolute;
+        color: white;
+        top: 35%;
+        right: 10%;
+        text-align: right;
+    }
+
+
+    #trigger, #burger, #burger:before, #burger:after {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #4E96BA;
+      width: 30px;
+      height: 4px;
+      transition: .2s ease;
+      cursor: pointer;
+      z-index: 1;
+  }
+  #trigger {
+      height: 10px;
+      background: none;
+  }
+  #burger:before {
+      content: " ";
+      top: 10px;
+      left: 0;
+  }
+  #burger:after {
+      content: " ";
+      top: 20px;
+      left: 0;
+  }
+  #menu-toggle:checked + #trigger + #burger {
+      top: 35px;
+      transform: rotate(180deg);
+      transition: transform .2s ease;
+  }
+  
+  #menu-toggle:checked + #trigger + #burger:before {
+      width: 20px;
+      top: -2px;
+      left: 18px;
+      transform: rotate(45deg) translateX(-5px);
+      transition: transform .2s ease;
+  }
+  #menu-toggle:checked + #trigger + #burger:after {
+      width: 20px;
+      top: 2px;
+      left: 18px;
+      transform: rotate(-45deg) translateX(-5px);
+      transition: transform .2s ease;
+  }
+  #menu {
+      position: absolute;
+      margin: 0; padding: 0;
+      width: 70px;
+      height: 60px;
+      background-color: white;
+      border-bottom-right-radius: 100%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+      animation: not-checked-anim .2s both;
+      transition: .2s;
+  }
+  #menu-toggle:checked + #trigger + #burger + #menu {
+      animation: checked-anim 1s ease both;
+  }
+  #menu-toggle:checked + #trigger ~ #menu > .li, .a {
+      display: block;
+  }
+  [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+      display: none;
+  }
+
+  .index {
+    padding-top: 100px;
+  }
