@@ -2,7 +2,7 @@
 </section>
 <section class="profile-buttons">
   <div class="form">
-    <form method="POST" action="/events/add">
+    <form method="POST" action="/events/add" enctype="multipart/form-data">
       <div class="field">
         <input class="white" type="text" name="name" placeholder="Name:" />
       </div>
@@ -16,6 +16,13 @@
       <div class="field">
         <input class="white" type="date" name="date" />
       </div>
+
+      <div>
+        <label>Upload a picture</label>
+        <input class="input-file" type="file" name="image">
+      </div>
+
+
 
       {{> flash}}
 

@@ -6,6 +6,7 @@ const User = require('../models/User');
 const Events = require('../models/Events');
 const Items = require('../models/Items');
 const ObjectId = require('mongodb').ObjectID;
+const parser = require('../helpers/file-upload');
 
 const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
 
@@ -30,11 +31,11 @@ router.get('/new', requireLogged, (req, res, next) => {
   res.render('profile/new', data);
 });
 
-router.post('/add', async (req, res, next) => {
+router.post('/add', requireLogged, parser.single('image'), async (req, res, next) => {
   let owner = req.session.currentUser._id;
-
+  const imageUrl = req.file.url;
   const { name, description, location, date } = req.body;
-  const event = { owner, name, description, location, date };
+  const event = { owner, name, description, location, date, imageUrl };
   if (!owner || !name || !location || !date) {
     // required fields flash
     req.flash('validation', 'Missing fields');

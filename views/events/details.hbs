@@ -1,5 +1,6 @@
 <section class="header event">
   <h2>{{event.name}}</h2>
+  <img class="event-picture" src="{{event.imageUrl}}" />
   <i class="far fa-calendar-alt">
     <p class="date inline">{{event.date}}</p>
   </i>
@@ -10,8 +11,8 @@
   <h3 class="inline">{{event.owner.name}}</h3>
   <i id="map-icon" class="fas fa-map-marker-alt"></i>
   <p id="location" class="inline">{{event.location}}</p>
-  <p id="distance-location"></p>
 </div>
+<p id="distance-location"></p>
 
 
 <div id="map" class="map-height-none">

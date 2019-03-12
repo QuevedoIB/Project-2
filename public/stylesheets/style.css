@@ -274,9 +274,13 @@ justify-content: center;
      .next {
       margin-left: 10px;
      }
+
+     #distance-location {
+       text-align: center;
+     }
   
      .event-description {
-      width: 70%;
+      width: 80%;
       height: 50px;
       margin: 0 auto;
       display: flex;
@@ -650,17 +654,9 @@ justify-content: center;
   width: 300px;
 }
 
-/* 
-.info-box {
+.event-picture {
+  width: 100px;
   height: 100px;
-  width: 150px;
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  background-color: rgba(255, 255, 255, .9);
-  padding: 15px;
-  text-align: left;
-  font-family: 'Arial';
-  margin: 0;
-  font-size: 13px;
-} */
+  border-radius: 100%;
+}
+
