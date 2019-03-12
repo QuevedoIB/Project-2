@@ -7,7 +7,7 @@ const mainMap = () => {
     navigator.geolocation.getCurrentPosition(hasLocation, error);
   }
 
-  function hasLocation (position) {
+  function hasLocation(position) {
     let coords;
 
     const locationElement = document.getElementById('location');
@@ -25,6 +25,9 @@ const mainMap = () => {
       })
       .then(function (myJson) {
         eventLocation = myJson.features[0].center;
+        console.log(coords[0], coords[1], eventLocation[0], eventLocation[1]);
+        distance(coords[0], coords[1], eventLocation[0], eventLocation[1]);
+        getDistanceFromLatLonInKm(coords[0], coords[1], eventLocation[0], eventLocation[1]);
       });
 
     const mapDiv = document.getElementById('map');
@@ -98,18 +101,29 @@ const mainMap = () => {
         });
       });
     });
-  }
 
-  // base path = https://api.mapbox.com
-  // request    = /geocoding/v5/{endpoint}/{search_text}.json
+    function distance(lat1, lon1, lat2, lon2) {
+      var p = 0.017453292519943295; // Math.PI / 180
+      var c = Math.cos;
+      var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) *
+        (1 - c((lon2 - lon1) * p)) / 2;
 
-  function error (error) {
-    console.log(`There was an error: ${error}`);
-  }
+      const answer = Math.round((12742 * Math.asin(Math.sqrt(a))) * 100) / 100;// 2 * R; R = 6371 km
 
-  // Cambiar el centro y el zoom del mapa para tu ubicación
-  // Crear una ruta o añadir las coordernadas en el template usando elementos hidden
-  // añadir un marker con la coordenadas de la tortilla
-};
+      document.getElementById('distance-location').innerText = `${answer} km away of the event`;
+    }
 
-window.addEventListener('load', mainMap);
+    // base path = https://api.mapbox.com
+    // request    = /geocoding/v5/{endpoint}/{search_text}.json
+
+    function error(error) {
+      console.log(`There was an error: ${error} `);
+    }
+
+    // Cambiar el centro y el zoom del mapa para tu ubicación
+    // Crear una ruta o añadir las coordernadas en el template usando elementos hidden
+    // añadir un marker con la coordenadas de la tortilla
+  };
+
+  window.addEventListener('load', mainMap);

@@ -345,8 +345,8 @@ justify-content: center;
     }
     
     #map {
-     height: 500px;
-     width: 500px;
+     height: 50vh;
+     width: 100%;
     }
 
 
