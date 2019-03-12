@@ -37,9 +37,6 @@ router.get('/search-event', requireLogged, async (req, res, next) => {
       res.redirect('/events', data);
       return;
     }
-
-    console.log(eventsSearched._id);
-
     const user = req.session.currentUser;
     const currentDate = new Date().toISOString();
     const owned = await Events.find({ owner: user._id });
@@ -62,7 +59,10 @@ router.get('/new', requireLogged, (req, res, next) => {
 
 router.post('/add', requireLogged, parser.single('image'), async (req, res, next) => {
   let owner = req.session.currentUser._id;
-  const imageUrl = req.file.url;
+  let imageUrl;
+  if (req.file) {
+    let imageUrl = req.file.url;
+  }
   const { name, description, location, date } = req.body;
   const event = { owner, name, description, location, date, imageUrl };
   if (!owner || !name || !location || !date) {
