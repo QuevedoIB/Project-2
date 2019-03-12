@@ -9,12 +9,12 @@
   <i class="fas fa-user-shield"></i>
   <h3 class="inline">{{event.owner.name}}</h3>
   <i class="fas fa-map-marker-alt"></i>
-  <p class="inline">{{event.location}}</p>
+  <p id="location" class="inline">{{event.location}}</p>
 </div>
 
-{{!-- <div id="map">
+<div id="map">
 
-</div> --}}
+</div>
 
 <p class="description">{{event.description}}</p>
 
@@ -95,7 +95,11 @@
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="/javascripts/date.js"></script>
 
-{{!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet'
+  href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
 
-<script src="/javascripts/map.js"></script> --}}
+
+<script src="/javascripts/map.js"></script>

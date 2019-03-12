@@ -182,16 +182,22 @@ justify-content: center;
     background-color:white;
     }
     
-    meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-    meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-    meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-    meter[value="4"]::-webkit-meter-optimum-value { background: green; }
-    
-    /* Gecko based browsers */
-    meter[value="1"]::-moz-meter-bar { background: red; }
-    meter[value="2"]::-moz-meter-bar { background: yellow; }
-    meter[value="3"]::-moz-meter-bar { background: orange; }
-    meter[value="4"]::-moz-meter-bar { background: green; }
+   .red-bg {
+     background: red;
+   }
+
+   .yellow-bg {
+    background: yellow;
+  }
+   
+  .orange-bg {
+    background: orange;
+  }
+   
+  .green-bg {
+    background: green;
+  }
+   
     
     .header {
      background-image: url("/images/trianglify.png");
