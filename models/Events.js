@@ -44,7 +44,6 @@ const eventsSchema = new Schema({
       type: Date,
       default: Date.now
     }
-
   }]
 });
 
@@ -53,38 +52,3 @@ eventsSchema.index({ location: '2dsphere' });
 const Events = mongoose.model('Events', eventsSchema);
 
 module.exports = Events;
-
-// items: [{
-//   name: {
-//     type: String
-//   },
-//   quantity: {
-//     type: Number
-//   },
-//   status: {
-//     enum: ['taken', 'available']
-//   }
-// }]
-
-// items: [{
-//   name: {
-//     type: String
-//   },
-//   quantity: {
-//     type: Number
-//   },
-//   status: {
-//     enum: ['taken', 'available']
-//   }
-// }],
-// carriers: [{
-//   items: {
-//     type: String
-//   },
-//   carrier: {
-//     type: String
-//   },
-//   quantity: {
-//     type: Number
-//   }
-// }]
