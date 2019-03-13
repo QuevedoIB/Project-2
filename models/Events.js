@@ -34,7 +34,10 @@ const eventsSchema = new Schema({
     type: ObjectId,
     ref: 'Items'
   }],
-  imageUrl: String,
+  imageUrl: {
+    type: String,
+    default: 'http://www.so-events.at/SYSTEM/image_background/standard/background_02.jpg'
+  },
   comments: [{
     user: {
       type: String
@@ -43,7 +46,8 @@ const eventsSchema = new Schema({
     date: {
       type: Date,
       default: Date.now
-    }
+    },
+    userImage: String
   }]
 });
 

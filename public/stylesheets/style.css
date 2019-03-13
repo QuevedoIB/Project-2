@@ -924,3 +924,115 @@ h2 {
 .events-background {
   background: rgb(223, 219, 219);
 }
+
+.index {
+  background-image: url('/images/vector-collection-business-people_53876-44090.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: -78px;
+  padding-top: 70px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 20px 50px 20px;
+  font-family: 'Lato', sans-serif;
+}
+
+.slogan {
+  width: 90%;
+  font-size: 1.4em;
+  padding-left: 59px;
+  color: rgb(46, 52, 71);
+}
+
+.esplit {
+  font-size: 5em;
+  font-weight: bolder;
+  font-family: 'Neucha', 'Lato', sans-serif;
+  margin-top: 20px;
+  color: rgb(46, 52, 71);
+  padding-left: 21px;
+}
+
+.footer-index {
+  position: absolute;
+  bottom: 60px;
+  margin-left: 94px
+}
+
+.event-picture {
+  height: 30%;
+  width: 100%;
+  border-radius: 0;
+  position: absolute;
+  margin-bottom: 50px;
+  z-index: 0;
+ }
+
+.event-description {
+  margin-top: 35%;
+}
+
+.event-owner {
+  z-index: 3;
+  position: relative;
+  background: rgba(225,225,225,0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  top: 60px;
+  left: 40px;
+  width: 80%;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.comments h3 {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.each-comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+img.user-image {
+  width: 12%;
+  border-radius: 100%;
+  height: 12%;
+}
+
+.comment-text {
+  margin-left: 20px;
+  background: white;
+  box-shadow: 2px 2px #9c9797;
+  border-radius: 18px;
+  padding: 0 20px;
+
+}
+
+.comment-text p {
+  font-size: 14px;
+}
+
+.coment-form {
+  width: 50%;
+  margin: 0 auto;
+}

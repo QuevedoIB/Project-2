@@ -1,11 +1,11 @@
-<section class="header event">
-  <h2>{{event.name}}</h2>
-  {{#if event.imageUrl}}
-  <img class="event-picture" src="{{event.imageUrl}}" alt="event image" />
-  {{/if}}
-  <i class="far fa-calendar-alt">
-    <p class="date inline">{{event.date}}</p>
-  </i>
+<img class="event-picture" src="{{event.imageUrl}}" alt="event image" />
+<section class="event-banner">
+  <div class="event-owner">
+    <h2>{{event.name}}</h2>
+    <i class="far fa-calendar-alt">
+      <p class="date inline">{{event.date}}</p>
+    </i>
+  </div>
 </section>
 
 <div class="event-description">
@@ -70,17 +70,20 @@
 </ul>
 {{/if}}
 
+{{#if event.attendees}}
 <div class="attendees">
   <h3 class="attendees-h3"> <i class="fas fa-users"></i>attendees</h3>
   <ul class="event-attendees">
     {{#each event.attendees}}
-    <li class="uninvite">{{this.username}}</li>
+    {{this.username}}
     {{#if isCreator}}
-    <form class="uninvite" action="/people/delete-people" method="POST">
-      <input type="hidden" value="{{../event._id}}" name="eventId">
-      <input type="hidden" value="{{_id}}" name="guestId">
-      <button class="submit remove small-blue" type="submit">Uninvite</button>
-    </form>
+    <li>
+      <form class="uninvite" action="/people/delete-people" method="POST">
+        <input type="hidden" value="{{../event._id}}" name="eventId">
+        <input type="hidden" value="{{_id}}" name="guestId">
+        <button class="submit remove small-blue" type="submit">Uninvite</button>
+      </form>
+    </li>
     {{/if}}
     {{#each items}}
     <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
@@ -88,17 +91,26 @@
     {{/each}}
   </ul>
 </div>
+{{/if}}
 
-<p><a href="/events/{{event._id}}/send-email">Send an email to the attendees</a></p>
+{{#if isCreator}}
+<a href="/events/{{event._id}}/send-email">Send an email to the attendees</a>
+{{/if}}
 
 <div class="comments">
+  <h3>Comments</h3>
   {{#if event.comments}}
   {{#each event.comments}}
-  <p><span class="date-comment">{{date}}</span>{{user}}: {{message}}</p>
+  <div class="each-comment">
+    <img class="user-image" src="{{userImage}}" alt="">
+    <div class="comment-text">
+      <p>{{user}}: {{message}} <span class="date-comment">{{date}}</span></p>
+    </div>
+  </div>
   {{/each}}
   {{/if}}
 </div>
-<div>
+<div class="coment-form">
   <form action="/events/{{event._id}}/add-comment" method="POST" class="add-comment">
     <h3>Add a comment</h3>
     <div class="field">
@@ -111,7 +123,9 @@
 </form>
 
 <div class="remove-buttons">
+
   {{#if isCreator}}
+
   <form action="/events/delete-event" method="POST">
     <input type="hidden" name="event" value="{{event._id}}">
     <button class="leave dbutton big" type="submit">Delete Event</button>

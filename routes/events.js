@@ -254,11 +254,12 @@ router.post('/:id/send-email', requireLogged, async (req, res, next) => {
 router.post('/:id/add-comment', requireLogged, async (req, res, next) => {
   const { id } = req.params;
   const user = req.session.currentUser.username;
+  const userImage = req.session.currentUser.imageUrl;
   const { comment } = req.body;
   try {
     if (comment) {
-      const newComment = { message: comment, user };
-      const event = await Events.findByIdAndUpdate(id, { $push: { comments: newComment } }, { new: true });
+      const newComment = { message: comment, user, userImage };
+      await Events.findByIdAndUpdate(id, { $push: { comments: newComment } }, { new: true });
     }
     res.redirect(`/events/${id}`);
   } catch (error) {
