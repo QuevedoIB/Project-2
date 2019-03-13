@@ -255,12 +255,10 @@ router.post('/:id/add-comment', requireLogged, async (req, res, next) => {
   const { id } = req.params;
   const user = req.session.currentUser.username;
   const { comment } = req.body;
-  console.log(user);
   try {
     if (comment) {
       const newComment = { message: comment, user };
       const event = await Events.findByIdAndUpdate(id, { $push: { comments: newComment } }, { new: true });
-      console.log(event);
     }
     res.redirect(`/events/${id}`);
   } catch (error) {

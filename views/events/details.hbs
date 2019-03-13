@@ -15,7 +15,8 @@
   <p id="location" class="inline">{{event.location}}</p>
 </div>
 <div class="distance">
-  <i class="fas fa-subway"></i><p class="inline"  id="distance-location"></p>
+  <i class="fas fa-subway"></i>
+  <p class="inline" id="distance-location"></p>
 </div>
 
 
@@ -90,10 +91,10 @@
 
 <p><a href="/events/{{event._id}}/send-email">Send an email to the attendees</a></p>
 
-<div class="comments">    
-  {{#if event.comments}} 
+<div class="comments">
+  {{#if event.comments}}
   {{#each event.comments}}
-  <p><span class="comment-date">{{date}}</span>{{user}}: {{message}}</p> 
+  <p><span class="date-comment">{{date}}</span>{{user}}: {{message}}</p>
   {{/each}}
   {{/if}}
 </div>
@@ -101,7 +102,7 @@
   <form action="/events/{{event._id}}/add-comment" method="POST" class="add-comment">
     <h3>Add a comment</h3>
     <div class="field">
-      <input type="text-area" name="comment" id="comment-name" placeholder="Comment">      
+      <input type="text-area" name="comment" id="comment-name" placeholder="Comment">
     </div>
     <div class="field">
       <button class="submit small-blue" type="submit">Add Comment</button>
