@@ -61,8 +61,9 @@ router.post('/add', requireLogged, parser.single('image'), async (req, res, next
   let owner = req.session.currentUser._id;
   let imageUrl;
   if (req.file) {
-    let imageUrl = req.file.url;
+    imageUrl = req.file.url;
   }
+  console.log(req.file, req.file.url, imageUrl);
   const { name, description, location, date } = req.body;
   const event = { owner, name, description, location, date, imageUrl };
   if (!owner || !name || !location || !date) {
