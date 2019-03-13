@@ -775,3 +775,43 @@ h2 {
    .green-bg {
     background: green;
    }
+
+   #send-mail {
+    height: 100vh;
+   }
+   
+   .mail-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
+   
+   .mail-form label {
+    font-size: 1.2em;
+    font-weight: bolder;
+    padding: 20px;
+   }
+   
+   .mail-form input {
+    width: 70%;
+    height: 20px;
+    background: white;
+   }
+   
+   .mail-form textarea {
+    width: 70%;
+    height: 50px;
+   }
+   
+   .mail-form button {
+    padding: 15px 50px;
+    background: #4E96BA;
+    color: white;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 1.2;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 40px;
+   }
