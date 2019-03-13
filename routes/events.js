@@ -7,6 +7,7 @@ const Events = require('../models/Events');
 const Items = require('../models/Items');
 const ObjectId = require('mongodb').ObjectID;
 const parser = require('../helpers/file-upload');
+const nodemailer = require('nodemailer');
 
 const { requireLogged } = require('../middlewares/auth');
 
