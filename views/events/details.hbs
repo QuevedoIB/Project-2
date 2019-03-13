@@ -16,7 +16,7 @@
 </div>
 
 
-<div id="map" class="hide">
+<div id="map">
 
 </div>
 
@@ -84,10 +84,10 @@
       <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
     {{/each}}
   {{/each}}
-  </ul>          
-
-
+  </ul>         
 </div>
+
+
 <div class="remove-buttons">
   {{#if isCreator}}
   <form action="/events/delete-event" method="POST">

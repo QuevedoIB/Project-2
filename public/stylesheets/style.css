@@ -365,7 +365,9 @@ justify-content: center;
   
      .event-items {
        background: rgba(0,0,0,0.8);
-       margin-top: 20px;
+       width: 70%;
+      margin: 20px auto;
+      border-radius: 2% 20%;
        padding: 10px 40px;
      }
 
@@ -378,10 +380,15 @@ justify-content: center;
       width: 35%;
     }
  
-    #map {
-      height: 50vh;
-      width: 100%;
-     }	    
+    .map-height {
+     height: 50vh;
+     width: 100%;
+    }
+
+    .map-height-none {
+     height: 0;
+     width: 0;
+    }
  
     .item-list {
       color: white;
@@ -389,10 +396,6 @@ justify-content: center;
       margin-bottom: 20px;
     }
  
-    /* ul.event-items {
-      list-style-type: none;
- 
-    } */
  
     ul.event-items li {
       color: white;
@@ -404,9 +407,7 @@ justify-content: center;
       margin-left: 20px;
       margin-right: 10px;
       font-weight: bold;
-    }
- 
- 
+    } 
  
    .item-flex {
       display: flex;
@@ -415,19 +416,22 @@ justify-content: center;
      }
  
     .item-flex input {
-      width: 20%;
+      width: 30%;
       display: inline-block;
       margin-right: 20px;
       height: 30px;
-      padding: 0 7.5%;
+      padding: 0 12%;
     }
  
-    .small-blue {
-      background: #00CAC4;
-      width: 30%;
+    ul.event-items button.small-blue {      
+      width: 50%;
       height: 30px;
       font-size: 14px;
       display: inline-block;
+    }
+
+    .small-blue {
+      background: #00CAC4;
     }
  
     .profile-edit a{
@@ -576,6 +580,64 @@ justify-content: center;
       height: 10px;
     }
 
+    #send-mail {
+      height: 100vh;
+     }
+     
+     .mail-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+     }
+     
+     .mail-form label {
+      font-size: 1.2em;
+      font-weight: bolder;
+      padding: 20px;
+     }
+     
+     .mail-form input {
+      width: 70%;
+      height: 20px;
+      background: white;
+     }
+     
+     .mail-form textarea {
+      width: 70%;
+      height: 50px;
+     }
+     
+     .mail-form button {
+      padding: 15px 50px;
+      background: #4E96BA;
+      color: white;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 1.2;
+      font-weight: bolder;
+      text-align: center;
+      margin-top: 40px;
+     }
+
+     .google {
+      width: 300px;
+     }
+     
+     .event-picture {
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+     }
+
+     .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+ .profile-edit a{
+      text-align: center;
+    }
 
 
       @keyframes checked-anim {
@@ -715,17 +777,3 @@ justify-content: center;
 .green-bg {
   background: green;
 }
-/* 
-.info-box {
-  height: 100px;
-  width: 150px;
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  background-color: rgba(255, 255, 255, .9);
-  padding: 15px;
-  text-align: left;
-  font-family: 'Arial';
-  margin: 0;
-  font-size: 13px;
-} */
