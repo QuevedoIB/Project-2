@@ -1,6 +1,11 @@
 <article class="header">
   <img class="profile" src="{{user.imageUrl}}">
   <p>{{user.username}}</p>
+  <form action="/events/search-event" method="GET">
+    <label for="event-search-input">Event Name: </label>
+    <input type="search" name="name" id="event-search-input"></input>
+    <button type="submit">Search event</button>
+  </form>
 </article>
 
 <article id="events">
@@ -18,6 +23,14 @@
   </div>
 
 </article>
+
+{{#if eventsSearched}}
+<div>
+  {{#each eventsSearched}}
+  <li><a href="/events/{{_id}}">{{name}}</a></li>
+  {{/each}}
+</div>
+{{/if}}
 
 <div class="show-events">
 

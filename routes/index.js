@@ -19,7 +19,7 @@ router.get('/profile', requireLogged, (req, res, next) => {
   res.render('profile/profile', currentUser);
 });
 
-router.post('/profile-image', parser.single('image'), async (req, res, next) => {
+router.post('/profile-image', parser.single('image'), requireLogged, async (req, res, next) => {
   try {
     await User.findByIdAndUpdate(req.session.currentUser._id, { $set: { imageUrl: req.file.url } });
     const newSession = await User.findById(req.session.currentUser._id);

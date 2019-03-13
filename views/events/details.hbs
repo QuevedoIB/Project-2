@@ -1,5 +1,8 @@
 <section class="header event">
   <h2>{{event.name}}</h2>
+  {{#if event.imageUrl}}
+  <img class="event-picture" src="{{event.imageUrl}}" alt="event image" />
+  {{/if}}
   <i class="far fa-calendar-alt">
     <p class="date inline">{{event.date}}</p>
   </i>
@@ -7,16 +10,16 @@
 
 <div class="event-description">
   <i class="fas fa-user-shield"></i>
-  <p class="inline">{{event.owner.name}}</p>
-  <i class="fas fa-map-marker-alt"></i>
-  <p id="location" class="inline">{{event.location}}</p>  
+  <h3 class="inline">{{event.owner.name}}</h3>
+  <i id="map-icon" class="fas fa-map-marker-alt"></i>
+  <p id="location" class="inline">{{event.location}}</p>
 </div>
 <div class="distance">
   <i class="fas fa-subway"></i><p class="inline"  id="distance-location"></p>
 </div>
 
 
-<div id="map">
+<div id="map" class="map-height-none">
 
 </div>
 
@@ -47,7 +50,6 @@
 
 {{#if event.items}}
 
-
 <ul class="event-items">
   <h3 class="item-list">Item List</h3>
   {{#each event.items}}
@@ -67,26 +69,45 @@
 </ul>
 {{/if}}
 
-
 <div class="attendees">
   <h3 class="attendees-h3"> <i class="fas fa-users"></i>attendees</h3>
   <ul class="event-attendees">
-  {{#each event.attendees}}       
-    <li class="uninvite">{{this.username}}</li>       
+    {{#each event.attendees}}
+    <li class="uninvite">{{this.username}}</li>
     {{#if isCreator}}
-      <form class="uninvite" action="/people/delete-people" method="POST">
-        <input type="hidden" value="{{../event._id}}" name="eventId">
-        <input type="hidden" value="{{_id}}" name="guestId">
-        <button class="submit remove small-blue" type="submit">Uninvite</button>
-      </form>
-    {{/if}}   
+    <form class="uninvite" action="/people/delete-people" method="POST">
+      <input type="hidden" value="{{../event._id}}" name="eventId">
+      <input type="hidden" value="{{_id}}" name="guestId">
+      <button class="submit remove small-blue" type="submit">Uninvite</button>
+    </form>
+    {{/if}}
     {{#each items}}
-      <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
+    <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
     {{/each}}
-  {{/each}}
-  </ul>         
+    {{/each}}
+  </ul>
 </div>
 
+<p><a href="/events/{{event._id}}/send-email">Send an email to the attendees</a></p>
+
+<div class="comments">    
+  {{#if event.comments}} 
+  {{#each event.comments}}
+  <p><span class="comment-date">{{date}}</span>{{user}}: {{message}}</p> 
+  {{/each}}
+  {{/if}}
+</div>
+<div>
+  <form action="/events/{{event._id}}/add-comment" method="POST" class="add-comment">
+    <h3>Add a comment</h3>
+    <div class="field">
+      <input type="text-area" name="comment" id="comment-name" placeholder="Comment">      
+    </div>
+    <div class="field">
+      <button class="submit small-blue" type="submit">Add Comment</button>
+    </div>
+</div>
+</form>
 
 <div class="remove-buttons">
   {{#if isCreator}}
@@ -94,7 +115,6 @@
     <input type="hidden" name="event" value="{{event._id}}">
     <button class="leave submit big" type="submit">Delete Event</button>
   </form>
-  
 
   {{else}}
   <form action="/people/leave-event" method="POST">

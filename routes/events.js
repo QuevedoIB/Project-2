@@ -6,8 +6,10 @@ const User = require('../models/User');
 const Events = require('../models/Events');
 const Items = require('../models/Items');
 const ObjectId = require('mongodb').ObjectID;
+const parser = require('../helpers/file-upload');
+const nodemailer = require('nodemailer');
 
-const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../middlewares/auth');
+const { requireLogged } = require('../middlewares/auth');
 
 router.get('/', requireLogged, async (req, res, next) => {
   const user = req.session.currentUser;
@@ -23,6 +25,32 @@ router.get('/', requireLogged, async (req, res, next) => {
   }
 });
 
+router.get('/search-event', requireLogged, async (req, res, next) => {
+  const { name } = req.query;
+
+  try {
+    const eventsSearched = await Events.find({ $or: [{ name: name }, { username: name }] });
+    if (!eventsSearched) {
+      const data = {
+        messages: req.flash('validation')
+      };
+      req.flash('validation', 'Incorrect user');
+      res.redirect('/events', data);
+      return;
+    }
+    const user = req.session.currentUser;
+    const currentDate = new Date().toISOString();
+    const owned = await Events.find({ owner: user._id });
+    const participating = await Events.find({ attendees: { '$in': [user._id] } });
+    const finished = await Events.find({ date: { $lt: currentDate } });
+    const events = { owned, participating, finished };
+
+    res.render('events/list', { events, user, eventsSearched });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/new', requireLogged, (req, res, next) => {
   const data = {
     messages: req.flash('validation')
@@ -30,11 +58,15 @@ router.get('/new', requireLogged, (req, res, next) => {
   res.render('profile/new', data);
 });
 
-router.post('/add', async (req, res, next) => {
+router.post('/add', requireLogged, parser.single('image'), async (req, res, next) => {
   let owner = req.session.currentUser._id;
+  let imageUrl;
+  if (req.file) {
+    imageUrl = req.file.url;
+  }
 
   const { name, description, location, date } = req.body;
-  const event = { owner, name, description, location, date };
+  const event = { owner, name, description, location, date, imageUrl };
   if (!owner || !name || !location || !date) {
     // required fields flash
     req.flash('validation', 'Missing fields');
@@ -219,4 +251,20 @@ router.post('/:id/send-email', requireLogged, async (req, res, next) => {
   }
 });
 
+router.post('/:id/add-comment', requireLogged, async (req, res, next) => {
+  const { id } = req.params;
+  const user = req.session.currentUser.username;
+  const { comment } = req.body;
+  console.log(user);
+  try {
+    if (comment) {
+      const newComment = { message: comment, user };
+      const event = await Events.findByIdAndUpdate(id, { $push: { comments: newComment } }, { new: true });
+      console.log(event);
+    }
+    res.redirect(`/events/${id}`);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;

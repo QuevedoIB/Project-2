@@ -2,7 +2,7 @@
 </section>
 <section class="profile-buttons">
   <div class="form">
-    <form method="POST" action="/events/add">
+    <form method="POST" action="/events/add" enctype="multipart/form-data">
       <div class="field">
         <input class="white" type="text" name="name" placeholder="Name:" />
       </div>
@@ -12,9 +12,17 @@
       <div class="field">
         <input class="white" type="text" name="location" placeholder="Location:" />
       </div>
+      <div id='geocoder' class='geocoder'></div>
       <div class="field">
         <input class="white" type="date" name="date" />
       </div>
+
+      <div>
+        <label>Upload a picture</label>
+        <input class="input-file" type="file" name="image">
+      </div>
+
+
 
       {{> flash}}
 
@@ -24,3 +32,11 @@
     </form>
   </div>
 </section>
+
+<script src="/javascripts/autocomplete-location.js"></script>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet'
+  href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
