@@ -21,9 +21,10 @@
 
 <div class="show-events">
 
-  <div class="container-list">
 
-    <ul id="owned-events" class="show">
+
+  <ul id="owned-events" class="show">
+    <div class="container-list">
       {{#each events.owned}}
       <li>
         <div class="container-list event-list-images"
@@ -32,13 +33,15 @@
         </div>
       </li>
       {{/each}}
-    </ul>
+    </div>
+  </ul>
 
-  </div>
 
-  <div class="container-list">
 
-    <ul id="participating-events" class="hide">
+
+
+  <ul id="participating-events" class="hide">
+    <div class="container-list">
       {{#each events.participating}}
       <li>
         <div class="container-list event-list-images"
@@ -47,13 +50,14 @@
         </div>
       </li>
       {{/each}}
-    </ul>
+    </div>
+  </ul>
 
-  </div>
 
-  <div class="container-list">
 
-    <ul id="finished-events" class="hide">
+
+  <ul id="finished-events" class="hide">
+    <div class="container-list">
       {{#each events.finished}}
       <li>
         <div class="container-list event-list-images"
@@ -62,8 +66,9 @@
         </div>
       </li>
       {{/each}}
-    </ul>
-  </div>
+    </div>
+  </ul>
+
 
 </div>
 

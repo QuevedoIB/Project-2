@@ -84,13 +84,16 @@ router.post('/add', requireLogged, parser.single('image'), async (req, res, next
 
 router.get('/:id', requireLogged, async (req, res, next) => {
   const { id } = req.params;
+
   const currentUserId = req.session.currentUser._id;
+
   const data = {
     messages: req.flash('validation')
   };
   try {
     const event = await Events.findById(id).populate('owner').populate('attendees').populate('items').lean();
     let isCreator = false;
+    console.log(event, 'HOLA');
     if (event.owner._id.equals(currentUserId)) {
       isCreator = true;
     }
