@@ -1,10 +1,9 @@
-<h1>Search people Page</h1>
-
 <article>
+  <h1 class="search-h1">Search people Page</h1>
   <div>
-    <form action="/people/{{eventContent.event._id}}/search-people" method="GET">
+    <form class="search-form" action="/people/{{eventContent.event._id}}/search-people" method="GET">
       <input type="search" name="username"></input>
-      <button type="submit">Search people</button>
+      <button class="dbutton" type="submit">Search people</button>
     </form>
   </div>
   {{#if eventContent.searchedUser}}
@@ -12,13 +11,13 @@
     <p>{{eventContent.searchedUser.username}}</p>
     <input type="hidden" value="{{eventContent.event._id}}" name="eventId"></input>
     <input type="hidden" name="guestId" value="{{eventContent.searchedUser._id}}">
-    <button type="submit">Add</button>
+    <button class="dbutton small-blue" type="submit">Add</button>
   </form>
 
   {{/if}}
 
   {{> flash}}
 
-  <a href="/events/{{eventContent.event._id}}">Back to Event</a>
+  <a class="dbutton" href="/events/{{eventContent.event._id}}">Back to Event</a>
 
 </article>

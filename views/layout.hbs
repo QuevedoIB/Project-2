@@ -5,7 +5,8 @@
   <title>E-split</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -20,11 +21,11 @@
     <li class="li"><a class="a" href="/">Home</a></li>
     <li class="li"><a class="a" href="/profile">My profile</a></li>
     <li class="li"><a class="a" href="/events">My events</a></li>
-    <li class="li"><a href="" class="a">
-        <form action="/auth/logout" method="POST">
-          <button type="submit">Log out</button>
-        </form>
-      </a></li>
+    <li class="li">
+      <form action="/auth/logout" method="POST">
+        <button class="logout" type="submit">Log out</button>
+      </form>
+    </li>
     {{else}}
 
     <li class="li"><a class="a google" href="{{url}}">Google Log in</a></li>
