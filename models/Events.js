@@ -34,7 +34,18 @@ const eventsSchema = new Schema({
     type: ObjectId,
     ref: 'Items'
   }],
-  imageUrl: String
+  imageUrl: String,
+  comments: [{
+    user: {
+      type: String
+    },
+    message: String,
+    date: {
+      type: Date,
+      default: Date.now
+    }
+
+  }]
 });
 
 eventsSchema.index({ location: '2dsphere' });

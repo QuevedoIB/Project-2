@@ -14,12 +14,9 @@
   <i id="map-icon" class="fas fa-map-marker-alt"></i>
   <p id="location" class="inline">{{event.location}}</p>
 </div>
-
 <div class="distance">
-  <i class="fas fa-subway"></i>
-  <p class="inline" id="distance-location"></p>
+  <i class="fas fa-subway"></i><p class="inline"  id="distance-location"></p>
 </div>
-
 
 
 <div id="map" class="map-height-none">
@@ -93,13 +90,31 @@
 
 <p><a href="/events/{{event._id}}/send-email">Send an email to the attendees</a></p>
 
+<div class="comments">    
+  {{#if event.comments}} 
+  {{#each event.comments}}
+  <p><span class="comment-date">{{date}}</span>{{user}}: {{message}}</p> 
+  {{/each}}
+  {{/if}}
+</div>
+<div>
+  <form action="/events/{{event._id}}/add-comment" method="POST" class="add-comment">
+    <h3>Add a comment</h3>
+    <div class="field">
+      <input type="text-area" name="comment" id="comment-name" placeholder="Comment">      
+    </div>
+    <div class="field">
+      <button class="submit small-blue" type="submit">Add Comment</button>
+    </div>
+</div>
+</form>
+
 <div class="remove-buttons">
   {{#if isCreator}}
   <form action="/events/delete-event" method="POST">
     <input type="hidden" name="event" value="{{event._id}}">
     <button class="leave submit big" type="submit">Delete Event</button>
   </form>
-
 
   {{else}}
   <form action="/people/leave-event" method="POST">
@@ -109,16 +124,13 @@
   {{/if}}
 </div>
 
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="/javascripts/form.js"></script>
 <script src="/javascripts/carrying-list.js"></script>
-<script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="/javascripts/date.js"></script>
-
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
 <link rel='stylesheet'
   href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
-
-
 <script src="/javascripts/map.js"></script>
