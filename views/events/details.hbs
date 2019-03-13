@@ -28,8 +28,8 @@
 
 {{#if isCreator}}
 <div class="add-buttons">
-  <button class="add submit">Add items</button>
-  <a class="add submit big" href="/people/{{event._id}}/list">Search people</a>
+  <button class="dbutton add">Add items</button>
+  <a class="dbutton" href="/people/{{event._id}}/list">Search people</a>
 </div>
 
 <form action="/events/add-item" method="POST" class="add-item" id="hide">
@@ -114,13 +114,13 @@
   {{#if isCreator}}
   <form action="/events/delete-event" method="POST">
     <input type="hidden" name="event" value="{{event._id}}">
-    <button class="leave submit big" type="submit">Delete Event</button>
+    <button class="leave dbutton big" type="submit">Delete Event</button>
   </form>
 
   {{else}}
   <form action="/people/leave-event" method="POST">
     <input type="hidden" value="{{event._id}}" name="id">
-    <button class="big leave submit" type="submit">Leave event</button>
+    <button class="big leave dbutton" type="submit">Leave event</button>
   </form>
   {{/if}}
 </div>

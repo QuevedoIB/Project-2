@@ -830,3 +830,63 @@ h2 {
     text-align: center;
     margin-top: 40px;
    }
+
+
+   /* ------------- */
+
+   
+.dbutton {
+  width: 35vw;
+   height: 45px;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 30px;
+   border: none;
+   background-color: #4E96BA;
+   color: white;
+   font-size: 25px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+  font-family:Arial, "Helvetica", sans-serif;
+  font-size:16px;
+  font-weight:bold;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #07526e;
+  padding-top:6px;
+  cursor:pointer;
+  border: none;
+  background: #4E96BA;
+  background-image: linear-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
+  border-radius: 25px;
+  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #7d8082, 0px 10px 5px #999;
+}
+
+.dbutton:active {
+  top:3px;
+  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #07526e, 0px 5px 3px #999;
+}
+
+.dbutton:before {
+  font-family: 'socialfont';
+  font-size: 50px;
+  line-height: 1em;
+  font-weight: normal;
+  color: #fff;
+  width:85px;
+  height:90px;
+  display:block;
+  position:absolute;
+  padding-top:10px;
+  top:10px;
+  text-shadow: 1px 1px 2px #07526e;
+
+}
+
+.dbutton:active:before {
+  top: 7px;
+  font-size: 50px;
+  text-shadow: 0px 3px 0px #07526e, 0px 5px 1px #07526e/*, 3px 0px 1px #07526e, 3px 3px 1px #07526e,
+     -2px 0px 1px #68cff2*/;
+}

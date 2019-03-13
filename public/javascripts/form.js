@@ -2,7 +2,11 @@
 const mainForm = () => {
   const displayTab = (event, button) => {
     const selectedForm = document.querySelector('.add-item');
-    selectedForm.removeAttribute('id');
+    if (selectedForm.hasAttribute('id')) {
+      selectedForm.removeAttribute('id');
+    } else {
+      selectedForm.setAttribute('id', 'hide');
+    }
   };
   const selectedButton = document.querySelector('.add');
   selectedButton.addEventListener('click', (event) => {
