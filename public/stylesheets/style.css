@@ -278,7 +278,6 @@ h2 {
        }
    
        .event-description {
-        width: 70%;
         height: 50px;
         margin: 0 auto;
         display: flex;
@@ -424,13 +423,16 @@ h2 {
       }
    
       ul.event-items button.small-blue {
-        background: #00CAC4;
         width: 50%;
         height: 30px;
         font-size: 14px;
         display: inline-block;
       }
    
+      .small-blue {
+        background: #00CAC4;
+      }
+
       .profile-edit a{
         text-align: center;
       }

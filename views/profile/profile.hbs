@@ -4,20 +4,20 @@
 </section>
 
 <div class="profile-edit">
+
+  <form method="POST" action="/profile-image" id="image-form" enctype="multipart/form-data" class="hide">
+    <div>
+      <span class="image-upload"><input type="file" name="image" title="" class="input-img" />
+        Choose Image</span>
+    </div>
+    <div>
+      <button class="submit small-blue" type="submit">Upload</button>
+    </div>
+  </form>
+
   <img src="/images/cam.png" class="add-image" alt="">
   <a href="/auth/change-password"><img src="/images/word.png" alt=""></a>
 </div>
-<form method="POST" action="/profile-image" id="image-form" enctype="multipart/form-data" class="hide">
-  <div>
-    <label>Upload a picture</label>
-    <input class="input-file" type="file" name="image">
-  </div>
-  <div>
-    <button class="submit small-blue" type="submit">Upload</button>
-  </div>
-</form>
-
-
 
 <section class="profile-buttons">
   <div>

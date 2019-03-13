@@ -14,7 +14,12 @@
   <i id="map-icon" class="fas fa-map-marker-alt"></i>
   <p id="location" class="inline">{{event.location}}</p>
 </div>
-<p id="distance-location"></p>
+
+<div class="distance">
+  <i class="fas fa-subway"></i>
+  <p class="inline" id="distance-location"></p>
+</div>
+
 
 
 <div id="map" class="map-height-none">
@@ -30,7 +35,7 @@
 </div>
 
 <form action="/events/add-item" method="POST" class="add-item" id="hide">
-  <h3>Item</h3>
+  <h3 class="h3-items">Item</h3>
   <div class="field">
     <input type="text" name="name" id="item-name" placeholder="What item?">
   </div>
@@ -53,7 +58,7 @@
   {{#each event.items}}
   {{#if this.status}}
   <div class="item-flex">
-    <li><span class="blue">{{this.quantity}}</span> {{this.name}}</li>
+    <li>{{this.quantity}} {{this.name}}</li>
     <form action="/events/take-item" id="carry-form" method="POST">
       <input type="hidden" name="event" value="{{../event._id}}">
       <input type="number" name="quantity" value="1" placeholder="quantity">
@@ -67,40 +72,40 @@
 </ul>
 {{/if}}
 
-<ul>
-  {{#each event.attendees}}
-  <li>
-    <ul class="attendees">{{this.username}}
-      {{#each items}}
-      <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
-      {{/each}}
-    </ul>
-  </li>
+<div class="attendees">
+  <h3 class="attendees-h3"> <i class="fas fa-users"></i>attendees</h3>
+  <ul class="event-attendees">
+    {{#each event.attendees}}
+    <li class="uninvite">{{this.username}}</li>
+    {{#if isCreator}}
+    <form class="uninvite" action="/people/delete-people" method="POST">
+      <input type="hidden" value="{{../event._id}}" name="eventId">
+      <input type="hidden" value="{{_id}}" name="guestId">
+      <button class="submit remove small-blue" type="submit">Uninvite</button>
+    </form>
+    {{/if}}
+    {{#each items}}
+    <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
+    {{/each}}
+    {{/each}}
+  </ul>
+</div>
 
-  {{#if ../isCreator}}
-  <form action="/people/delete-people" method="POST">
-    <input type="hidden" value="{{../event._id}}" name="eventId">
-    <input type="hidden" value="{{_id}}" name="guestId">
-    <button type="submit">Remove user</button>
+<div class="remove-buttons">
+  {{#if isCreator}}
+  <form action="/events/delete-event" method="POST">
+    <input type="hidden" name="event" value="{{event._id}}">
+    <button class="leave submit big" type="submit">Delete Event</button>
+  </form>
+
+
+  {{else}}
+  <form action="/people/leave-event" method="POST">
+    <input type="hidden" value="{{event._id}}" name="id">
+    <button class="big leave submit" type="submit">Leave event</button>
   </form>
   {{/if}}
-  {{/each}}
-</ul>
-
-
-
-
-{{#if isCreator}}
-<form class="container" action="/events/delete-event" method="POST">
-  <input type="hidden" name="event" value="{{event._id}}">
-  <button class="small-blue submit" type="submit">Delete Event</button>
-</form>
-{{else}}
-<form class="container" action="/people/leave-event" method="POST">
-  <input type="hidden" value="{{event._id}}" name="id">
-  <button class="small-blue submit" type="submit">Leave event</button>
-</form>
-{{/if}}
+</div>
 
 <script src="/javascripts/form.js"></script>
 <script src="/javascripts/carrying-list.js"></script>
