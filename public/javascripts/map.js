@@ -8,7 +8,6 @@ const mainMap = () => {
     if (mapElement.classList.contains('map-height-none')) {
       mapElement.classList.remove('map-height-none');
       mapElement.classList.add('map-height');
-      console.log('hola');
     } else {
       mapElement.classList.remove('map-height');
       mapElement.classList.add('map-height-none');
@@ -44,7 +43,13 @@ const mainMap = () => {
         return response.json();
       })
       .then(function (myJson) {
-        eventLocation = myJson.features[0].center;
+        if (myJson.features[0]) {
+          eventLocation = myJson.features[0].center;
+        }
+
+        if (!eventLocation) {
+          return;
+        }
         // distance(coords[0], coords[1], eventLocation[0], eventLocation[1]);
         fetch(`https://api.mapbox.com/directions/v5/mapbox/cycling/${longitude},${latitude};${eventLocation[0]},${eventLocation[1]}?steps=true&voice_instructions=true&banner_instructions=true&voice_units=imperial&waypoint_names=Home;Work&access_token=pk.eyJ1IjoiaXZhbm1hcHMiLCJhIjoiY2pzeDNkZHo0MGU2ZjQ1bzV3ZGExNXRmMCJ9.Yc4_1JYlXjBEZ-mXzuETgA`)
           .then(function (response) {
@@ -52,9 +57,11 @@ const mainMap = () => {
           })
           .then(function (myJson) {
             let directions = myJson;
-            const kms = directions.routes[0].distance / 1000;
-            const twoDecDistance = Math.round((kms) * 100) / 100;
-            document.getElementById('distance-location').innerText = `${twoDecDistance} km away of the event`;
+            if (directions) {
+              const kms = directions.routes[0].distance / 1000;
+              const twoDecDistance = Math.round((kms) * 100) / 100;
+              document.getElementById('distance-location').innerText = `${twoDecDistance} km away of the event`;
+            }
           });
       });
 
