@@ -10,6 +10,9 @@ const main = () => {
     // split del target
     // poner todas las pestañas menos la del target[0] invisibles
 
+    // if (searchedEvents) {
+    //   searchedEvents.className = 'hide';
+    // }
     list.className = 'show';
   };
 
@@ -20,6 +23,8 @@ const main = () => {
   const owned = document.getElementById('owned-events');
   const participating = document.getElementById('participating-events');
   const finished = document.getElementById('finished-events');
+
+  const searchedEvents = document.getElementById('searched-events');
 
   ownedTab.addEventListener('click', (event) => { displayTab(event, owned); });
   participatingTab.addEventListener('click', (event) => { displayTab(event, participating); });

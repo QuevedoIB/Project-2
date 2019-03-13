@@ -1,11 +1,6 @@
 <article class="header">
   <img class="profile" src="{{user.imageUrl}}">
   <p>{{user.username}}</p>
-  <form action="/events/search-event" method="GET">
-    <label for="event-search-input">Event Name: </label>
-    <input type="search" name="name" id="event-search-input"></input>
-    <button type="submit">Search event</button>
-  </form>
 </article>
 
 <article id="events">
@@ -24,39 +19,51 @@
 
 </article>
 
-{{#if eventsSearched}}
-<div>
-  {{#each eventsSearched}}
-  <li><a href="/events/{{_id}}">{{name}}</a></li>
-  {{/each}}
-</div>
-{{/if}}
-
 <div class="show-events">
 
-  <ul id="owned-events" class="show">
-    {{#each events.owned}}
-    <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
-    {{/each}}
-  </ul>
+  <div class="border-box">
 
-  <ul id="participating-events" class="hide">
-    {{#each events.participating}}
-    <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
-    {{/each}}
-  </ul>
+    <ul id="owned-events" class="show">
+      {{#each events.owned}}
+      <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+      {{/each}}
+    </ul>
 
-  <ul id="finished-events" class="hide">
-    {{#each events.finished}}
-    <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
-    {{/each}}
-  </ul>
+    <ul id="participating-events" class="hide">
+      {{#each events.participating}}
+      <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+      {{/each}}
+    </ul>
 
+    <ul id="finished-events" class="hide">
+      {{#each events.finished}}
+      <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
 </div>
 
-<div class="list-new-button">
-  <a class="list-new-event-button" href="events/new">New Event</a>
+{{#if eventsSearched}}
+<div class="border-box">
+  <div id="searched-events">
+    {{#each eventsSearched}}
+    <li><a href="/events/{{_id}}">{{name}}</a></li>
+    {{/each}}
+  </div>
 </div>
+{{/if}}
+<section class="events-background">
+  <form class="search-event-form" action="/events/search-event" method="GET">
+    <label for="event-search-input">Event Name: </label>
+    <input type="search" name="name" id="event-search-input"></input>
+    <button id="search-button-element" class="dbutton" type="submit">Search event</button>
+  </form>
+
+  <div class="list-new-button">
+    <a class="dbutton" href="events/new">New Event</a>
+  </div>
+</section>
+
 
 {{!-- <a href="/profile">Back to profile</a> --}}
 

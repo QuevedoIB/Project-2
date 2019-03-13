@@ -432,7 +432,7 @@ h2 {
         display: inline-block;
       }
    
-      .small-blue {
+      button.small-blue {
         background: #00CAC4;
       }
 
@@ -454,33 +454,39 @@ h2 {
       }
    
       #events {
+        
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        align-content: center;
+        align-items: center;
         background: #00CAC4;
         color: white;
         }
    
         #owned-tab {
-        padding: 5px;
+          display: flex;
+          align-items: center;
+          height: 7vh;
         border: 1px solid rgb(145, 228, 228);
         width: 33.33%;
-        text-align: center;
+        justify-content: center;
         }
    
         #participating-tab {
-        padding: 5px;
+          display: flex;
+          align-items: center;
+          height: 7vh;
         border: 1px solid rgb(145, 228, 228);
         width: 33.33%;
-        text-align: center;
+        justify-content: center;
         }
    
         #finished-tab {
-        padding: 5px;
+          display: flex;
+          align-items: center;
+        height: 7vh;
         border: 1px solid rgb(145, 228, 228);
         width: 33.33%;
-        text-align: center;
+        justify-content: center;
         }
    
         #owned-tab h2,#participating-tab h2,#finished-tab h2 {
@@ -489,15 +495,20 @@ h2 {
         }
    
         .show-events {
-          height: 20%;
+          height: 10vh;
           margin: 100px;
           overflow: scroll;
         }
 
-        #owned-events li, #participating-events li, #finished-events li {
-          list-style-type: none;
-          padding-bottom: 10px;
-          }
+        .border-box {
+          border-top: 1px solid gray;
+          border-bottom: 1px solid gray;
+        }
+
+        .border-box ul li{
+          padding: 3px 0 3px 8px;
+          list-style-type: disc;
+        }
      
           #owned-events a, #participating-events a, #finished-events a {
           text-decoration: none;
@@ -636,7 +647,13 @@ h2 {
           display: flex;
           justify-content: center;
           align-items: center;
+          flex-direction: column;
         }
+
+        .container input {
+          margin: 15px 0;
+        }
+
      .profile-edit a{
           text-align: center;
         }
@@ -849,7 +866,7 @@ h2 {
    align-items: center;
    justify-content: center;
 
-  font-family:Arial, "Helvetica", sans-serif;
+  
   font-size:16px;
   font-weight:bold;
   text-decoration:none;
@@ -860,7 +877,7 @@ h2 {
   background: #4E96BA;
   background-image: linear-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
   border-radius: 25px;
-  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #7d8082, 0px 10px 5px #999;
+  box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #7d8082, 0px 10px 4px #999;
 }
 
 .dbutton:active {
@@ -889,4 +906,21 @@ h2 {
   font-size: 50px;
   text-shadow: 0px 3px 0px #07526e, 0px 5px 1px #07526e/*, 3px 0px 1px #07526e, 3px 3px 1px #07526e,
      -2px 0px 1px #68cff2*/;
+}
+
+.search-event-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-event-form input{
+  margin-bottom: 10px;
+  width: 50%;
+  height: 3vh;
+  border: 1px solid gray;
+}
+
+.events-background {
+  background: rgb(223, 219, 219);
 }
