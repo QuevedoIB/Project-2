@@ -21,33 +21,60 @@
 
 <div class="show-events">
 
-  <div class="border-box">
+  <div class="container-list">
 
     <ul id="owned-events" class="show">
       {{#each events.owned}}
-      <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+      <li>
+        <div class="container-list event-list-images"
+          style="background: url({{this.imageUrl}}) no-repeat center center / cover;">
+          <a class="event-square-text" href="/events/{{this._id}}">{{this.name}}</a>
+        </div>
+      </li>
       {{/each}}
     </ul>
+
+  </div>
+
+  <div class="container-list">
 
     <ul id="participating-events" class="hide">
       {{#each events.participating}}
-      <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+      <li>
+        <div class="container-list event-list-images"
+          style="background: url({{this.imageUrl}}) no-repeat center center / cover;">
+          <a class="event-square-text" href="/events/{{this._id}}">{{this.name}}</a>
+        </div>
+      </li>
       {{/each}}
     </ul>
 
+  </div>
+
+  <div class="container-list">
+
     <ul id="finished-events" class="hide">
       {{#each events.finished}}
-      <li><a href="/events/{{this._id}}">{{this.name}}</a></li>
+      <li>
+        <div class="container-list event-list-images"
+          style="background: url({{this.imageUrl}}) no-repeat center center / cover;">
+          <a class="event-square-text" href="/events/{{this._id}}">{{this.name}}</a>
+        </div>
+      </li>
       {{/each}}
     </ul>
   </div>
+
 </div>
 
 {{#if eventsSearched}}
 <div class="border-box">
   <div id="searched-events">
     {{#each eventsSearched}}
-    <li><a href="/events/{{_id}}">{{name}}</a></li>
+    <div class="container-list event-list-images"
+      style="background: url({{imageUrl}}) no-repeat center center / cover;">
+      <a href="/events/{{_id}}">{{name}}</a>
+    </div>
     {{/each}}
   </div>
 </div>

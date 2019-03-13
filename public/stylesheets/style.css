@@ -495,8 +495,8 @@ h2 {
         }
    
         .show-events {
-          height: 10vh;
-          margin: 100px;
+          height: 35vh;
+          width: 100%;
           overflow: scroll;
         }
 
@@ -1014,9 +1014,9 @@ h2 {
 }
 
 img.user-image {
-  width: 12%;
+  width: 10vw;
   border-radius: 100%;
-  height: 12%;
+  height: 5vh;
 }
 
 .comment-text {
@@ -1035,4 +1035,38 @@ img.user-image {
 .coment-form {
   width: 50%;
   margin: 0 auto;
+}
+
+div.event-list-image {
+  margin-right: 10px;
+  height: 10vh;
+  width: 10vh;
+}
+
+.show-events li {
+  list-style: none;
+  margin: 10px 10px;
+  height: 75%;
+  width: 25vh;
+}
+
+.container-list {
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.event-square-text {
+  padding: 10px;
+  position: relative;
+  z-index: 5;
+  background-color: rgba(225,225,225,0.65);
+  border-radius: 18px;
 }
