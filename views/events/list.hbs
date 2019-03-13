@@ -68,17 +68,24 @@
 </div>
 
 {{#if eventsSearched}}
-<div class="border-box">
-  <div id="searched-events">
-    {{#each eventsSearched}}
-    <div class="container-list event-list-images"
-      style="background: url({{imageUrl}}) no-repeat center center / cover;">
-      <a href="/events/{{_id}}">{{name}}</a>
-    </div>
-    {{/each}}
+
+<div class="searched-events border-box">
+  <h2 class="search-title">Search results</h2>
+  <div class="container-list">
+    <ul class="searched-ul">
+      {{#each eventsSearched}}
+      <li>
+        <div class="bg-searched container-list" style="background: url({{imageUrl}}) no-repeat center center / cover;">
+          <a class="event-square-text" href="/events/{{_id}}">{{name}}</a>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
   </div>
 </div>
 {{/if}}
+
+
 <section class="events-background">
   <form class="search-event-form" action="/events/search-event" method="GET">
     <label for="event-search-input">Event Name: </label>

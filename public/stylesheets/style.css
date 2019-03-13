@@ -501,13 +501,13 @@ h2 {
         }
 
         .border-box {
-          border-top: 1px solid gray;
-          border-bottom: 1px solid gray;
+          margin-top: 3px;
+          border-top: 2px solid gray;
         }
 
-        .border-box ul li{
-          padding: 3px 0 3px 8px;
-          list-style-type: disc;
+        .search-title {
+          margin-top: 10px;
+          text-align: center;
         }
      
           #owned-events a, #participating-events a, #finished-events a {
@@ -1059,6 +1059,19 @@ div.event-list-image {
   flex-wrap: wrap;
 }
 
+.searched-ul{
+  list-style: none;
+  margin: 10px 10px;
+  width: 45vw;
+  height: 75%;
+}
+
+.searched-ul li{
+  list-style: none;
+  margin: 10px 10px;
+  height: 100%;
+}
+
 .absolute {
   position: absolute;
 }
@@ -1070,3 +1083,19 @@ div.event-list-image {
   background-color: rgba(225,225,225,0.65);
   border-radius: 18px;
 }
+
+.searched-events {
+    height: 30vh;
+    width: 100%;
+    overflow: scroll;
+  }
+
+  .searched-events a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .bg-searched {
+    height: 87.5%;
+    width: 110.65%;
+  }
