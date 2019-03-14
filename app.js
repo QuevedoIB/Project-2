@@ -18,6 +18,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const eventsRouter = require('./routes/events');
 const peopleRouter = require('./routes/people');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -62,6 +63,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/events', eventsRouter);
 app.use('/people', peopleRouter);
+app.use('/api', apiRouter);
 
 app.use((req, res, next) => {
   res.status(404);
