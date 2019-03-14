@@ -1,14 +1,17 @@
-<article>
-  <h1 class="search-h1">Search people Page</h1>
+<article class="container search-article">
+  <img class="search-image" src="/images/search-people-image.png" />
+</article>
+<article class="article-background">
+  <h1 class="search-h1">Search User</h1>
   <div>
     <form class="search-form" action="/people/{{eventContent.event._id}}/search-people" method="GET">
-      <input type="search" name="username"></input>
+      <input class="input-search" type="search" name="username"></input>
       <button class="dbutton" type="submit">Search people</button>
     </form>
   </div>
   {{#if eventContent.searchedUser}}
   <form action="/people/add-people" method="POST">
-    <p>{{eventContent.searchedUser.username}}</p>
+    <p class="found-user">{{eventContent.searchedUser.username}}</p>
     <input type="hidden" value="{{eventContent.event._id}}" name="eventId"></input>
     <input type="hidden" name="guestId" value="{{eventContent.searchedUser._id}}">
     <button class="dbutton small-blue" type="submit">Add</button>
@@ -18,6 +21,6 @@
 
   {{> flash}}
 
-  <a class="dbutton" href="/events/{{eventContent.event._id}}">Back to Event</a>
+  <a class="dbutton back-search" href="/events/{{eventContent.event._id}}">Back to Event</a>
 
 </article>

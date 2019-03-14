@@ -1181,7 +1181,6 @@ div.event-list-image {
   }
 
   .search-form {
-    background-color: rgb(238, 238, 238);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1196,7 +1195,9 @@ div.event-list-image {
 
   .search-h1 {
     text-align: center;
-    padding: 35px 0;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    
   }
 
   .logout {
@@ -1226,4 +1227,43 @@ div.event-list-image {
     background-image: url("https://d3nuqriibqh3vw.cloudfront.net/media-vimeo/70533052.jpg");
     background-size: contain;
     background-repeat: no-repeat;
+   }
+
+   .input-search {
+     background-color: rgb(223, 222, 222);
+     border: 1px solid gray;
+   }
+
+   .search-article {
+    background-color:  rgb(194, 189, 189);
+   }
+
+   .search-image {
+     margin: 7vh 0;
+     height: 23vh;
+     width: 40vw;
+   }
+
+   .search-article {
+     background-color: rgb(145, 228, 228);
+   }
+
+   .back-search {
+     margin-left: 32vw;
+     position: fixed;
+     bottom: 2vh;
+   }
+
+   .article-background {
+     height: 100%;
+     background-color: gray;
+   }
+
+   .found-user {
+     text-align: center;
+     margin: 20px auto;
+     padding: 8px;
+     width: 40vw;
+     border-radius: 18px;
+     background-color: rgb(223, 222, 222);
    }
