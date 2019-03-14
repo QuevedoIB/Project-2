@@ -1063,10 +1063,6 @@ h2 {
   margin-top: 70px;
 }
 
-.mail-a {
-  margin-top: 20px;
-}
-
 img.user-image {
   width: 10vw;
   border-radius: 100%;
@@ -1074,10 +1070,11 @@ img.user-image {
 }
 
 .coment-form {
-  width: 100%;
+  width: 80%;
   height: 55px;
   position: absolute;
   margin-bottom: 50px;
+  margin-left: 2.5vw;
 }
 
 form.add-item {
@@ -1294,7 +1291,6 @@ div.event-list-image {
 
    .article-background {
      height: 63vh;
-     background-color: gray;
    }
 
    .found-user {

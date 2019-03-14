@@ -126,9 +126,10 @@
 
 
 {{#if isCreator}}
-<a class="mail-a" href="/events/{{event._id}}/send-email"> Send an Email to attendees</a>
 
 <div class="remove-buttons">
+  <a class="dbutton" href="/events/{{event._id}}/send-email">Send Email</a>
+
   <form action="/events/delete-event" method="POST">
     <input type="hidden" name="event" value="{{event._id}}">
     <button class="leave dbutton big" type="submit">Delete Event</button>
