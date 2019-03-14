@@ -15,7 +15,6 @@
   <p id="location" class="inline">{{event.location}}</p>
 </div>
 <div class="distance">
-  <i class="fas fa-subway"></i>
   <p class="inline" id="distance-location"></p>
 </div>
 
@@ -71,59 +70,63 @@
 {{/if}}
 
 {{#if event.attendees}}
-<div class="attendees">
+<div class="attendees-div">
   <h3 class="attendees-h3"> <i class="fas fa-users"></i>attendees</h3>
   <ul class="event-attendees">
     {{#each event.attendees}}
-    {{this.username}}
-    {{#if isCreator}}
-    <li>
-      <form class="uninvite" action="/people/delete-people" method="POST">
-        <input type="hidden" value="{{../event._id}}" name="eventId">
-        <input type="hidden" value="{{_id}}" name="guestId">
-        <button class="submit remove small-blue" type="submit">Uninvite</button>
-      </form>
-    </li>
+    {{#if ../isCreator}}
+    <form class="uninvite" action="/people/delete-people" method="POST">
+      <input type="hidden" value="{{../event._id}}" name="eventId">
+      <input type="hidden" value="{{_id}}" name="guestId">
+      <button class="delete-people" type="submit"><i class="fas fa-user-times"></i></button>
+    </form>
     {{/if}}
-    {{#each items}}
-    <li class="hide">Item: {{itemName}}, Quantity carrying: {{quantity}}</li>
-    {{/each}}
+    <div class="attendees">{{this.username}}
+      {{#each ../event.items}}
+      {{#if quantity}}<li class="hide">{{quantity}} {{name}}</li>{{/if}}
+      {{/each}}
+
+
+    </div>
     {{/each}}
   </ul>
 </div>
+
+
+
 {{/if}}
 
 <div class="h3">
   <h3 class="comment-h3"><i class="fas fa-comment"></i>comments</h3>
 </div>
-<div class="comments" id="hide">
+<div class="comments">
 
   {{#if event.comments}}
   {{#each event.comments}}
   <div class="each-comment">
     <img class="user-image" src="{{userImage}}" alt="">
     <div class="comment-text">
-      <p>{{user}}: {{message}} <span class="date-comment">{{date}}</span></p>
+      <p><span class="user-comment">{{user}}:</span> {{message}} <span class="date-comment">{{date}}</span></p>
     </div>
   </div>
   {{/each}}
   {{/if}}
 
-  <div class="coment-form">
-    <form action="/events/{{event._id}}/add-comment" method="POST" class="comment-input">
-      <div class="field">
-        <input type="text-area" name="comment" id="comment-name" placeholder="Comment">
-      </div>
-      <div class="field">
-        <button class="dbutton small-blue" type="submit"><i class="far fa-share-square"></i></button>
-      </div>
-  </div>
+</div>
+<div class="coment-form">
+  <form action="/events/{{event._id}}/add-comment" method="POST" class="comment-input">
+    <div class="field">
+      <input type="text-area" name="comment" id="comment-name" placeholder="Comment">
+    </div>
+    <div class="field">
+      <button class="dbutton shadow small-blue" type="submit"><i class="far fa-share-square"></i></button>
+    </div>
   </form>
 </div>
 
 
 {{#if isCreator}}
-<a class="dbutton" href="/events/{{event._id}}/send-email">Email attendees</a>
+<a class="mail-a" href="/events/{{event._id}}/send-email"> Send an Email to attendees</a>
 
 <div class="remove-buttons">
   <form action="/events/delete-event" method="POST">
