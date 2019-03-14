@@ -10,11 +10,11 @@
     </form>
   </div>
   {{#if eventContent.searchedUser}}
-  <form action="/people/add-people" method="POST">
+  <form action="/people/invite-people" method="POST">
     <p class="found-user">{{eventContent.searchedUser.username}}</p>
     <input type="hidden" value="{{eventContent.event._id}}" name="eventId"></input>
     <input type="hidden" name="guestId" value="{{eventContent.searchedUser._id}}">
-    <button class="dbutton small-blue" type="submit">Add</button>
+    <button class="dbutton small-blue" type="submit">Invite</button>
   </form>
 
   {{/if}}

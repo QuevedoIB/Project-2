@@ -5,25 +5,37 @@ const mainAjax = async () => {
   const urlArray = fullUrl.split('/');
   const id = urlArray[urlArray.length - 1];
 
-  const messagesRequest = await fetch(`/api/events/${id}/comments`);
+  let messagesRequest;
 
-  const messages = await messagesRequest.json();
+  let messages;
 
-  const chat = document.querySelector('div.comment-text');
+  async function onRequest () {
+    try {
+      messagesRequest = await fetch(`/api/events/${id}/comments`);
 
-  chat.innerHTML = '';
+      messages = await messagesRequest.json();
 
-  console.log(chat);
+      const chat = document.querySelector('div.comment-text');
 
-  messages.comments.forEach(message => {
-    const messageText =
-      `<img src='${message.userImage}' />
+      chat.innerHTML = '';
+
+      messages.comments.forEach(message => {
+        const messageText =
+          `<div class="each-comment">
+      <img src='${message.userImage}' />
         <p>
           <span class="user-comment">${message.user}:</span> ${message.message} <span class="date-comment">${message.date}</span>
-        </p>`;
+        </p>
+      </div>`;
 
-    chat.appendChild(messageText);
-  });
+        chat.innerHTML += messageText;
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  onRequest();
 };
 
 window.addEventListener('load', mainAjax);

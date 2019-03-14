@@ -46,7 +46,6 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
       eventContent.searchedUser = searchedUser;
     } else {
       req.flash('validation', 'Incorrect user');
-
       res.redirect(`/people/${id}/list`);
       return;
     }
@@ -57,16 +56,16 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
   }
 });
 
-router.post('/add-people', requireLogged, async (req, res, next) => {
+router.post('/invite-people', requireLogged, async (req, res, next) => {
   const { eventId, guestId } = req.body;
-  const objectGuestId = ObjectId(guestId);
   try {
     const guest = await User.findById(guestId);
     let alreadyAttending = false;
+    let alreadyInvited = false;
     if (guest) {
       const event = await Events.findById(eventId);
       event.attendees.forEach(attendee => {
-        if (attendee == guestId) {
+        if (attendee.equals(guestId)) {
           alreadyAttending = true;
         }
       });
@@ -75,8 +74,61 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
         res.redirect(`/people/${eventId}/list`);
         return;
       }
-      const eventAddedAttendee = await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });
+
+      guest.invitations.forEach(invitation => {
+        if (invitation.equals(eventId)) {
+          alreadyInvited = true;
+        }
+      });
+
+      if (alreadyInvited) {
+        req.flash('validation', 'User already invited');
+        res.redirect(`/people/${eventId}/list`);
+        return;
+      }
+      const user = await User.findById(guestId);
+      if (user) {
+        const userUpdated = await User.findByIdAndUpdate(guestId, { $push: { invitations: eventId } });
+      }
+      res.redirect(`/people/${eventId}/list`);
     }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/invitations', requireLogged, async (req, res, next) => {
+  const user = req.session.currentUser;
+  try {
+    const foundUser = await User.findById(user._id).populate('invitations');
+
+    res.render('profile/invites', { foundUser });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/decline-invitation', requireLogged, async (req, res, next) => {
+  const { eventId, guestId } = req.body;
+  try {
+    const user = await User.findById(guestId).populate('invitations').lean();
+    const filteredInvites = user.invitations.filter(e => !e._id.equals(eventId));
+    await User.findByIdAndUpdate(guestId, { $set: { invitations: filteredInvites } }, { new: true });
+    res.redirect('/people/invitations');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/accept-invitation', requireLogged, async (req, res, next) => {
+  const { eventId, guestId } = req.body;
+  const objectGuestId = ObjectId(guestId);
+  try {
+    const user = await User.findById(guestId).populate('invitations').lean();
+    const filteredInvites = user.invitations.filter(e => e._id.equals(eventId));
+    await User.findByIdAndUpdate(guestId, { $set: { invitations: filteredInvites } }, { new: true });
+    res.redirect('/people/invitations');
+    await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });
     res.redirect(`/people/${eventId}/search-people`);
   } catch (err) {
     next(err);

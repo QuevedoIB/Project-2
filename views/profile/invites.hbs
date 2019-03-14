@@ -1,0 +1,17 @@
+<h1>Invites Page</h1>
+
+{{!-- {{#if invitations.length}} --}}
+{{#each foundUser.invitations}}
+
+<p>{{name}}</p>
+<form action="/people/accept-invitation" method="POST">
+  <input type="hidden" value="{{_id}}" name="eventId"></input>
+  <input type="hidden" name="guestId" value="{{../foundUser._id}}">
+  <button class="dbutton small-blue" type="submit">Join</button>
+</form>
+<form action="/people/decline-invitation" method="POST">
+  <input type="hidden" value="{{_id}}" name="eventId"></input>
+  <input type="hidden" name="guestId" value="{{../foundUser._id}}">
+  <button class="dbutton small-blue" type="submit">Decline</button>
+</form>
+{{/each}}
