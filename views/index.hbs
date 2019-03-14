@@ -1,4 +1,32 @@
-<section id="index-page">
+<section>
+
+  <div class="container index-header">
+    <div class="container-row">
+      <h1 class="index-title">Esplit</h1>
+      <img class="index-img" src="/images/Broken Egg.png" />
+    </div>
+    <h2>Split your events into smaller things</h2>
+  </div>
+
+  <div class="container-index-body index-body">
+    <h4>Create events, invite people, reorganize your life</h4>
+    <p>Get started now: </p>
+
+
+    {{#unless currentUser}}
+    <div class="container-row">
+      <a class="dbutton" href="/auth/signup">Sign Up</a>
+      <a class="dbutton" href="/auth/login">Log in</a>
+    </div>
+    <a href="{{url}}"><img src="/images/google-log-in.png" /></a>
+    {{/unless}}
+  </div>
+
+</section>
+
+
+
+{{!-- <section id="index-page">
 
   <div class="logo">
 
@@ -17,4 +45,4 @@
     {{/unless}}
   </div>
 
-</section>
+</section> --}}

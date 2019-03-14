@@ -5,7 +5,8 @@ body {
 padding: 0;
 margin: 0;
 font-family: 'Lato', sans-serif;
-height: 100%;
+height: 100vh;
+width: 100%;
 font-size: 16px;
 background: #EEEEEE;
 }
@@ -128,7 +129,7 @@ h2 {
    color: #9c9797;
    font-size: 16px;
    }
-  
+
    .submit {
    width: 100%;
    height: 52px;
@@ -1344,4 +1345,55 @@ div.mapboxgl-ctrl-geocoder {
 
 .invisible {
   visibility: hidden;
+}
+
+.index-img {
+  width: 15vw;
+  height: 10vh;
+}
+
+.index-title {
+  font-size: 74px;
+}
+
+.index-header {
+  padding-top: 15vh;
+  padding-bottom: 10vh;
+  background-color: #4E96BA;
+}
+
+.index-header h2{
+  margin: 0 auto;
+  align-self: flex-start;
+  font-size: 20px;
+}
+
+.container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.index-body {
+  background-color: rgb(223, 219, 219);
+  height: 59.5vh;
+}
+
+.container-index-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-index-body h4{
+  margin-top: 8vh;
+}
+
+.container-row a {
+  margin: 5vh 2vw;
+}
+
+.index-body img {
+  margin-top: 3vh;
+  width: 13vw;
+  height: 8vh;
 }
