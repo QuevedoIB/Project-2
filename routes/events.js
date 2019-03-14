@@ -69,7 +69,6 @@ router.post('/add', requireLogged, parser.single('image'), async (req, res, next
   const { name, description, location, date } = req.body;
   const event = { owner, name, description, location, date, imageUrl };
   if (!owner || !name || !location || !date) {
-    // required fields flash
     req.flash('validation', 'Missing fields');
     res.redirect('/events/new');
     return;
@@ -93,10 +92,12 @@ router.get('/:id', requireLogged, async (req, res, next) => {
   try {
     const event = await Events.findById(id).populate('owner').populate('attendees').populate('items').lean();
     let isCreator = false;
-    console.log(event, 'HOLA');
+    data.event = event;
+
     if (event.owner._id.equals(currentUserId)) {
       isCreator = true;
     }
+    data.isCreator = isCreator;
 
     event.attendees.forEach(attendee => {
       event.items.forEach(item => {
@@ -113,7 +114,7 @@ router.get('/:id', requireLogged, async (req, res, next) => {
         });
       });
     });
-    res.render('events/details', { event, isCreator, data });
+    res.render('events/details', data);
   } catch (err) {
     next(err);
   }
@@ -123,8 +124,7 @@ router.post('/add-item', requireLogged, async (req, res, next) => {
   const { event, name, quantity } = req.body;
   const itemObject = { name, quantity, event };
   if (!name || !quantity || !event) {
-    // required fields flash
-    req.flash('validation', 'Missing fields');
+    req.flash('validation', 'Missing item fields');
     res.redirect(`/events/${event}`);
     return;
   };

@@ -11,12 +11,16 @@ const { requireLogged, requireFieldsSignUp, requireFieldsLogIn } = require('../m
 
 router.get('/:id/list', requireLogged, async (req, res, next) => {
   const { id } = req.params;
+  const data = {
+    messages: req.flash('validation')
+  };
   try {
     const event = await Events.findById(id);
     const eventContent = {
       event
     };
-    res.render('people/search', { eventContent });
+    data.eventContent = eventContent;
+    res.render('people/search', data);
   } catch (err) {
     next(err);
   }
@@ -32,16 +36,19 @@ router.get('/:id/search-people', requireLogged, async (req, res, next) => {
       event
     };
     if (!username || username === req.session.currentUser.username) {
-      const data = {
-        messages: req.flash('validation')
-      };
       req.flash('validation', 'Incorrect user');
-      res.render('people/search', { eventContent, data });
+
+      res.redirect(`/people/${id}/list`);
       return;
     }
     const searchedUser = await User.findOne({ username });
     if (searchedUser) {
       eventContent.searchedUser = searchedUser;
+    } else {
+      req.flash('validation', 'Incorrect user');
+
+      res.redirect(`/people/${id}/list`);
+      return;
     }
 
     res.render('people/search', { eventContent });
@@ -60,12 +67,12 @@ router.post('/add-people', requireLogged, async (req, res, next) => {
       const event = await Events.findById(eventId);
       event.attendees.forEach(attendee => {
         if (attendee == guestId) {
-          // flash user already attending to that event
           alreadyAttending = true;
         }
       });
       if (alreadyAttending) {
-        res.redirect(`/people/${eventId}/search-people`);
+        req.flash('validation', 'User already attending');
+        res.redirect(`/people/${eventId}/list`);
         return;
       }
       const eventAddedAttendee = await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });

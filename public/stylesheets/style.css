@@ -992,8 +992,11 @@ h2 {
 
 .footer-index {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 60px;
-  margin-left: 94px
+  margin: 0 auto;
 }
 
 .event-picture {
@@ -1267,3 +1270,33 @@ div.event-list-image {
      border-radius: 18px;
      background-color: rgb(223, 222, 222);
    }
+
+   .validation {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 40vw;
+     height: 6vh;
+     margin: 0px auto;
+     background-color: rgba(226, 85, 85, 0.8);
+     font-weight: bolder;
+   }
+
+   .map-create-event {
+     margin: 0 auto;
+     height: 500px;
+     width: 500px;
+
+   }
+   .geocoder {
+     height: 8vh;
+    z-index:5;
+    width:50%;
+    }
+    .mapboxgl-ctrl-geocoder { min-width:100%; }
+
+
+div.mapboxgl-ctrl-geocoder {
+  border: none;
+  border-radius: 30px;
+}

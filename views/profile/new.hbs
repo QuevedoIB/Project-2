@@ -9,10 +9,15 @@
       <div class="field">
         <input class="white" type="text" name="description" placeholder="Description:" />
       </div>
-      <div class="field">
+      {{!-- <div class="field">
         <input class="white" type="text" name="location" placeholder="Location:" />
+      </div> --}}
+
+      <div id="location" class='geocoder'>
+        {{!-- <input class="white" type="text" name="location" placeholder="Location:" /> --}}
       </div>
-      <div id='geocoder' class='geocoder'></div>
+
+
       <div class="field">
         <input class="white" type="date" name="date" />
       </div>
@@ -31,12 +36,17 @@
       </div>
     </form>
   </div>
+
+  </div>
 </section>
 
-<script src="/javascripts/autocomplete-location.js"></script>
+<div id="map" class="map-create-event hide"></div>
+
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
 <link rel='stylesheet'
   href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
+
+<script src="/javascripts/autocomplete-location.js"></script>
