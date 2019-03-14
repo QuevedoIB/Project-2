@@ -1083,9 +1083,14 @@ margin-right: 10px;
 }
 
 div.event-list-image {
+  
   margin-right: 10px;
   height: 10vh;
   width: 10vh;
+}
+
+.event-list-images {
+  border-radius: 18px;
 }
 
 .show-events li {
@@ -1186,3 +1191,9 @@ div.event-list-image {
   #home-burguer{
     margin-top: 10vh;
   }
+
+  .not-found {
+    background-image: url("https://d3nuqriibqh3vw.cloudfront.net/media-vimeo/70533052.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+   }
