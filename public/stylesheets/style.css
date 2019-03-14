@@ -782,18 +782,48 @@ h2 {
    
    
    .red-bg {
+    font-weight: bold;
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     position: relative;
+     top: 15vh;
+    border-radius: 18px;
     background: red;
    }      
    
    .yellow-bg {
+     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+     position: relative;
+    top: 15vh;
+     border-radius: 18px;
     background: yellow;
    }
    
    .orange-bg {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+   
+    position: relative;
+    top: 15vh;
+     border-radius: 18px;
     background: orange;
    }
    
    .green-bg {
+    font-weight: bold;
+     display: flex;
+    justify-content: center;
+    align-content: center;
+    
+    position: relative;
+     top: 15vh;
+     border-radius: 18px;
     background: green;
    }
 

@@ -41,7 +41,7 @@ const main = () => {
 
     // Update the text indicator
     if (val !== '') {
-      strengthText.innerHTML = 'Strength: ' + strength[result.score];
+      strengthText.innerHTML = 'Password Strength: ' + strength[result.score];
     } else {
       strengthText.innerHTML = '';
     }
