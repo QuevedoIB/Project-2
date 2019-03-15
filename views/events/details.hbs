@@ -82,8 +82,10 @@
     </form>
     {{/if}}
     <div class="attendees">{{this.username}}
-      {{#each ../event.items}}
-      {{#if quantity}}<li class="hide">{{quantity}} {{name}}</li>{{/if}}
+      {{#each items}}
+      {{#if quantity}}
+      <li class="hide">{{quantity}} {{itemName}}</li>
+      {{/if}}
       {{/each}}
 
 

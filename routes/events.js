@@ -90,14 +90,12 @@ router.get('/:id', requireLogged, async (req, res, next) => {
     messages: req.flash('validation')
   };
   try {
-    const event = await Events.findById(id).populate('owner').populate('attendees').populate('items').lean();
+    const event = await Events.findById(id).populate('owner').populate('attendees').populate('items').populate('carriers').lean();
     let isCreator = false;
-    data.event = event;
 
     if (event.owner._id.equals(currentUserId)) {
       isCreator = true;
     }
-    data.isCreator = isCreator;
 
     event.attendees.forEach(attendee => {
       event.items.forEach(item => {
@@ -114,6 +112,11 @@ router.get('/:id', requireLogged, async (req, res, next) => {
         });
       });
     });
+
+    data.event = event;
+
+    data.isCreator = isCreator;
+
     res.render('events/details', data);
   } catch (err) {
     next(err);
