@@ -36,7 +36,7 @@ const eventsSchema = new Schema({
   }],
   imageUrl: {
     type: String,
-    default: 'http://www.so-events.at/SYSTEM/image_background/standard/background_02.jpg'
+    default: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80'
   },
   comments: [{
     user: {

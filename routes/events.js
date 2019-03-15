@@ -36,7 +36,7 @@ router.get('/search-event', requireLogged, async (req, res, next) => {
         messages: req.flash('validation')
       };
       req.flash('validation', 'Incorrect user');
-      res.redirect('/events', data);
+      res.redirect('/events/search-event', data);
       return;
     }
     const user = req.session.currentUser;
@@ -46,7 +46,7 @@ router.get('/search-event', requireLogged, async (req, res, next) => {
     const finished = await Events.find({ date: { $lt: currentDate } });
     const events = { owned, participating, finished };
 
-    res.render('events/list', { events, user, eventsSearched });
+    res.render('profile/search-events', { events, user, eventsSearched });
   } catch (err) {
     next(err);
   }

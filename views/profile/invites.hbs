@@ -17,12 +17,12 @@
     <form action="/people/accept-invitation" method="POST">
       <input type="hidden" value="{{_id}}" name="eventId"></input>
       <input type="hidden" name="guestId" value="{{../foundUser._id}}">
-      <button class="dbutton join" type="submit">Join</button>
+      <button class="join" type="submit"><img src="/images/accept-icon.png"></button>
     </form>
     <form action="/people/decline-invitation" method="POST">
       <input type="hidden" value="{{_id}}" name="eventId"></input>
       <input type="hidden" name="guestId" value="{{../foundUser._id}}">
-      <button class="dbutton join" type="submit">Decline</button>
+      <button class="join" type="submit"><img src="/images/x-button.png"></button>
     </form>
   </div>
   {{/each}}

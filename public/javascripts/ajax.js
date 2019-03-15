@@ -3,6 +3,7 @@
 const mainAjax = async () => {
   const functionComments = (comments) => {
     const chat = document.querySelector('.comments');
+    const chatInput = document.querySelector('#comment-input');
 
     chat.innerHTML = '';
 
@@ -19,6 +20,7 @@ const mainAjax = async () => {
       </div>`;
 
       chat.innerHTML += messageText;
+      chatInput.innerText = '';
     });
   };
   const fullUrl = window.location.href;

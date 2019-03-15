@@ -112,6 +112,7 @@ router.post('/decline-invitation', requireLogged, async (req, res, next) => {
   const { eventId, guestId } = req.body;
   try {
     const user = await User.findById(guestId).populate('invitations').lean();
+
     const filteredInvites = user.invitations.filter(e => !e._id.equals(eventId));
     await User.findByIdAndUpdate(guestId, { $set: { invitations: filteredInvites } }, { new: true });
     res.redirect('/people/invitations');
@@ -127,9 +128,8 @@ router.post('/accept-invitation', requireLogged, async (req, res, next) => {
     const user = await User.findById(guestId).populate('invitations').lean();
     const filteredInvites = user.invitations.filter(e => !e._id.equals(eventId));
     await User.findByIdAndUpdate(guestId, { $set: { invitations: filteredInvites } }, { new: true });
-    res.redirect('/people/invitations');
     await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });
-    res.redirect(`/people/${eventId}/search-people`);
+    res.redirect('/people/invitations');
   } catch (err) {
     next(err);
   }

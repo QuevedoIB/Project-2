@@ -13,10 +13,15 @@ router.get('/', (req, res, next) => {
   res.render('index', { url });
 });
 
-router.get('/profile', requireLogged, (req, res, next) => {
+router.get('/profile', requireLogged, async (req, res, next) => {
   const currentUser = req.session.currentUser;
-  console.log(currentUser);
-  res.render('profile/profile', currentUser);
+  try {
+    const user = await User.findById(currentUser._id);
+    req.session.currentUser = user;
+    res.render('profile/profile', user);
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.post('/profile-image', parser.single('image'), requireLogged, async (req, res, next) => {
