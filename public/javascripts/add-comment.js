@@ -25,10 +25,10 @@ const mainComment = (callback) => {
     };
     const commentsResponse = await fetch(`/api/event/${eventId}/comment/create`, options);
     const event = await commentsResponse.json();
-    console.log(event);
+
     callback(event);
   };
-  const buttonSubmit = document.querySelector('a.dbutton.shadow');
+  const buttonSubmit = document.querySelector('a.shadow');
 
   buttonSubmit.addEventListener('click', handleSubmit);
 };

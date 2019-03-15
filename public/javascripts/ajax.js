@@ -6,9 +6,9 @@ const mainAjax = async () => {
     const chatInput = document.querySelector('#comment-input');
 
     chat.innerHTML = '';
+    chatInput.value = '';
 
     comments.forEach(message => {
-      console.log(message);
       const messageText =
         `<div class='each-comment'>
         <img class="user-image" src='${message.userImage}' />
@@ -20,8 +20,9 @@ const mainAjax = async () => {
       </div>`;
 
       chat.innerHTML += messageText;
-      chatInput.innerText = '';
     });
+
+    chat.scrollTo(0, chat.scrollHeight);
   };
   const fullUrl = window.location.href;
   const urlArray = fullUrl.split('/');

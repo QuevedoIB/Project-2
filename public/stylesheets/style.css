@@ -768,8 +768,14 @@ body {
  
    .shadow{
     border: none;
-    height: 45px;
     box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #7d8082, 0px 10px 4px #999;
+    width: 15vw;
+    height: 7vh;
+    display: block;
+    background-color: #00CAC4;
+    color: white;
+    text-align: center;
+    padding-top: 2.2vh;
    }
  
  .dbutton:active {
