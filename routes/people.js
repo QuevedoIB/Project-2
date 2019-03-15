@@ -125,7 +125,7 @@ router.post('/accept-invitation', requireLogged, async (req, res, next) => {
   const objectGuestId = ObjectId(guestId);
   try {
     const user = await User.findById(guestId).populate('invitations').lean();
-    const filteredInvites = user.invitations.filter(e => e._id.equals(eventId));
+    const filteredInvites = user.invitations.filter(e => !e._id.equals(eventId));
     await User.findByIdAndUpdate(guestId, { $set: { invitations: filteredInvites } }, { new: true });
     res.redirect('/people/invitations');
     await Events.findByIdAndUpdate(eventId, { $push: { attendees: guestId } }, { new: true });

@@ -24,10 +24,9 @@ router.post('/event/:id/comment/create', async (req, res, next) => {
 
   const mongoId = mongoose.Types.ObjectId(id);
 
-  console.log(req.body, 'ADIOOOOOOOOOOOOS');
-
-  console.log(comment, 'HOOOOOOOOOOOOLA', id);
   const user = req.session.currentUser.username;
+
+  const image = req.session.currentUser.imageUrl;
 
   if (!comment) {
     res.status(400);
@@ -36,13 +35,14 @@ router.post('/event/:id/comment/create', async (req, res, next) => {
   }
   const commentData = {
     user,
-    message: comment
+    message: comment,
+    userImage: image
   };
 
   try {
-    const event = await Event.findByIdAndUpdate(mongoId, { $push: { comments: commentData } });
-    res.status(204);
-    res.json({ message: 'Added comment' });
+    const event = await Event.findByIdAndUpdate(mongoId, { $push: { comments: commentData } }, { new: true });
+    res.status(200);
+    return res.json(event.comments);
   } catch (error) {
     next(error);
   }

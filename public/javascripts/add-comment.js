@@ -1,17 +1,15 @@
 'use strict';
 
-const mainComment = () => {
+const mainComment = (callback) => {
   /*
 
   */
 
-  const form = document.querySelector('form.comment-input');
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (evt) => {
     // cancelamos el envío del formulario
-    event.preventDefault();
+    evt.preventDefault();
     // dentro del form cogemos el target (form) y hacemos un query selector para sacar el hijo de ese form
-    const input = event.target.querySelectorAll('input');
+    const input = document.querySelectorAll('#comment-input');
 
     // llamamos a la función search tortillas y le pasamos el valor del input
     postComment(input[0].value, input[1].value);
@@ -19,20 +17,18 @@ const mainComment = () => {
 
   // `/api/event/${event}/comment/create`
 
-  const postComment = async (comment, event) => {
-    fetch(`/api/event/${event}/comment/create`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: JSON.stringify(comment)
-      })
-      .then(function (res) {
-        console.log(res);
-        return res.json();
-      });
+  const postComment = async (comment, eventId) => {
+    const options = {
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      method: 'POST',
+      body: JSON.stringify({ comment })
+    };
+    const commentsResponse = await fetch(`/api/event/${eventId}/comment/create`, options);
+    const event = await commentsResponse.json();
+    console.log(event);
+    callback(event);
   };
+  const buttonSubmit = document.querySelector('a.dbutton.shadow');
 
-  form.addEventListener('submit', handleSubmit);
+  buttonSubmit.addEventListener('click', handleSubmit);
 };
-
-window.addEventListener('load', mainComment);

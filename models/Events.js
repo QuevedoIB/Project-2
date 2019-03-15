@@ -47,7 +47,10 @@ const eventsSchema = new Schema({
       type: Date,
       default: Date.now
     },
-    userImage: String
+    userImage: {
+      type: String,
+      default: 'https://www.caduceosalud.es/wp-content/uploads/2013/09/silueta.png'
+    }
   }]
 });
 

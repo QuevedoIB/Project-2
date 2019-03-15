@@ -15,8 +15,13 @@
     </div>
   </form>
 
+  <a href="/people/invitations"><img src="/images/bell.png" alt=""></a>
+  {{#if invitations}}
+  <p><i class="fas fa-circle"></i></p>
+  {{/if}}
   <img src="/images/cam.png" class="add-image" alt="">
   <a href="/auth/change-password"><img src="/images/word.png" alt=""></a>
+
 </div>
 
 <section class="profile-buttons">
@@ -29,7 +34,7 @@
   </div>
 </section>
 
-<a href="/people/invitations">Invitations</a>
+
 
 
 <script src="/javascripts/image-input.js"></script>

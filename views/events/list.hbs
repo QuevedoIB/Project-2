@@ -21,8 +21,6 @@
 
 <div class="show-events">
 
-
-
   <ul id="owned-events" class="show">
     <div class="container-list">
       {{#each events.owned}}
@@ -35,10 +33,6 @@
       {{/each}}
     </div>
   </ul>
-
-
-
-
 
   <ul id="participating-events" class="hide">
     <div class="container-list">
@@ -53,9 +47,6 @@
     </div>
   </ul>
 
-
-
-
   <ul id="finished-events" class="hide">
     <div class="container-list">
       {{#each events.finished}}
@@ -69,41 +60,15 @@
     </div>
   </ul>
 
-
 </div>
 
-{{#if eventsSearched}}
 
-<div class="searched-events border-box">
-  <h2 class="search-title">Search results</h2>
-  <div class="container-list">
-    <ul class="searched-ul">
-      {{#each eventsSearched}}
-      <li>
-        <div class="bg-searched container-list" style="background: url({{imageUrl}}) no-repeat center center / cover;">
-          <a class="event-square-text" href="/events/{{_id}}">{{name}}</a>
-        </div>
-      </li>
-      {{/each}}
-    </ul>
-  </div>
+<div class="list-new-button">
+  <a class="dbutton" href="events/new">New Event</a>
+  <a class="dbutton" href="events/search-event">search events</a>
 </div>
-{{/if}}
 
 
-<section class="events-background">
-  <form class="search-event-form" action="/events/search-event" method="GET">
-    <label for="event-search-input">Event Name: </label>
-    <input type="search" name="name" id="event-search-input"></input>
-    <button id="search-button-element" class="dbutton" type="submit">Search event</button>
-  </form>
 
-  <div class="list-new-button">
-    <a class="dbutton" href="events/new">New Event</a>
-  </div>
-</section>
-
-
-{{!-- <a href="/profile">Back to profile</a> --}}
 
 <script src="/javascripts/event-list.js"></script>

@@ -115,35 +115,32 @@
 
 </div>
 <div class="coment-form">
-  <form action="/events/{{event._id}}/add-comment" method="POST" class="comment-input">
+  <form class="comment-input">
     <div class="field">
-      <input type="text-area" name="comment" id="comment-name" placeholder="Comment">
-      <input type="hidden" name="eventId" value="{{event._id}}">
+      <input type="text-area" name="comment" id="comment-input" placeholder="Comment">
+      <input type="hidden" name="eventId" id="comment-input" value="{{event._id}}">
     </div>
     <div class="field">
-      <button class="dbutton shadow small-blue" type="submit"><i class="far fa-share-square"></i></button>
+      <a class="shadow dbutton small-blue"><i class="far fa-share-square"></i></a>
     </div>
   </form>
 </div>
 
 
 {{#if isCreator}}
-
 <div class="remove-buttons">
   <a class="dbutton" href="/events/{{event._id}}/send-email">Send Email</a>
-
   <form action="/events/delete-event" method="POST">
     <input type="hidden" name="event" value="{{event._id}}">
     <button class="leave dbutton big" type="submit">Delete Event</button>
   </form>
-
   {{else}}
-  <form action="/people/leave-event" method="POST">
+  <form class="leave-event" action="/people/leave-event" method="POST">
     <input type="hidden" value="{{event._id}}" name="id">
     <button class="big leave dbutton" type="submit">Leave event</button>
   </form>
-  {{/if}}
 </div>
+{{/if}}
 
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 <script src="/javascripts/form.js"></script>
