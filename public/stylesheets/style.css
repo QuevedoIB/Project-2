@@ -500,6 +500,8 @@ body {
    
             .attendees {
               display: flex;
+              font-size: 18px;
+     font-weight: bold;
             }
    
             .delete-people {
@@ -1405,6 +1407,11 @@ body {
     display: flex;
     flex-direction: row;
    }
+
+   .container-column {
+     display: flex;
+     flex-direction: column;
+   }
    
    .index-body {
     background-color: rgb(223, 219, 219);
@@ -1429,4 +1436,21 @@ body {
     margin-top: 3vh;
     width: 13vw;
     height: 8vh;
+   }
+
+   .start-button {
+     margin-top: 10vh;
+   }
+
+   .uninvite {
+     margin-right: 3vh;
+   }
+
+   #user-items{
+     font-weight: lighter;
+   }
+
+   .attendee-container{
+     display: flex;
+     margin-bottom: 2vh;
    }

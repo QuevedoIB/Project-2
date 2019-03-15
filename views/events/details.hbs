@@ -72,23 +72,24 @@
 {{#if event.attendees}}
 <div class="attendees-div">
   <h3 class="attendees-h3"> <i class="fas fa-users"></i>attendees</h3>
-  <ul class="event-attendees">
+  <ul class="event-attendees container-column">
     {{#each event.attendees}}
-    {{#if ../isCreator}}
-    <form class="uninvite" action="/people/delete-people" method="POST">
-      <input type="hidden" value="{{../event._id}}" name="eventId">
-      <input type="hidden" value="{{_id}}" name="guestId">
-      <button class="delete-people" type="submit"><i class="fas fa-user-times"></i></button>
-    </form>
-    {{/if}}
-    <div class="attendees">{{this.username}}
-      {{#each items}}
-      {{#if quantity}}
-      <li class="hide">{{quantity}} {{itemName}}</li>
+    <div class="attendee-container">
+      {{#if ../isCreator}}
+      <form class="uninvite" action="/people/delete-people" method="POST">
+        <input type="hidden" value="{{../event._id}}" name="eventId">
+        <input type="hidden" value="{{_id}}" name="guestId">
+        <button class="delete-people" type="submit"><i class="fas fa-user-times"></i></button>
+      </form>
       {{/if}}
-      {{/each}}
-
-
+      <div class="attendees">
+        {{this.username}}:
+        {{#each items}}
+        {{#if quantity}}
+        <li id="user-items" class="hide"><br>- {{itemName}}: {{quantity}}</li>
+        {{/if}}
+        {{/each}}
+      </div>
     </div>
     {{/each}}
   </ul>

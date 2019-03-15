@@ -10,16 +10,16 @@
 
   <div class="container-index-body index-body">
     <h4>Create events, invite people, reorganize your life</h4>
-    <p>Get started now: </p>
-
-
-    {{#unless currentUser}}
+    {{#if currentUser}}
+    <a class="dbutton start-button" href="/profile">Get started now</a>
+    {{else}}
+    <p>Get started now:</p>
     <div class="container-row">
       <a class="dbutton" href="/auth/signup">Sign Up</a>
       <a class="dbutton" href="/auth/login">Log in</a>
     </div>
     <a href="{{url}}"><img src="/images/google-log-in.png" /></a>
-    {{/unless}}
+    {{/if}}
   </div>
 
 </section>
