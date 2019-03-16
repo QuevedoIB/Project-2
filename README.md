@@ -168,12 +168,12 @@ toBring: [{
 
 The url to your repository and to your deployed project
 
-[Repository Link](http://github.com)
+https://github.com/QuevedoIB/Project-2
 
-[Deploy Link](http://heroku.com)
+https://esplit.herokuapp.com
 
 ### Slides
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+https://slides.com/adrianaperez-1/deck-1#/
