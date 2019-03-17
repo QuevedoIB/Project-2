@@ -27,9 +27,10 @@ router.get('/', requireLogged, async (req, res, next) => {
 
 router.get('/search-event', requireLogged, async (req, res, next) => {
   const { name } = req.query;
-
+  const user = req.session.currentUser;
   try {
-    const eventsSearched = await Events.find({ $or: [{ name: name }, { username: name }] });
+    const userSearched = await User.find({ username: name });
+    const eventsSearched = await Events.find({ $and: [{ $or: [{ attendees: { '$in': [user._id] } }, { owner: user._id }] }, { $or: [{ name }, { owner: userSearched._id }] }] });
     if (!eventsSearched) {
       const data = {
         messages: req.flash('validation')
@@ -38,7 +39,6 @@ router.get('/search-event', requireLogged, async (req, res, next) => {
       res.redirect('/events/search-event', data);
       return;
     }
-    const user = req.session.currentUser;
     const currentDate = new Date().toISOString();
     const owned = await Events.find({ owner: user._id });
     const participating = await Events.find({ attendees: { '$in': [user._id] } });
