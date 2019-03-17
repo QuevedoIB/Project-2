@@ -15,10 +15,9 @@ router.get('/', requireLogged, async (req, res, next) => {
   const user = req.session.currentUser;
   const currentDate = new Date().toISOString();
   try {
-    const owned = await Events.find({ owner: user._id });
-    console.log(owned);
+    const owned = await Events.find({ $and: [{ owner: user._id }, { date: { $gt: currentDate } }] });
     const participating = await Events.find({ attendees: { '$in': [user._id] } });
-    const finished = await Events.find({ date: { $lt: currentDate } });
+    const finished = await Events.find({ $or: [{ $and: [{ attendees: { '$in': [user._id] } }, { date: { $lt: currentDate } }] }, { $and: [{ owner: user._id }, { date: { $lt: currentDate } }] }] });
     const events = { owned, participating, finished };
     res.render('events/list', { events, user });
   } catch (err) {
